@@ -5,13 +5,49 @@ const {token, prefix, owner} = require('./config.json')
 
 const client = new Myclient(owner,Dt.DiscordTogether)
 
+/**
+ * @param {Discord.Message} msg - the original message.
+ */
+    
 async function exe_cmd(msg,cmd,args){
+
 
     if(cmd != undefined){
 
+        if(client.cooldown.get(msg.author.id) > 3){
+        
+            msg.channel.send("Please slowdown.")
+            return 0;
+
+        }
+
         if(Object.keys(client.Group_cmds).includes(cmd)){
-            await client.Group_cmds[cmd].command(msg,client,args)
-            console.log("executed")
+
+            if (!client.cooldown.has(msg.author.id)) 
+            {
+                client.cooldown.set(msg.author.id,1)
+                console.log(client.cooldown.get(msg.author.id))
+            }else{
+                client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) + 1)
+                console.log(client.cooldown.get(msg.author.id))
+            }
+
+            let execution = new Promise(async function(resolve,reject){
+
+                await client.Group_cmds[cmd].command(msg,client,args)
+                resolve()
+                
+            })
+            
+            execution.then(()=>{
+
+                setTimeout(() => {
+                    client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1)
+                } , 7000)
+                console.log("executed")
+
+            });
+
             return 0
         }
 

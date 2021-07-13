@@ -13,6 +13,8 @@ class client extends Discord.Client{
         this.cmd_record = {}
         this.Group_classes = {}
         this.owner = owner
+        this.cooldown = new Discord.Collection();
+        this.playing = new Discord.Collection();
         this.invlink = "https://discord.com/api/oauth2/authorize?client_id=735804773864833065&permissions=4025876289&scope=bot"
         this.colors = {
             "red" : 0xF00303,
