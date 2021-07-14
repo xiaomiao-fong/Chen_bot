@@ -130,8 +130,8 @@ class client extends Discord.Client{
 
                     let {mod,modclass} = require(`./cmds/${target}.js`)
 
-                    cmdnames = Object.keys(mod)
-                    cmdfuncs = Object.values(mod)
+                    let cmdnames = Object.keys(mod)
+                    let cmdfuncs = Object.values(mod)
                     for(let i = 0; i < cmdnames.length;i++){
                         client.Group_cmds[cmdnames[i]] = cmdfuncs[i]
                     }
@@ -173,15 +173,77 @@ class client extends Discord.Client{
 
     }
 
+    /**
+     * @param {Discord.Message} msg
+     * @param {Discord.User} iuser 
+     * @returns 
+     */
+
+    check_playing(msg,iuser){
+
+        let bot = this
+
+        if(bot.playing.has(msg.author.id)){
+
+            if(bot.playing.get(msg.author.id) === "Currently being invited") 
+            {
+                msg.channel.send("You are currently inviting someone or being invited.")
+                return 0;
+            }
+
+            msg.channel.send(`You are currently playing ${bot.playing.get(msg.author.id)}`)
+            return 0;
+
+        }
+
+        if(iuser == undefined) return 1;
+
+        
+        if(bot.playing.has(iuser.id)){
+
+            if(bot.playing.get(msg.author.id) === "Currently being invited") 
+            {
+                msg.channel.send(`${iuser.username} is currently inviting someone or being invited.`)
+                return 0;
+            }
+
+            msg.channel.send(`${iuser.username} is currently playing ${bot.playing.get(iuser.id)}`)
+            return 0;
+
+        }
+
+        return 1
+
+    }
+
+    /**
+     * 
+     * @param {Discord.Message} msg 
+     * @param {String} gamename 
+     * @param {*} mainfunc 
+     */
+
     async invitegame(msg,gamename,mainfunc){
 
         let users_amount = 0;
         msg.mentions.users.each(user => users_amount++)
+
+
+        /**
+         * @type {Discord.User} iuser
+         */
         let iuser;
 
         if(users_amount === 1){
 
+            let bot = this
             iuser = msg.mentions.users.first()
+
+            if(this.check_playing(msg,iuser) === 0) return;
+
+            bot.playing.set(msg.author.id,'Currently being invited')
+            bot.playing.set(iuser.id,'Currently being invited')
+
             let inviter = await msg.author.send(`Sending ${gamename} invite to ${iuser.username}`)
             let invited = await iuser.send(`${msg.author} has sent you an ${gamename} invitation, would you like to accept it?`)
             const filter = (reaction,user) => {
@@ -199,6 +261,9 @@ class client extends Discord.Client{
                         accept = 2
                         msg.author.send("Invite accepted")
                         user.send("You accepted the invitation")
+                        
+                        bot.playing.set(msg.author.id,gamename)
+                        bot.playing.set(iuser.id,gamename)
                         invcollect.stop()
                         break;
 
@@ -207,13 +272,20 @@ class client extends Discord.Client{
                         accept = 1
                         msg.author.send("Invite declined")
                         user.send("You declined the invitation")
+                        
+                        bot.playing.delete(msg.author.id)
+                        bot.playing.delete(iuser.id)
                         invcollect.stop()
                         break;
 
                 }
             })
 
-            invcollect.on("end", () => mainfunc(msg,accept,iuser))
+
+            invcollect.on("end", (collected,reason) => {
+                if(reason == "time") this.emit("game_end",msg.author,iuser)
+                mainfunc(msg,accept,iuser);
+            })
 
         }else if (users_amount === 0){
 

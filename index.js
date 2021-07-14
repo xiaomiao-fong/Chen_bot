@@ -59,6 +59,14 @@ async function exe_cmd(msg,cmd,args){
 }
 
 
+client.on('game_end', (member1,member2)=>{
+
+    client.playing.delete(member1.id)
+    client.playing.delete(member2.id)
+
+})
+
+
 client.once('ready', () => {
     console.log("ready")
     client.user.setPresence({"activity":{"name":"cn!help", "type": "LISTENING"},"status" : "online"})

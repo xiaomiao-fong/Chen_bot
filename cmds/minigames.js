@@ -1,4 +1,7 @@
+const Discord = require('discord.io');
 const discord = require('discord.js');
+const Myclient = require("../client")
+
 
 
 dict = {
@@ -12,57 +15,84 @@ dict = {
     },
 
     "Bulls&Cows" : {
+        
+        /**
+         * @param {Myclient} client - own custom client
+         * @param {discord.Message} msg - message
+         */
+
         "command" : async function(msg, client, args){
 
-        game = new client.Group_classes["minigames"].guessnumber(msg.author.id)
-        let correct = false;
-        let history = "Game History:\n"
-       
-        bmsg = await msg.channel.send({embed : client.EmbedMaker(msg, history, 0x1DC9D6)})
-        const filter = m => game.valid(m.content)
-        const anscollect = msg.channel.createMessageCollector(filter, { idle : 600 * 1000 })
+            if(client.check_playing(msg) === 0) return;
 
+            client.playing.set(msg.author.id,"Bulls&Cows")
+
+            game = new client.Group_classes["minigames"].guessnumber(msg.author.id)
+            let correct = false;
+            let history = "Game History:\n"
         
-        anscollect.on('collect', async message =>{
+            bmsg = await msg.channel.send({embed : client.EmbedMaker(msg, history, 0x1DC9D6)})
+            const filter = m => game.valid(m.content)
 
-            if (message.content === "end" || message.content === "cn!minigames guessnumber"){
+            /**
+             * @type {discord.MessageCollector}
+             */
 
-                bmsg.edit(client.EmbedMaker(msg, `You didn't guess the correct answer. The answer is ${game.answer}`, 0x1DC9D6))
-                correct = true
-                anscollect.stop()
+            const anscollect = msg.channel.createMessageCollector(filter, { idle : 600 * 1000 })
+
+            
+            anscollect.on('collect', async message =>{
+
+                if (message.content === "end" || message.content === "cn!minigames guessnumber"){
+
+                    bmsg.edit(client.EmbedMaker(msg, `You didn't guess the correct answer. The answer is ${game.answer}`, 0x1DC9D6))
+                    correct = true
+                    anscollect.stop()
+                    return
+
+                }
+
+                let result = game.guess(message.content)
+                let A = result[0], B = result[1]
+
+                if(A == 4){
+
+                    bmsg.edit(client.EmbedMaker(msg, `You guessed the correct answer! The answer is ${game.answer}`, 0x1DC9D6))
+                    correct = true
+                    anscollect.stop()
+
+                }else{
+
+                    history += `${message.content} : ${A}A ${B}B\n`
+                    bmsg.edit(client.EmbedMaker(msg,history,0x1DC9D6))
+
+                }
+
+            });
+
+            anscollect.on("end",(collected,reason)=>{
+
+                console.log("game end")
+                if(reason === "idle"){
+
+                    msg.channel.send("timeout")
+
+                }
+
+                client.playing.delete(msg.author.id)
+                
                 return
 
-            }
+            })
 
-            let result = game.guess(message.content)
-            let A = result[0], B = result[1]
-
-            if(A == 4){
-
-                bmsg.edit(client.EmbedMaker(msg, `You guessed the correct answer! The answer is ${game.answer}`, 0x1DC9D6))
-                correct = true
-                anscollect.stop()
-
-            }else{
-
-                history += `${message.content} : ${A}A ${B}B\n`
-                bmsg.edit(client.EmbedMaker(msg,history,0x1DC9D6))
-
-            }
-
-        });
-
-        anscollect.on("end",()=>{
-
-            console.log("game end")
-            return
-
-        })
-
-    },"help": {"des" : "Bulls and Cows is a game that you guess for a 4-digit number, all digits are different.\nIf you want to know more about this game, check out this website!\nhttps://www.codingame.com/playgrounds/52463/bulls-and-cows\n\nPs:In this version A,B refers to Bulls and Cows"}
+        },"help": {"des" : "Bulls and Cows is a game that you guess for a 4-digit number, all digits are different.\nIf you want to know more about this game, check out this website!\nhttps://www.codingame.com/playgrounds/52463/bulls-and-cows\n\nPs:In this version A,B refers to Bulls and Cows"}
     },
 
     "connect4" : { 
+        
+        /**
+         * @param {Myclient} client - own custom client
+         */
         "command" : async function(msg, client, args){
   
             async function connect4(msg,accept,iuser){
@@ -245,6 +275,7 @@ dict = {
 
                 redcollector.on("end",()=>{
                     console.log("rend")
+                    client.emit("game_end",msg.author,iuser)
                 })
 
                 yellowcollector.on("end",()=>{
@@ -262,6 +293,10 @@ dict = {
     },
 
     "reversi" : { 
+        
+        /**
+         * @param {Myclient} client - own custom client
+         */
         "command" : async function(msg, client, args){
 
 
@@ -321,15 +356,16 @@ dict = {
 
                         }
 
+                        
+
                     }
 
                     bmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.black,[endfield]))
                     wmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.white,[endfield]))
-                    
+                    client.emit('game_end',msg.author,iuser)
 
 
                 }
-
                 
                 bcollector.on("collect",async (message)=>{
 
