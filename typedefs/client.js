@@ -1,18 +1,19 @@
 const Discord = require('discord.js')
-const fs = require('fs')
+const fs = require('fs');
+const Command = require('./Command');
 
 
 class client extends Discord.Client{
 
-    constructor(owner,dctogether){
+    constructor(owner,dctogether,prefix){
 
         super()
 
         this.discordtogether = new dctogether(this)
-        this.Group_cmds = {}
-        this.cmd_record = {}
-        this.Group_classes = {}
         this.owner = owner
+        this.prefix = prefix
+        this.commands = new Discord.Collection();
+        this.groups = new Discord.Collection();
         this.cooldown = new Discord.Collection();
         this.playing = new Discord.Collection();
         this.invlink = "https://discord.com/api/oauth2/authorize?client_id=735804773864833065&permissions=4025876289&scope=bot"
@@ -25,132 +26,21 @@ class client extends Discord.Client{
         }
 
         fs.readdir("./cmds", (err, files) => {
-
-            let cmdnames, cmdfuncs
-
-            files.forEach(file => {
-    
-                let {mod, modclass} = require(`./cmds/${file}`)
-                file = file.replace(".js","")
-                console.log(file)
-                cmdnames = Object.keys(mod)
-                cmdfuncs = Object.values(mod)
-                for(let i = 0; i < cmdnames.length;i++){
-                    this.Group_cmds[cmdnames[i]] = cmdfuncs[i]
-                }
-                this.cmd_record[file] = cmdnames  
-                this.Group_classes[file] = modclass
-    
-            })
             
-        })
+            files.forEach(file => {
 
-        this.Group_cmds["help"] = {}
-        this.Group_cmds["help"].command = async function(msg,client,args){
-
-            let search = args[0]
-            if(Object.keys(client.Group_cmds).includes(search)){
-
-                let helpobj = client.Group_cmds[search].help
-                let embed = new Discord.MessageEmbed()
-                embed.setAuthor(msg.author.username)
-                try{
-                    embed.description = helpobj.des
-                }catch{
-                    msg.channel.send("This command does not have a description")
-                    return
-                }
-                embed.color = client.colors.red
-                if(helpobj.image != undefined) embed.setImage(helpobj.image)
-
-                msg.channel.send(embed)
-
-            }else{
-
-                fs.readdir("./cmds", (err, files)=>{
-
-                    if(files.includes((search+".js"))){
-
-                        let des = "Here are a list of commands of this command group:\n"
-                        let {mod,modclass} = require(`./cmds/${search}.js`)
-                        Object.keys(mod).forEach(key=>{
-
-                            des += ("-``"+key+"``\n")
-
-                        })
-                        des += "\nDo cn!help ``command name`` for more information!"
-                        let embed = new Discord.MessageEmbed()
-                        embed.setAuthor(msg.author.username)
-                        embed.description = des
-                        embed.color = client.colors.red
-
-                        msg.channel.send(embed)
-                    }else{
-
-                        if(search != undefined) msg.channel.send("Cannot find the command you are looking for. But here's a list of command groups you can check out!")
-                        let des = "List of command groups:\n"
-                        files.forEach(file=>{
-                            des += ("-``"+file.replace(".js","")+"``\n")
-                        })
-                        des += "\nDo cn!help ``command_group_name`` for more informations!"
-                        let embed = new Discord.MessageEmbed()
-                        embed.setAuthor(msg.author.username)
-                        embed.description = des
-                        embed.color = client.colors.red
-
-                        msg.channel.send(embed)
-
-                    }
-
-                })
-
-            }
-
-        }
-
-        this.Group_cmds["reload"] = {}
-        this.Group_cmds["reload"].command = async function(msg, client, args){
-
-            if (msg.author.id != client.owner.id) return msg.channel.send("Only the owner of this robot can use this command")
-            let target = args[0]
-
-            fs.readdir("./cmds", (err, files) =>{
-
-                if(target!==undefined && files.includes(target+".js")){
-
-                    console.log(require.resolve(`./cmds/${target}.js`))
-                    delete require.cache[require.resolve(`./cmds/${target}.js`)]
-
-                    client.cmd_record[target].forEach(fn => {
-                        
-                        client.Group_cmds[fn] = null
-
-                    });
-
-
-                    let {mod,modclass} = require(`./cmds/${target}.js`)
-
-                    let cmdnames = Object.keys(mod)
-                    let cmdfuncs = Object.values(mod)
-                    for(let i = 0; i < cmdnames.length;i++){
-                        client.Group_cmds[cmdnames[i]] = cmdfuncs[i]
-                    }
-
-                    client.cmd_record[target] = cmdnames
-                    client.Group_classes[target] = modclass
-
-                    msg.channel.send(`module \`\`${target}\`\` reloaded sucessfully`)
-
-                }else{
-
-                    msg.channel.send(`Cannot find module \`\`${target}\`\``)
-
-                }
-
+                let commandcls = new require(`../cmds/${file}`)
+                let command = new commandcls(this)
+                
+                this.commands.set(command.name,command)
+                if(!this.groups.has(command.group)) this.groups.set(command.group,[]);
+                this.groups.get(command.group).push(command.name)
+    
             })
 
-        }
-
+            console.log(this.groups)
+            
+        })    
     }
 
     EmbedMaker(msg,description,color,fields){
@@ -296,6 +186,57 @@ class client extends Discord.Client{
             return msg.channel.send("Please don't mention more than one person")
 
         }   
+
+    }
+
+    execute_command(msg,cmd,args){
+
+        let client = this
+
+        if(cmd != undefined){
+
+            if(client.cooldown.get(msg.author.id) > 3){
+            
+                msg.channel.send("Please slowdown.")
+                return 0;
+    
+            }
+    
+            if(client.commands.has(cmd)){
+    
+                if (!client.cooldown.has(msg.author.id)) 
+                {
+                    client.cooldown.set(msg.author.id,1)
+                    console.log(client.cooldown.get(msg.author.id))
+                }else
+                {
+                    client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) + 1)
+                    console.log(client.cooldown.get(msg.author.id))
+                }
+    
+                let execution = new Promise(async function(resolve,reject){
+    
+                    await client.commands.get(cmd).execute(msg,args)
+                    resolve()
+                    
+                })
+                
+                execution.then(()=>{
+    
+                    setTimeout(() => {
+                        client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1)
+                    } , 7000)
+                    console.log("executed")
+    
+                });
+    
+                return 0
+            }
+    
+            return 1
+        }
+    
+        return 0    
 
     }
 
