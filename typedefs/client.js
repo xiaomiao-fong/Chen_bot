@@ -12,10 +12,13 @@ class client extends Discord.Client{
         this.discordtogether = new dctogether(this)
         this.owner = owner
         this.prefix = prefix
-        this.commands = new Discord.Collection();
-        this.groups = new Discord.Collection();
-        this.cooldown = new Discord.Collection();
-        this.playing = new Discord.Collection();
+
+        this.commands = new Discord.Collection();// commands
+        this.groups = new Discord.Collection();//command groups
+        this.cooldown = new Discord.Collection();//cooldown
+        this.playing = new Discord.Collection();//game
+        this.music = new Discord.Collection();//music
+
         this.invlink = "https://discord.com/api/oauth2/authorize?client_id=735804773864833065&permissions=4025876289&scope=bot"
         this.colors = {
             "red" : 0xF00303,

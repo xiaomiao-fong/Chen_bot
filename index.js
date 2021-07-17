@@ -7,11 +7,6 @@ const Event = require('./typedefs/Event')
 
 const client = new Myclient(owner,Dt.DiscordTogether,prefix)
 
-/**
- * @param {Discord.Message} msg - the original message.
- */
-    
-
 fs.readdir("./events", (err,files) =>{
 
     files.forEach(file => {
