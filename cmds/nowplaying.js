@@ -14,6 +14,7 @@ class nowplaying extends Command{
             
             if(this.client.music.has(msg.guild.id)){
 
+                if(!this.client.music.get(msg.guild.id).current) return msg.channel.send("I'm not playing any songs right now.")
                 this.client.music.get(msg.guild.id).nowplaying(msg)
 
             }else{

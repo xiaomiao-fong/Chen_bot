@@ -20,7 +20,10 @@ class stopmusic extends Command{
 
             if(!msg.guild) return 0;
             
+            
             if(this.client.music.has(msg.guild.id)){
+                
+                if(!this.client.music.get(msg.guild.id).has_perm(msg)) return 0 
 
                 this.client.music.get(msg.guild.id).connection.channel.leave()
                 this.client.music.delete(msg.guild.id)

@@ -148,6 +148,12 @@ class MusicPlayer{
 
         if(!this.has_perm(msg)) return
 
+        if(!index || index < 1){
+
+            return msg.channel.send("Invalid argument")
+
+        }
+
         let removed = this.queue.remove(index)
         if(removed === "Not found") return msg.channel.send(`Can't find song at index ${index}`)
         msg.channel.send(`Successfully removed \`\`${removed.songname}\`\``)
