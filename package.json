@@ -1,0 +1,30 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "A minigame bot",
+  "main": "index.js",
+  "dependencies": {
+    "discord-rpc": "^3.2.0",
+    "discord-together": "^1.1.14",
+    "discord.io": "^2.5.3",
+    "discord.js": "^12.2.0",
+    "ffmpeg-static": "^4.4.0",
+    "winston": "^3.3.3",
+    "ytdl-core": "^4.8.3",
+    "ytsr": "^3.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaomiao-fong/Chen_bot.git"
+  },
+  "author": "tommy2131#3750",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiaomiao-fong/Chen_bot/issues"
+  },
+  "homepage": "https://github.com/xiaomiao-fong/Chen_bot#readme"
+}
