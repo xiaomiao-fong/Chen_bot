@@ -8,7 +8,9 @@
     "discord-rpc": "^3.2.0",
     "discord-together": "^1.1.14",
     "discord.js": "^12.2.0",
+    "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.4.0",
+    "fluent-ffmpeg": "^2.1.2",
     "winston": "^3.3.3",
     "ytdl-core": "^4.8.3",
     "ytsr": "^3.5.0"

@@ -2,6 +2,8 @@ const Command = require("../typedefs/Command");
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core")
 const ytsr = require("ytsr")
+const ffmpeg = require("fluent-ffmpeg")
+const PassThrough = require("stream").PassThrough
 
 
 class play extends Command{
@@ -15,7 +17,7 @@ class play extends Command{
          * @param {Discord.Message} msg 
          * @param {any[]} args 
          */
-
+        
         this.cmd = async function(msg,args){
 
             let status = 1;
@@ -60,7 +62,23 @@ class play extends Command{
         
                 console.log(url)
         
-                let song = ytdl(url ,{filter : "audioonly" })
+                let song = new PassThrough({
+                    highWaterMark : 12
+                })
+                
+                let process = ffmpeg(ytdl(url ,{filter : "audioonly" }))
+
+                process.addOptions(['-ac','2','-f','opus','-ar','48000'])
+                process.on("error",(err) => {
+                    if(err == "Output Stream Closed") return;
+                    console.log("Error: " + err.message)
+                })
+
+                process.writeToStream(song, {
+
+                    end : true
+
+                })
         
                 let songinfo = await ytdl.getInfo(url)
 

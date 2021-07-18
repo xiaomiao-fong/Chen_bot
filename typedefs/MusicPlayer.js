@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const Myclient = require("./client")
 const MusicQueue = require("./Queue")
+const ffmpeg = require("ffmpeg-static")
 
 
 class MusicPlayer{
@@ -62,6 +63,7 @@ class MusicPlayer{
     async playsong(msg,music){
 
         let dispatcher = await this.connection.play(music.song)
+        this.current = music
         this.nowplaying(msg,music)
         dispatcher.setVolumeLogarithmic(this.volume/4)
 
