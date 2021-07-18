@@ -1,7 +1,6 @@
 const Discord = require("discord.js")
 const Myclient = require("./client")
 const MusicQueue = require("./Queue")
-const ffmpeg = require("ffmpeg-static")
 
 
 class MusicPlayer{

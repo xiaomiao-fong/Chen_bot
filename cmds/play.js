@@ -2,8 +2,10 @@ const Command = require("../typedefs/Command");
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core")
 const ytsr = require("ytsr")
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require("fluent-ffmpeg")
 const PassThrough = require("stream").PassThrough
+ffmpeg.setFfmpegPath(ffmpegPath)
 
 
 class play extends Command{
