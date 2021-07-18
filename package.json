@@ -3,15 +3,10 @@
   "version": "1.0.0",
   "description": "A minigame bot",
   "main": "index.js",
-  "engines": {
-    "node": "12.13.0",
-    "npm": "6.14.8"
-  },
   "dependencies": {
-    "discord-rpc": "^3.2.0",
     "discord-together": "^1.1.14",
-    "discord.io": "^2.5.3",
     "discord.js": "^12.2.0",
+    "discord-rpc": "^3.2.0",
     "ffmpeg-static": "^4.4.0",
     "winston": "^3.3.3",
     "ytdl-core": "^4.8.3",
@@ -25,7 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/xiaomiao-fong/Chen_bot.git"
   },
-  "author": "tommy2131#3750",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/xiaomiao-fong/Chen_bot/issues"
