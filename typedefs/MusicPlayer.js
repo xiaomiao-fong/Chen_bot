@@ -113,7 +113,6 @@ class MusicPlayer{
 
         if(this.queue.empty() && !this.current){
 
-            this.nowplaying(msg)
             await msg.channel.send("The Queue is empty, type cn!play [url/keyword] to add songs to queue!")
             return 0;
 
