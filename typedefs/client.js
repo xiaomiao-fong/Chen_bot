@@ -192,7 +192,7 @@ class client extends Discord.Client{
 
     }
 
-    execute_command(msg,cmd,args){
+    async execute_command(msg,cmd,args){
 
         let client = this
 
@@ -217,21 +217,19 @@ class client extends Discord.Client{
                     console.log(client.cooldown.get(msg.author.id))
                 }
     
-                let execution = new Promise(async function(resolve,reject){
-    
-                    await client.commands.get(cmd).execute(msg,args)
-                    resolve()
-                    
-                })
+                await client.commands.get(cmd).execute(msg,args)
+                    .then(() => {
+                        setTimeout(() => {
+                            client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1)
+                        } , 7000)
+                        console.log("executed")
+                    })
+                    .catch(reason =>{
+                        client.channels.cache.get("866296391281803274").send(
+                            `\`\`-ERROR-\`\` \nThe command \`\`${cmd}\`\` is executed by user ${msg.author.username}#${msg.author.discriminator}\nError reason:\n\`\`\`js\n${reason}\n\`\`\``)
+                    })
                 
-                execution.then(()=>{
-    
-                    setTimeout(() => {
-                        client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1)
-                    } , 7000)
-                    console.log("executed")
-    
-                });
+                
     
                 return 0
             }
