@@ -16,6 +16,7 @@ class MusicPlayer{
         this.client = client;
         this.connection = connection;
         this.queue = new MusicQueue();
+        this.volume = 1;
         this.current = undefined;
         this.playing = false;
 
@@ -60,13 +61,15 @@ class MusicPlayer{
 
     async playsong(msg,music){
 
-        this.nowplaying(msg,music)
         let dispatcher = await this.connection.play(music.song)
+        this.nowplaying(msg,music)
+        dispatcher.setVolumeLogarithmic(this.volume/4)
 
         dispatcher.on("finish", () => {
 
             let nextsong = this.queue.next()
             if(nextsong) this.playsong(msg,nextsong)
+            else this.current = undefined
 
         })
 
@@ -87,7 +90,14 @@ class MusicPlayer{
         embed.setFooter(msg.author.username,msg.author.avatarURL)
         embed.setThumbnail(music.thumbnail.url)
         embed.addField("Now playing: ", `[${music.songname}](${music.url})`,true)
-        embed.addField("Length: ", music.length)
+
+        let current_time = this.connection.dispatcher.streamTime
+
+        let time = new Date(0);
+        time.setSeconds(current_time/1000);
+        let timeString = time.toISOString().substr(11, 8);
+
+        embed.addField("Length: ", `${timeString}/${music.length}`)
 
         await msg.channel.send(embed)
 
@@ -157,6 +167,43 @@ class MusicPlayer{
         let removed = this.queue.remove(index)
         if(removed === "Not found") return msg.channel.send(`Can't find song at index ${index}`)
         msg.channel.send(`Successfully removed \`\`${removed.songname}\`\``)
+
+    }
+
+    async pause(msg){
+
+        if(!this.has_perm(msg)) return
+
+        if(this.current){
+
+            if(this.connection.dispatcher.paused){
+
+                this.connection.dispatcher.resume()
+                msg.channel.send("Resumed!")
+
+            }else{
+
+                this.connection.dispatcher.pause(false)
+                msg.channel.send("Paused")
+
+            }
+
+        }else{
+
+            msg.channel.send("I'm currently not playing any songs right now!")
+
+        }
+
+    }
+
+    async shuffle(msg){
+
+        if(!this.has_perm(msg)) return
+        
+        if(this.queue.queue.length < 2) return msg.channel.send("There's nothing to shuffle")
+
+        this.queue.shuffle()
+        msg.channel.send("Shuffled")
 
     }
 
