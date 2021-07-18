@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A minigame bot",
   "main": "index.js",
+  "engines": {
+    "node": "12.13.0"
+  },
   "dependencies": {
     "discord-rpc": "^3.2.0",
     "discord-together": "^1.1.14",
