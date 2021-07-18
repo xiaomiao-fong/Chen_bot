@@ -6,7 +6,7 @@ class Help extends Command{
 
     constructor(client){
 
-        super("help","Util","Command list, what do you expect",client)
+        super("help","util","Command list, what do you expect",client)
 
         /**
          * 
