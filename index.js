@@ -1,7 +1,9 @@
 const Discord = require('discord.js')
 const Myclient = require('./typedefs/client')
 const Dt = require('discord-together')
-const {token, prefix, owner} = require('./config.json')
+const token = process.env.TOKEN || require("./config.json").token
+const prefix = process.env.PREFIX || require("./config.json").prefix
+const owner = require("./config.json").owner
 const fs = require('fs')
 const Event = require('./typedefs/Event')
 
