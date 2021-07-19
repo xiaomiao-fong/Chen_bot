@@ -88,7 +88,7 @@ class MusicPlayer{
         let embed = new Discord.MessageEmbed();
 
         embed.setAuthor(music.channel,music.channel_avatar,music.channel_url)
-        embed.setFooter(msg.author.username,msg.author.avatarURL)
+        embed.setFooter(msg.author.username,msg.author.avatarURL())
         embed.setThumbnail(music.thumbnail.url)
         embed.addField("Now playing: ", `[${music.songname}](${music.url})`,true)
 

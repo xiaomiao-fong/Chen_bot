@@ -24,7 +24,7 @@ class Help extends Command{
                 /** @type {Command} command */
                 let command = this.client.commands.get(search)
                 let embed = new Discord.MessageEmbed()
-                embed.setAuthor(msg.author.username + "#" + msg.author.discriminator)
+                embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL())
 
                 if(command.description !== undefined) embed.description = command.description
                 else{msg.channel.send("This command does not have a description"); return;}
@@ -49,7 +49,7 @@ class Help extends Command{
 
                     des += "\nDo cn!help ``command name`` for more information!"
                     let embed = new Discord.MessageEmbed()
-                    embed.setAuthor(msg.author.username + "#" + msg.author.discriminator)
+                    embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL())
                     embed.description = des
                     embed.color = this.client.colors.red
 
@@ -64,7 +64,7 @@ class Help extends Command{
                     })
                     des += "\nDo cn!help ``command_group_name`` for more informations!"
                     let embed = new Discord.MessageEmbed()
-                    embed.setAuthor(msg.author.username + "#" + msg.author.discriminator)
+                    embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL())
                     embed.description = des
                     embed.color = this.client.colors.red
 

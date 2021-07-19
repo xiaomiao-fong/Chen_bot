@@ -49,7 +49,7 @@ class client extends Discord.Client{
     EmbedMaker(msg,description,color,fields){
 
         let embed = new Discord.MessageEmbed();
-        embed.setAuthor(msg.author.username + "#" + msg.author.discriminator, msg.author.avatarURL)
+        embed.setAuthor(msg.author.username + "#" + msg.author.discriminator, msg.author.avatarURL())
         embed.description = description;
         embed.color = color
         embed.setFooter(`Bot made by: ${this.owner.name}`,this.owner.avatar)
