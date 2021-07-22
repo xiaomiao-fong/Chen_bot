@@ -11,7 +11,7 @@ class ready extends Event{
         this.func = async function(){
 
             console.log("ready")
-            this.client.user.setPresence({"activity":{"name":"cn!help", "type": "LISTENING"},"status" : "online"})
+            this.client.user.setPresence({"activity":{"name": this.client.prefix + "help", "type": "LISTENING"},"status" : "online"})
 
         }
 

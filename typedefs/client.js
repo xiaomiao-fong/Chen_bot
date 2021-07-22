@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 const fs = require('fs');
+const disbut = require("discord-buttons")
 const Command = require('./Command');
 
 
@@ -189,6 +190,15 @@ class client extends Discord.Client{
             return msg.channel.send("Please don't mention more than one person")
 
         }   
+
+    }
+
+    async secondtohhmmss(second){
+        
+        console.log(second)
+        let time = new Date(0);
+        time.setSeconds(parseInt(second));
+        return time.toISOString().substr(11, 8);
 
     }
 

@@ -1,6 +1,11 @@
 const Discord = require("discord.js")
 const Myclient = require("./client")
 const MusicQueue = require("./Queue")
+const PassThrough = require("stream").PassThrough
+const ytdl = require("ytdl-core")
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require("fluent-ffmpeg")
+ffmpeg.setFfmpegPath(ffmpegPath)
 
 
 class MusicPlayer{
@@ -41,7 +46,38 @@ class MusicPlayer{
 
     }
     
-    async play(msg,music){
+    async play(msg,url){
+        
+        let song = new PassThrough({
+            highWaterMark : 12
+        })
+        
+        let process = ffmpeg(ytdl(url ,{filter : "audioonly" }))
+
+        process.addOptions(['-ac','2','-f','opus','-ar','48000'])
+        process.on("error",(err) => {
+            if(err == "Output Stream Closed") return;
+            console.log("Error: " + err.message)
+        })
+
+        process.writeToStream(song, {
+
+            end : true
+
+        })
+
+        let songinfo = await ytdl.getInfo(url)
+
+        let timeString = await this.client.secondtohhmmss(songinfo.videoDetails.lengthSeconds)
+
+        let music = { "song" : song,
+                      "channel" : songinfo.videoDetails.author.name,
+                      "channel_url" : songinfo.videoDetails.author.user_url,
+                      "channel_avatar" : songinfo.videoDetails.author.thumbnails[0].url,
+                      "songname" : songinfo.videoDetails.title,
+                      "length" : timeString,
+                      "thumbnail" : songinfo.videoDetails.thumbnails[0].url,
+                      "url" : url}
         
         if(this.queue.empty()){
   
@@ -120,7 +156,7 @@ class MusicPlayer{
         }
 
         let embed = new Discord.MessageEmbed()
-        embed.setAuthor(msg.author.username,msg.author.avatarURL)
+        embed.setAuthor(msg.author.username,msg.author.avatarURL())
         
         let text = `**Now playing**: [${this.current.songname}](${this.current.url}) | \`\`${this.current.length}\`\` \n\n`;
         let loop = 0;

@@ -9,6 +9,8 @@ const Event = require('./typedefs/Event')
 
 const client = new Myclient(owner,Dt.DiscordTogether,prefix)
 
+const disbut = require("discord-buttons")(client)
+
 fs.readdir("./events", (err,files) =>{
 
     files.forEach(file => {

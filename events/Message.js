@@ -10,7 +10,7 @@ class message extends Event{
 
             if(msg.content.startsWith(this.client.prefix)){
 
-                let message_arr = msg.content.substring(3,msg.content.length).split(" ")
+                let message_arr = msg.content.replace(this.client.prefix,"").split(" ")
                 let cmd = message_arr[0]
                 if (cmd == undefined) return
                 let args = message_arr.slice(1,message_arr.length)
