@@ -1,5 +1,5 @@
-const two_p_Game = require("../typedefs/Game");
-const Myclient = require("../typedefs/client")
+const two_p_Game = require("../../typedefs/Game");
+const Myclient = require("../../typedefs/client")
 
 
 

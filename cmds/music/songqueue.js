@@ -1,4 +1,4 @@
-const Command = require("../typedefs/Command");
+const Command = require("../../typedefs/Command");
 
 
 

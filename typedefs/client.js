@@ -29,22 +29,27 @@ class client extends Discord.Client{
             "white" : 0xF0F0F0
         }
 
-        fs.readdir("./cmds", (err, files) => {
+        fs.readdir("./cmds", (err, dirs) => {
             
-            files.forEach(file => {
+            dirs.forEach(dir => {
 
-                let commandcls = new require(`../cmds/${file}`)
-                let command = new commandcls(this)
-                
-                this.commands.set(command.name,command)
-                if(!this.groups.has(command.group)) this.groups.set(command.group,[]);
-                this.groups.get(command.group).push(command.name)
+                console.log(dir)
+                this.groups.set(dir,[])
+
+                fs.readdir(`./cmds/${dir}`, (err, files) => {
+
+                    files.forEach(file => {
+
+                        let commandcls = new require(`../cmds/${dir}/${file}`)
+                        let command = new commandcls(this)
+                        
+                        this.commands.set(command.name,command)
+                        this.groups.get(dir).push(command.name)
     
+                    })
+                })
             })
-
-            console.log(this.groups)
-            
-        })    
+        })   
     }
 
     EmbedMaker(msg,description,color,fields){

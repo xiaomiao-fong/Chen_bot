@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const ytdl = require("ytdl-core")
-const Command = require("../typedefs/Command")
-const MusicPlayer = require("../typedefs/MusicPlayer")
+const Command = require("../../typedefs/Command")
+const MusicPlayer = require("../../typedefs/MusicPlayer")
 
 class join extends Command{
 

@@ -1,4 +1,4 @@
-const Command = require("../typedefs/Command");
+const Command = require("../../typedefs/Command");
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core")
 const ytsr = require("ytsr");

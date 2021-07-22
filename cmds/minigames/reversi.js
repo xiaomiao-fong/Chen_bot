@@ -1,4 +1,4 @@
-const two_p_Game = require("../typedefs/Game");
+const two_p_Game = require("../../typedefs/Game");
 
 
 class Reversi extends two_p_Game{

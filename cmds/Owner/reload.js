@@ -1,4 +1,4 @@
-const Command = require("../typedefs/Command");
+const Command = require("../../typedefs/Command");
 
 
 
@@ -22,9 +22,13 @@ class reload extends Command{
                 return 0;
             }
 
+            let group;
+
             try
             {
-                console.log(require.resolve(`./${target}.js`))
+                group = this.client.commands.get(target).group
+                console.log(group)
+                console.log(require.resolve(`../${group}/${target}.js`))
             }
             catch(err)
             {
@@ -32,9 +36,9 @@ class reload extends Command{
                 return 0;
             }
             
-            delete require.cache[require.resolve(`./${target}.js`)]
+            delete require.cache[require.resolve(`../${group}/${target}.js`)]
 
-            let commandcls = require(`./${target}.js`)
+            let commandcls = require(`../${group}/${target}.js`)
             let command = new commandcls(this.client)
 
             this.client.commands.set(command.name,command)
