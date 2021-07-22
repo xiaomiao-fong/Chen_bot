@@ -87,7 +87,7 @@ class play extends Command{
                         /** @type {MenuCollector} */
                         let collector = sent.createMenuCollector(b => b.clicker.id === msg.author.id , {time : 15000})
                         
-                        collector.on('collect', async menu => {
+                        collector.once('collect', async menu => {
 
                             await menu.reply.defer()
                             this.client.music.get(msg.guild.id).play(msg, urls[menu.values[0]])
@@ -97,8 +97,10 @@ class play extends Command{
 
                         collector.once("end", async (menu, reason) => {
 
-                            if(reason === 'time') msg.channel.send("Timeout")
-                            await sent.delete()
+                            if(reason === 'time') { 
+                                sent.delete()
+                                msg.channel.send("Timeout")
+                            }
 
                         })
 
