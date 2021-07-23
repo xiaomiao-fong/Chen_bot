@@ -125,7 +125,7 @@ class MusicPlayer{
 
         embed.setAuthor(music.channel,music.channel_avatar,music.channel_url)
         embed.setFooter(msg.author.username,msg.author.avatarURL())
-        embed.setThumbnail(music.thumbnail.url)
+        embed.setThumbnail(music.thumbnail)
         embed.addField("Now playing: ", `[${music.songname}](${music.url})`,true)
 
         let current_time = this.connection.dispatcher.streamTime
