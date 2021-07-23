@@ -7,6 +7,8 @@ class nowplaying extends Command{
     constructor(client){
 
         super("nowplaying","music","Show's the current song that is being played",client)
+        
+        this.aliases = ["np"]
 
         this.cmd = async function(msg, args){
 

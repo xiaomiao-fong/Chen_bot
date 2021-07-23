@@ -32,6 +32,20 @@ class Help extends Command{
                 embed.color = this.client.colors.red
                 if(command.image != undefined) embed.setImage(command.image)
 
+                let aliases = ""
+                this.client.commands.get(search).aliases.forEach(aliase => {
+
+                    aliases += (aliase + ", ")
+
+                })
+
+                aliases = aliases.substr(0,aliases.length-2)
+
+                if(aliases === "") aliases = "**None**"
+
+                embed.addField("Aliases:", aliases, true)
+
+
                 msg.channel.send(embed)
 
             }else{

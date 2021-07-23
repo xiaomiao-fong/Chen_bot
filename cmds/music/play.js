@@ -17,6 +17,8 @@ class play extends Command{
          * @param {any[]} args 
          */
         
+        this.aliases = ["p"]
+
         this.cmd = async function(msg,args){
 
             let status = 1;

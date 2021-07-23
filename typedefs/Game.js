@@ -20,6 +20,7 @@ class two_p_Game{
         this.group = group;
         this.client = client
         this.description = description;
+        this.aliases = []
 
     }
     

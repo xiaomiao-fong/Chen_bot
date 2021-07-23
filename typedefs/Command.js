@@ -20,6 +20,7 @@ class Command{
         this.client = client
         this.description = description;
         this.availble = true
+        this.aliases = []
 
     }
 

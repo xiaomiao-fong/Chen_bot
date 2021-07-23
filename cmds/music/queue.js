@@ -9,6 +9,8 @@ class showsongqueue extends Command{
 
         super('queue',"music","Shows current queue in the guild",client)
 
+        this.aliases = ["q"]
+
         this.cmd = async function(msg, args) {
 
             if(!msg.guild) return 0;

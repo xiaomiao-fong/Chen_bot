@@ -7,6 +7,8 @@ class remove extends Command{
 
         super("remove","music","remove a song from the queue",client)
 
+        this.aliases = ["r"]
+
         this.cmd = async function(msg,args){
 
             if(!msg.guild) return 0;

@@ -231,7 +231,7 @@ class client extends Discord.Client{
                     client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) + 1)
                     console.log(client.cooldown.get(msg.author.id))
                 }
-    
+
                 await client.commands.get(cmd).execute(msg,args)
                     .then(() => {
                         setTimeout(() => {
@@ -247,6 +247,41 @@ class client extends Discord.Client{
                 
     
                 return 0
+
+            }else{
+
+                let find = false
+
+                Array.from(client.commands.values()).forEach(async tempcmd => {
+
+                    tempcmd.aliases.forEach(async aliase => {
+
+                        if(cmd === aliase){
+
+                            find = true
+
+                            await tempcmd.execute(msg, args)
+                                .then(() => {
+                                    setTimeout(() => {
+                                        client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1)
+                                    } , 7000)
+                                    console.log("executed")
+                                })
+                                .catch(reason =>{
+                                    client.channels.cache.get("866296391281803274").send(
+                                        `\`\`-ERROR-\`\` \nThe command \`\`${cmd}\`\` is executed by user ${msg.author.username}#${msg.author.discriminator}\nError reason:\n\`\`\`js\n${reason}\n\`\`\``)
+                                })
+
+                            return 0
+
+                        }
+
+                    })
+
+                })
+
+                if(find) return 0
+
             }
     
             return 1
