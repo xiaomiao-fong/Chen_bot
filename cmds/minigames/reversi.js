@@ -5,8 +5,7 @@ class Reversi extends two_p_Game{
 
     constructor(client){
 
-        super("reversi","minigames","Reversi is a two player game. \
-        The object is to flip all your opponent's color into your color",client)
+        super("reversi","minigames",client)
         
         this.image = "https://cdn.discordapp.com/attachments/736438309093638254/859389017660588092/reversi.gif"
 

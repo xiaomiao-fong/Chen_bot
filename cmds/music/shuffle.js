@@ -6,7 +6,7 @@ class shuffle extends Command{
 
     constructor(client){
 
-        super("shuffle","music","Shuffles the current queue",client)
+        super("shuffle","music",client)
 
         this.cmd = async function(msg,args){
 

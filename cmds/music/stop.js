@@ -8,7 +8,7 @@ class stopmusic extends Command{
 
     constructor(client){
 
-        super("stop","music","Bot stops playinf music and leave the channel", client)
+        super("stop","music",client)
 
         /**
          * 

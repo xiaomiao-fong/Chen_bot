@@ -5,7 +5,7 @@ class pause extends Command{
 
     constructor(client){
 
-        super("pause","music","pause the music that is being played right now",client)
+        super("pause","music",client)
 
         this.cmd = async function(msg, args){
 

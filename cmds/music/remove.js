@@ -5,7 +5,7 @@ class remove extends Command{
 
     constructor(client){
 
-        super("remove","music","remove a song from the queue",client)
+        super("remove","music",client)
 
         this.aliases = ["r"]
 

@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const fs = require('fs');
 const disbut = require("discord-buttons")
 const Command = require('./Command');
+const language = require("../language.json")
 
 
 class client extends Discord.Client{
@@ -13,6 +14,7 @@ class client extends Discord.Client{
         this.discordtogether = new dctogether(this)
         this.owner = owner
         this.prefix = prefix
+        this.language = language
 
         this.commands = new Discord.Collection();// commands
         this.groups = new Discord.Collection();//command groups
@@ -42,6 +44,9 @@ class client extends Discord.Client{
 
                         let commandcls = new require(`../cmds/${dir}/${file}`)
                         let command = new commandcls(this)
+
+                        file = file.replace('.js','')
+                        command.description = this.language.commands_help[file]
                         
                         this.commands.set(command.name,command)
                         this.groups.get(dir).push(command.name)

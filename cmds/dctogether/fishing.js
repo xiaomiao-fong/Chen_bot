@@ -6,7 +6,7 @@ class fishing extends Command{
 
     constructor(client){
 
-        super("fishing","dctogether","If you wanna go fishing w/ your friends but you cant go out, this small game will satisfy your requirements",client)
+        super("fishing","dctogether",client)
 
         this.cmd = async function(msg,args){
 

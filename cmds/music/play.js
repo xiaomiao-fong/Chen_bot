@@ -9,7 +9,7 @@ class play extends Command{
 
     constructor(client){
 
-        super("play","music","Use this command to play music!",client)
+        super("play","music",client)
 
         /**
          * 

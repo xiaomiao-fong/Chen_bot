@@ -6,7 +6,7 @@ class dice extends Command{
 
     constructor(client){
 
-        super("dice","minigames","Randomly generates a number between 1~6",client)
+        super("dice","minigames",client)
 
         this.cmd = async function(msg,args){
 

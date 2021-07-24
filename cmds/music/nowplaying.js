@@ -6,7 +6,7 @@ class nowplaying extends Command{
 
     constructor(client){
 
-        super("nowplaying","music","Show's the current song that is being played",client)
+        super("nowplaying","music",client)
         
         this.aliases = ["np"]
 

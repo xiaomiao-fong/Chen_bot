@@ -5,7 +5,7 @@ class status extends Command{
 
     constructor(client){
 
-        super("botstat","bot","Show the bot's current stats",client)
+        super("botstat","bot",client)
 
         /**
          * 

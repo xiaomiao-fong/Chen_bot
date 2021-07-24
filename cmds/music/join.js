@@ -7,7 +7,7 @@ class join extends Command{
 
     constructor(client){
 
-        super("join","music",undefined,client)
+        super("join","music",client)
         
         
         /**

@@ -6,7 +6,7 @@ class Help extends Command{
 
     constructor(client){
 
-        super("help","util","Command list, what do you expect",client)
+        super("help","util",client)
 
         /**
          * 
@@ -18,6 +18,8 @@ class Help extends Command{
         this.cmd = async function(msg,args){
 
             let search = args[0]
+            let userlang = "zh_TW"
+            let lang = this.client.language
             //console.log(args)
             if(this.client.commands.has(search)){
 
@@ -26,8 +28,8 @@ class Help extends Command{
                 let embed = new Discord.MessageEmbed()
                 embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL())
 
-                if(command.description !== undefined) embed.description = command.description
-                else{msg.channel.send("This command does not have a description"); return;}
+                if(command.description !== undefined) embed.description = command.description[userlang]
+                else{msg.channel.send(lang.commands.help[userlang].no_des); return;}
 
                 embed.color = this.client.colors.red
                 if(command.image != undefined) embed.setImage(command.image)
@@ -43,7 +45,7 @@ class Help extends Command{
 
                 if(aliases === "") aliases = "**None**"
 
-                embed.addField("Aliases:", aliases, true)
+                embed.addField(lang.commands.help[userlang].aliases, aliases, true)
 
 
                 msg.channel.send(embed)
@@ -52,7 +54,7 @@ class Help extends Command{
 
                 if(this.client.groups.has(search)){
 
-                    let des = "Here are a list of commands of this command group:\n"
+                    let des = lang.commands.help[userlang].group_cmds
                     let group = this.client.groups.get(search)
 
                     group.forEach(key=>{
@@ -61,7 +63,7 @@ class Help extends Command{
 
                     })
 
-                    des += "\nDo cn!help ``command name`` for more information!"
+                    des += lang.commands.help[userlang].cmd_name
                     let embed = new Discord.MessageEmbed()
                     embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL())
                     embed.description = des
@@ -71,12 +73,12 @@ class Help extends Command{
 
                 }else{
 
-                    if(search != undefined) msg.channel.send("Cannot find the command you are looking for. But here's a list of command groups you can check out!")
-                    let des = "List of command groups:\n"
+                    if(search != undefined) msg.channel.send(lang.commands.help[userlang].cmd_nf)
+                    let des = lang.commands.help[userlang].group_list
                     this.client.groups.keyArray().forEach(key=>{
                         if(!(key === "Owner")) des += ("-``"+key+"``\n")
                     })
-                    des += "\nDo cn!help ``command_group_name`` for more informations!"
+                    des += lang.commands.help[userlang].group_name
                     let embed = new Discord.MessageEmbed()
                     embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL())
                     embed.description = des

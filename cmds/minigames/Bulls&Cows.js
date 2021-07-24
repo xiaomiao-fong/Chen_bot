@@ -6,7 +6,7 @@ class BullsandCows extends Command{
 
     constructor(client){
 
-        super("Bulls&Cows","minigames","Bulls and Cows is a game that you guess for a 4-digit number, all digits are different.\nIf you want to know more about this game, check out this website!\nhttps://www.codingame.com/playgrounds/52463/bulls-and-cows\n\nPs:In this version A,B refers to Bulls and Cows",client)
+        super("Bulls&Cows","minigames",client)
 
         this.cmd = async function(msg, args){
 

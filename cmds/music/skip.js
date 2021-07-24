@@ -5,7 +5,7 @@ class skipsong extends Command{
 
     constructor(client){
 
-        super("skip","music","Skip the song that is currently being played", client)
+        super("skip","music", client)
 
         this.cmd = async function(msg, args){
 

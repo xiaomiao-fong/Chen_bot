@@ -6,7 +6,7 @@ class ping extends Command{
 
     constructor(client){
 
-        super("ping","util","Shows bot's ping",client)
+        super("ping","util",client)
 
         /**
          * 

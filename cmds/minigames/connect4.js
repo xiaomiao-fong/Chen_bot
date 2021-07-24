@@ -7,11 +7,7 @@ class connect4 extends two_p_Game{
 
     constructor(client){
 
-        super("connect4","minigames",
-        "Connect 4 is a two player game. \
-        The object is that you drop your chesses inside a 6x7 grid and try to connect 4 same colors in a row, \
-        it can be horizontal, diagonal or vertical.\n\nDo cn!minigame ``@username`` to invite someone to play w/ you!",
-        client)
+        super("connect4","minigames",client)
 
         this.image = "https://cdn.discordapp.com/attachments/737224846878179360/851102547603357746/connect_demo.gif"
 
