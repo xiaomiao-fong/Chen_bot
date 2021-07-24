@@ -125,6 +125,47 @@
                 "group_list" : "List of command groups:\n\n",
                 "group_name" : "\nDo cn!help ``{command_group_name}`` for more informations!"
             }
+        },
+        "music":
+        {
+            "zh_TW":
+            {
+                "channel_first" : "請先加入一個語音頻道",
+                "channel_alr" : "我已經在一個語音頻道裡了",
+                "not_playing" : "目前沒有音樂正在播放",
+                "notin_channel" : "我目前沒有在語音頻道裡",
+                "missing_arg" : "缺少參數",
+                "invalid_arg" : "不正確的參數",
+                "same_channel" : "你必須要在同一個頻道以使用這個指令",
+                "added_song" : "已將歌曲 ``{0}`` 加至播放清單",
+                "empty_queue" : "目前清單沒有東西，請使用 cn!play [網址/關鍵字] 來將歌曲加到清單裡!",
+                "skipped" : "已跳過歌曲",
+                "song_nf" : "找不到編號為 {0} 的歌曲",
+                "succ_remove" : "成功移除",
+                "paused" : "已暫停",
+                "resumed" : "已回復播放!",
+                "nothing_shuffle" : "沒有歌單給我打亂拉QwQ",
+                "shuffled" : "已打亂歌單"
+            },
+            "en_US":
+            {
+                "channel_first" : "You have to join in a voice channel first.",
+                "channel_alr" : "I'm already in a voice channel!",
+                "not_playing" : "There's currently no song being played right now.",
+                "notin_channel" : "I'm not in a voice channel right now.",
+                "missing_arg" : "Missing argument(s)",
+                "invalid_arg" : "Invalid argument(s)",
+                "same_channel" : "You have to be in the same channel to use this command.",
+                "added_song" : "Added ``{0}`` to queue",
+                "empty_queue" : "The Queue is empty, type cn!play [url/keyword] to add songs to queue!",
+                "skipped" : "Successfully skipped",
+                "song_nf" : "Can't find song at index {0}",
+                "succ_remove" : "Successfully removed",
+                "paused" : "Paused",
+                "resumed" : "Resumed!",
+                "nothing_shuffle" : "There's nothing to shuffle",
+                "shuffled" : "Shuffled"
+            }
         }
     }
 

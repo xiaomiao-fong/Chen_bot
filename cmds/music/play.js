@@ -23,6 +23,8 @@ class play extends Command{
 
             let status = 1;
 
+            let userlang = "zh_TW"
+
             if(!this.client.music.has(msg.guild.id)){
 
                 let joincls = require("./join");
@@ -38,7 +40,7 @@ class play extends Command{
 
                 if(!search){
 
-                    msg.channel.send("Missing argument")
+                    msg.channel.send(this.client.language.commands.music[userlang].missing_arg)
                     return 0;
         
                 }

@@ -14,6 +14,8 @@ class showsongqueue extends Command{
         this.cmd = async function(msg, args) {
 
             if(!msg.guild) return 0;
+
+            let userlang = "zh_TW"
             
             if(this.client.music.has(msg.guild.id)){
 
@@ -21,7 +23,7 @@ class showsongqueue extends Command{
 
             }else{
 
-                msg.channel.send("There's currently no song playing right now.")
+                msg.channel.send(this.client.language.commands.music[userlang].not_playing)
 
             }
 

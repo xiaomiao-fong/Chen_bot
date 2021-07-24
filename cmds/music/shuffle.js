@@ -11,6 +11,8 @@ class shuffle extends Command{
         this.cmd = async function(msg,args){
 
             if(!msg.guild) return 0;
+
+            let userlang = "zh_TW"
             
             if(this.client.music.has(msg.guild.id)){
 
@@ -18,7 +20,7 @@ class shuffle extends Command{
 
             }else{
 
-                msg.channel.send("I'm not in a voice channel right now.")
+                msg.channel.send(this.client.language.commands.music[userlang].notin_channel)
 
             }
 
