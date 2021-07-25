@@ -4,11 +4,16 @@ const disbut = require("discord-buttons")
 const Command = require('./Command');
 const language = require("../language.json")
 const Sequelize = require("sequelize")
-const host =  process.env.HOST || require("../config.json").host
-const database = require("../config.json").database || process.env.DATABASE
-const username = require("../config.json").username || process.env.USERNAME
-const password = require("../config.json").password || process.env.PASSWORD
 
+try{
+    
+    var {host,username,password,database} = require("../config.json")
+
+}catch (err){
+
+
+
+}
 /**
  * SomeClass is an example class for my question.
  * @class
@@ -147,10 +152,10 @@ class client extends Discord.Client{
 
         this.Sequelize = new Sequelize({
 
-            database: database,
-            username: username,
-            password: password,
-            host:  host,
+            database: database || process.env.DATABASE,
+            username: username || process.env.USERNAME,
+            password: password || process.env.PASSWORD,
+            host:  process.env.HOST || host,
             port: 5432,
             dialect: "postgres",
             logging: false,
