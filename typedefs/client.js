@@ -4,10 +4,10 @@ const disbut = require("discord-buttons")
 const Command = require('./Command');
 const language = require("../language.json")
 const Sequelize = require("sequelize")
-const host = require("../config.json").host || process.env.HOST
-const database = require("../config.json").database || process.env.DATABASE
-const username = require("../config.json").username || process.env.USERNAME
-const password = require("../config.json").password || process.env.PASSWORD
+const host =  process.env.HOST || require("../config.json").host
+const database = process.env.DATABASE || equire("../config.json").database 
+const username = process.env.USERNAME || require("../config.json").username
+const password = process.env.PASSWORD || require("../config.json").password
 
 /**
  * SomeClass is an example class for my question.
