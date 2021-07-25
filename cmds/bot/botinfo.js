@@ -40,6 +40,8 @@ class info extends Command{
 
         }
 
+        this.aliases = ["bi"]
+
     }
 
 }

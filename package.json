@@ -13,6 +13,8 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.4.0",
     "fluent-ffmpeg": "^2.1.2",
+    "pg": "^8.6.0",
+    "sequelize": "^6.6.5",
     "winston": "^3.3.3",
     "ytdl-core": "^4.9.0",
     "ytsr": "^3.5.0"

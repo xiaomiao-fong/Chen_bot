@@ -23,7 +23,7 @@ class play extends Command{
 
             let status = 1;
 
-            let userlang = "zh_TW"
+            let userlang = msg.author.lang
 
             if(!this.client.music.has(msg.guild.id)){
 

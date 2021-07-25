@@ -18,7 +18,7 @@ class join extends Command{
 
         this.cmd = async function(msg,arg){
 
-            let userlang = "zh_TW"
+            let userlang = msg.author.lang
 
             if(!msg.guild) return 0;
 

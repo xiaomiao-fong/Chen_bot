@@ -25,7 +25,7 @@ class connect4 extends two_p_Game{
                 let game = new c4(msg.author.id,iuser.id)
                 let end = false;
                 let current_color = "red";
-                let userlang = "zh_TW"
+                let userlang = msg.author.lang
 
 
                 let field1 = {name: "Now : ",value: msg.author.username + client.language.commands.game[userlang].ones_turn , inline: true}

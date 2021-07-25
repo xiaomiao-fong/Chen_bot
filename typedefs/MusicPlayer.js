@@ -33,8 +33,9 @@ class MusicPlayer{
      * @param {*} arg 
      */
 
-    has_perm(msg,userlang = "zh_TW"){
+    has_perm(msg){
 
+        let userlang = msg.author.lang
         if(!this.connection.voice.channel.members.has(msg.author.id)){
 
             msg.channel.send(this.client.language.commands.music[userlang].same_channel)
@@ -48,7 +49,7 @@ class MusicPlayer{
     
     async play(msg,url){
         
-        let userlang = "zh_TW"
+        let userlang = msg.author.lang
 
         let song = new PassThrough({
             highWaterMark : 12
@@ -148,8 +149,9 @@ class MusicPlayer{
      * @returns 
      */
 
-    async sendqueue(msg, userlang = "zh_TW"){
-
+    async sendqueue(msg){
+        
+        let userlang = msg.author.lang
         if(this.queue.empty() && !this.current){
 
             await msg.channel.send(this.client.language.commands.music[userlang].empty_queue)
@@ -183,8 +185,10 @@ class MusicPlayer{
 
     }
 
-    async skip(msg, userlang = "zh_TW"){
-
+    async skip(msg){
+        
+        
+        let userlang = msg.author.lang
         if(!this.has_perm(msg)) return
 
         msg.channel.send(this.client.language.commands.music[userlang].skipped + ` \`\`${this.current.songname}\`\``)
@@ -192,8 +196,9 @@ class MusicPlayer{
 
     }
 
-    async remove(msg,index, userlang = "zh_TW"){
-
+    async remove(msg,index){
+        
+        let userlang = msg.author.lang
         if(!this.has_perm(msg)) return
 
         if(!index || index < 1){
@@ -208,8 +213,10 @@ class MusicPlayer{
 
     }
 
-    async pause(msg, userlang = "zh_TW"){
-
+    async pause(msg){
+        
+        
+        let userlang = msg.author.lang
         if(!this.has_perm(msg)) return
 
         if(this.current){
@@ -234,8 +241,10 @@ class MusicPlayer{
 
     }
 
-    async shuffle(msg, userlang = "zh_TW"){
-
+    async shuffle(msg){
+        
+        
+        let userlang = msg.author.lang
         if(!this.has_perm(msg)) return
         
         if(this.queue.queue.length < 2) return msg.channel.send(this.client.language.commands.music[userlang].nothing_shuffle)

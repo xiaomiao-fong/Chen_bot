@@ -34,7 +34,7 @@ class two_p_Game{
     async invitegame(msg,gamename = this.name,mainfunc){
 
         let users_amount = 0;
-        let userlang = "zh_TW"
+        let userlang = msg.author.lang
         msg.mentions.users.each(user => users_amount++)
 
         /**

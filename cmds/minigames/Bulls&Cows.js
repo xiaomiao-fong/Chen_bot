@@ -11,7 +11,7 @@ class BullsandCows extends Command{
         this.cmd = async function(msg, args){
 
             if(this.client.check_playing(msg) === 0) return;
-            let userlang = "zh_TW"
+            let userlang = msg.author.lang
         
             this.client.playing.set(msg.author.id,"Bulls&Cows")
         

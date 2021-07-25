@@ -3,7 +3,18 @@ const fs = require('fs');
 const disbut = require("discord-buttons")
 const Command = require('./Command');
 const language = require("../language.json")
+const Sequelize = require("sequelize")
+const host = require("../config.json").host || process.env.HOST
+const database = require("../config.json").database || process.env.DATABASE
+const username = require("../config.json").username || process.env.USERNAME
+const password = require("../config.json").password || process.env.PASSWORD
 
+/**
+ * SomeClass is an example class for my question.
+ * @class
+ * @constructor
+ * @public
+ */
 
 class client extends Discord.Client{
 
@@ -15,6 +26,18 @@ class client extends Discord.Client{
         this.owner = owner
         this.prefix = prefix
         this.language = language
+        /**
+         * @type {Sequelize.Model}
+         * @public
+         */
+        this.userdata = undefined
+
+        /**
+         * @type {Sequelize}
+         * @public
+         */
+
+        this.Sequelize = undefined;
 
         this.commands = new Discord.Collection();// commands
         this.groups = new Discord.Collection();//command groups
@@ -117,6 +140,75 @@ class client extends Discord.Client{
         }
 
         return 1
+
+    }
+
+    logintodb(){
+
+        this.Sequelize = new Sequelize({
+
+            database: database,
+            username: username,
+            password: password,
+            host:  host,
+            port: 5432,
+            dialect: "postgres",
+            logging: false,
+            dialectOptions: {
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false,
+                },
+            },
+        })
+
+        this.userdata = this.Sequelize.define("userdata",{
+
+            nickname: {
+                type: Sequelize.STRING,
+                unique: true,
+            },
+
+            user_id: {
+                type: Sequelize.STRING
+            },
+
+            language: {
+                type : Sequelize.STRING,
+                defaultValue : "zh_TW"
+            },
+
+            money: {
+                type : Sequelize.INTEGER,
+                defaultValue : 0,
+                allownull : false
+            },
+
+            experience: {
+                type : Sequelize.INTEGER,
+                defaultValue : 0,
+                allownull : false
+            },
+
+            level: {
+                type: Sequelize.INTEGER,
+                defaultValue : 1,
+                allownull : false
+            },
+
+            loved: {
+                type: Sequelize.ARRAY(Sequelize.INTEGER),
+                defaultValue : [],
+                allownull : false
+            },
+
+            osu_name: {
+                type: Sequelize.STRING
+            }
+
+        })
+
+        this.userdata.sync();
 
     }
     

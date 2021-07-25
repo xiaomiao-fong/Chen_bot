@@ -24,7 +24,7 @@ class Reversi extends two_p_Game{
                 let game = new Reversi_cls(iuser.id,msg.author.id);
                 game.availablecolor("white")
                 let current_color = "black"
-                let userlang = "zh_TW"
+                let userlang = msg.author.lang
                 let gamelang = client.language.commands.game[userlang]
 
                 let field1 = {name: "Now : ",value: msg.author.username + gamelang.ones_turn , inline: true}

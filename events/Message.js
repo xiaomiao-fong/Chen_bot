@@ -14,6 +14,8 @@ class message extends Event{
                 "en_US" : "Can not find command "
             }
 
+            msg.author.lang = await this.fetchlang(msg)
+
             if(msg.content.startsWith(this.client.prefix)){
 
                 let message_arr = msg.content.replace(this.client.prefix,"").split(" ")
@@ -24,7 +26,7 @@ class message extends Event{
                 switch(await this.client.execute_command(msg,cmd,args)){
         
                     case 1:
-                        msg.channel.send(lang.zh_TW + `\`\` ${cmd} \`\``)
+                        msg.channel.send(lang[msg.author.lang] + `\`\` ${cmd} \`\``)
                         break;
         
                 }
@@ -35,6 +37,21 @@ class message extends Event{
         
             }
             
+        }
+
+        this.fetchlang = async function(msg){
+
+            let user = await this.client.userdata.findOne({where : { user_id : msg.author.id}})
+
+            if(!user){
+                
+                return "zh_TW"
+
+            }else{
+
+                return user.get('language')
+            }
+
         }
 
     }

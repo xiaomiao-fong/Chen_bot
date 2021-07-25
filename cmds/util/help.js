@@ -18,7 +18,7 @@ class Help extends Command{
         this.cmd = async function(msg,args){
 
             let search = args[0]
-            let userlang = "zh_TW"
+            let userlang = msg.author.lang
             let lang = this.client.language
             //console.log(args)
             if(this.client.commands.has(search)){

@@ -4,10 +4,12 @@ const Dt = require('discord-together')
 const token = process.env.TOKEN || require("./config.json").token
 const prefix = process.env.PREFIX || require("./config.json").prefix
 const owner = require("./config_example.json").owner
+const Sequelize = require("sequelize")
 const fs = require('fs')
 const Event = require('./typedefs/Event')
 
 const client = new Myclient(owner,Dt.DiscordTogether,prefix)
+
 
 const disbut = require("discord-buttons")(client)
 
@@ -33,6 +35,7 @@ fs.readdir("./events", (err,files) =>{
 
 })
 
+client.logintodb()
 
 client.login(token)
 
