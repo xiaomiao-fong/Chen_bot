@@ -25,9 +25,10 @@ class connect4 extends two_p_Game{
                 let game = new c4(msg.author.id,iuser.id)
                 let end = false;
                 let current_color = "red";
+                let userlang = "zh_TW"
 
 
-                let field1 = {name: "Now : ",value: `${msg.author.username}'s turn!` , inline: true}
+                let field1 = {name: "Now : ",value: msg.author.username + client.language.commands.game[userlang].ones_turn , inline: true}
                 let rmsg = await msg.author.send(client.EmbedMaker(msg, game.stringify(), client.colors.red,[field1]))
                 let ymsg = await iuser.send(client.EmbedMaker(msg, game.stringify(), client.colors.red,[field1]))
 
@@ -52,8 +53,8 @@ class connect4 extends two_p_Game{
                 
                     if(reaction.emoji.name === "🛑"){
 
-                        rmsg.edit(client.EmbedMaker(msg,`Game abrupted by ${user.username}`, client.colors.black))
-                        ymsg.edit(client.EmbedMaker(msg,`Game abrupted by ${user.username}`, client.colors.black))
+                        rmsg.edit(client.EmbedMaker(msg, client.language.commands.game[userlang].abrupted.replace("{0}",user.username), client.colors.black))
+                        ymsg.edit(client.EmbedMaker(msg, client.language.commands.game[userlang].abrupted.replace("{0}",user.username), client.colors.black))
                         end = true
                         redcollector.stop()
                         yellowcollector.stop()
@@ -68,13 +69,13 @@ class connect4 extends two_p_Game{
                     switch(game.place("1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣🛑".indexOf(reaction.emoji.name)/3,current_color)){
 
                         case 0:
-                            msg.channel.send("This column is full")
+                            msg.channel.send(client.language.commands.game[userlang].col_full)
                             break;
 
                         case 1:
                             current_color = "yellow"
                             let current_player = iuser
-                            let field1 = {name: "Now : ",value: `${current_player.username}'s turn!` , inline: true}
+                            let field1 = {name: "Now : ",value: current_player.username + client.language.commands.game[userlang].ones_turn , inline: true}
                             await rmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color],[field1]))
                             await ymsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color],[field1]))
                             /*ai calulation
@@ -103,8 +104,8 @@ class connect4 extends two_p_Game{
                         case 2:
                             await rmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color]))
                             await ymsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color]))
-                            iuser.send(msg.author.username + " wins!")
-                            msg.author.send(msg.author.username + " wins!")
+                            iuser.send(msg.author.username + client.language.commands.game[userlang].wins)
+                            msg.author.send(msg.author.username + client.language.commands.game[userlang].wins)
                             redcollector.stop()
                             yellowcollector.stop()
                             break;
@@ -112,8 +113,8 @@ class connect4 extends two_p_Game{
                         case 3:
                             await rmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors.white))
                             await ymsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors/white))
-                            iuser.send("Draw!")
-                            msg.author.send("Draw!")
+                            iuser.send(client.language.commands.game[userlang].draw)
+                            msg.author.send(client.language.commands.game[userlang].draw)
                             redcollector.stop()
                             yellowcollector.stop()
                             break;
@@ -125,8 +126,8 @@ class connect4 extends two_p_Game{
                 
                     if(reaction.emoji.name === "🛑"){
 
-                        rmsg.edit(client.EmbedMaker(msg,`Game abrupted by ${user.username}`, client.colors.black))
-                        ymsg.edit(client.EmbedMaker(msg,`Game abrupted by ${user.username}`, client.colors.black))
+                        rmsg.edit(client.EmbedMaker(msg, client.language.commands.game[userlang].abrupted.replace("{0}",user.username), client.colors.black))
+                        ymsg.edit(client.EmbedMaker(msg, client.language.commands.game[userlang].abrupted.replace("{0}",user.username), client.colors.black))
                         end = true
                         redcollector.stop()
                         yellowcollector.stop()
@@ -141,13 +142,13 @@ class connect4 extends two_p_Game{
                     switch(game.place("1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣🛑".indexOf(reaction.emoji.name)/3,current_color)){
 
                         case 0:
-                            msg.channel.send("This column is full")
+                            msg.channel.send(client.language.commands.game[userlang].col_full)
                             break;
 
                         case 1:
                             current_color = "red"
                             let current_player = msg.author
-                            let field1 = {name: "Now : ",value: `${current_player.username}'s turn!` , inline: true}
+                            let field1 = {name: "Now : ",value: current_player.username + client.language.commands.game[userlang].ones_turn , inline: true}
                             await rmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color],[field1]))
                             await ymsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color],[field1]))
                             /*ai calulation
@@ -176,8 +177,8 @@ class connect4 extends two_p_Game{
                         case 2:
                             await rmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color]))
                             await ymsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color]))
-                            iuser.send(iuser.username + " wins!")
-                            msg.author.send(iuser.username + " wins!")
+                            iuser.send(iuser.username + client.language.commands.game[userlang].wins)
+                            msg.author.send(iuser.username + client.language.commands.game[userlang].wins)
                             end = true
                             redcollector.stop()
                             yellowcollector.stop()
@@ -186,8 +187,8 @@ class connect4 extends two_p_Game{
                         case 3:
                             await rmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors.white))
                             await ymsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors.white))
-                            iuser.send("Draw!")
-                            msg.author.send("Draw!")
+                            iuser.send(client.language.commands.game[userlang].draw)
+                            msg.author.send(client.language.commands.game[userlang].draw)
                             redcollector.stop()
                             yellowcollector.stop()
                             break;

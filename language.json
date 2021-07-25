@@ -166,6 +166,47 @@
                 "nothing_shuffle" : "There's nothing to shuffle",
                 "shuffled" : "Shuffled"
             }
+        },
+        "game":
+        {
+            "zh_TW":
+            {
+                "game_his" : "遊戲紀錄: \n",
+                "bs_lose" : "你沒有猜到正確答案，正確答案為",
+                "bs_win" : "你猜中了! 答案是:",
+                "ones_turn" : "的回合",
+                "abrupted" : "遊戲被 {0} 終止了",
+                "col_full" : "這行已經滿了喔",
+                "wins" : "贏了!",
+                "draw" : "平手!",
+                "rolled" : "你擲出了:",
+                "syntax" : "格式:",
+                "row_col" : "(行,列)\n範例:(3,7)",
+                "type_surr" : "遊戲開始! 如果你想要投降請打surrender",
+                "w_surr" : "白色投降了",
+                "b_surr" : "黑色投降了",
+                "no1wins" : "沒有人贏",
+                "unplaceable" : "這個位置不能放置"
+            },
+            "en_US":
+            {
+                "game_his" : "Game history: \n",
+                "bs_lose" : "You didn't guess the correct answer. The answer is",
+                "bs_win" : "You guessed the answer! The answer is",
+                "ones_turn" : "'s turn",
+                "abrupted" : "Game abrupted by {0}",
+                "col_full" : "This column is full.",
+                "wins" : "wins!",
+                "draw" : "Draw!",
+                "rolled" : "You rolled:",
+                "syntax" : "Syntax:",
+                "row_col" : "(row,col)\nEX:(3,7)",
+                "type_surr" : "Game start! If you want to Surrender just type surrender",
+                "w_surr" : "White surrendered.",
+                "b_surr" : "Black surrendered.",
+                "no1wins" : "No one wins.",
+                "unplaceable" : "This place is unplaceable"
+            }
         }
     }
 

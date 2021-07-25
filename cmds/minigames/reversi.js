@@ -1,4 +1,5 @@
 const two_p_Game = require("../../typedefs/Game");
+const Myclient = require("../../typedefs/client")
 
 
 class Reversi extends two_p_Game{
@@ -11,19 +12,28 @@ class Reversi extends two_p_Game{
 
         this.cmd = async function(msg, client, args){
 
+            /**
+             * 
+             * @param {*} msg 
+             * @param {*} iuser 
+             * @param {Myclient} client 
+             */
+
             async function reversi(msg,iuser,client){
                 
                 let game = new Reversi_cls(iuser.id,msg.author.id);
                 game.availablecolor("white")
                 let current_color = "black"
+                let userlang = "zh_TW"
+                let gamelang = client.language.commands.game[userlang]
 
-                let field1 = {name: "Now : ",value: `${msg.author.username}'s turn!` , inline: true}
-                let field2 = {name: "Syntax :",value: "(row,column)\nEx: (3,7)", inline : true}
+                let field1 = {name: "Now : ",value: msg.author.username + gamelang.ones_turn , inline: true}
+                let field2 = {name: gamelang.syntax ,value: gamelang.row_col, inline : true}
                 let bmsg = await msg.author.send(client.EmbedMaker(msg,game.stringify(),client.colors.black,[field1,field2]));
                 let wmsg = await iuser.send(client.EmbedMaker(msg,game.stringify(game.board),client.colors.white,[field1,field2]));
                 
-                await msg.author.send("Game start! If you want to Surrender just type surrender")
-                await iuser.send("Game start! If you want to Surrender just type surrender")
+                await msg.author.send(gamelang.type_surr)
+                await iuser.send(gamelang.type_surr)
 
                 let bfilter = message => (current_color === "black" && message.author.id === game.blackid && !message.author.bot);
                 let bcollector = bmsg.channel.createMessageCollector(bfilter,{idle : 300*1000});
@@ -38,29 +48,29 @@ class Reversi extends two_p_Game{
 
                     if(status === "white"){
 
-                        endfield.value = `${msg.author.username} (Black) wins!`;
-                        msg.author.send("White surrendered")
+                        endfield.value = `${msg.author.username} (Black) ` + gamelang.wins;
+                        msg.author.send(gamelang.w_surr)
 
                     }else if(status === "black"){
 
-                        endfield.value = `${iuser.username} (White) wins!`
-                        iuser.send("Black surrendered")
+                        endfield.value = `${iuser.username} (White) ` + gamelang.wins;
+                        iuser.send(gamelang.b_surr)
 
                     }else{
 
                         switch(game.endgame()){
 
                             case 0:
-                                endfield.name = "Draw!"
-                                endfield.value = "No one wins.";
+                                endfield.name = gamelang.draw
+                                endfield.value = gamelang.no1wins
                                 break;
 
                             case 1:
-                                endfield.value = `${msg.author.username} (Black) wins!`;
+                                endfield.value = `${msg.author.username} (Black) ` + gamelang.wins;
                                 break;
 
                             case 2:
-                                endfield.value = `${iuser.username} (White) wins!`
+                                endfield.value = `${iuser.username} (White) ` + gamelang.wins;
 
                         }
 
@@ -93,18 +103,18 @@ class Reversi extends two_p_Game{
                             switch(game.place(Number(numarr[1])-1,Number(numarr[0])-1, current_color)){
 
                                 case 0:
-                                    let tempmsg = await message.channel.send("That place is unplaceable(b)")
+                                    let tempmsg = await message.channel.send(gamelang.unplaceable)
                                     setTimeout(() => tempmsg.delete(), 2000)
                                     break;
 
                                 case 1:
 
                                     //console.log(game.board)
-                                    let field2 = {name: "Syntax :",value: "(row,column)\nEx: (3,7)", inline : true}
+                                    let field2 = {name: gamelang.syntax ,value: gamelang.row_col, inline : true}
 
                                     if(game.tempavailable.length > 0){
 
-                                        let field1 = {name: "Now : ",value: `${iuser.username}'s turn!` , inline: true}
+                                        let field1 = {name: "Now : ",value: iuser.username + gamelang.ones_turn , inline: true}
                                         await bmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.black,[field1,field2]))
                                         await wmsg.edit(client.EmbedMaker(msg,game.stringify(),client.colors.white,[field1,field2]))
                                         current_color = "white"
@@ -112,7 +122,7 @@ class Reversi extends two_p_Game{
                                     }else{
 
                                         console.log("skiped")
-                                        let field1 = {name: "Now : ",value: `${msg.author.username}'s turn!` , inline: true}
+                                        let field1 = {name: "Now : ",value: msg.author.username + gamelang.ones_turn , inline: true}
                                         game.availablecolor()
                                         if(game.tempavailable.length > 0){
                                             
@@ -157,17 +167,17 @@ class Reversi extends two_p_Game{
                             switch(game.place(Number(numarr[1])-1,Number(numarr[0])-1, current_color)){
 
                                 case 0:
-                                    let tempmsg = await message.channel.send("That place is unplaceable(w)")
+                                    let tempmsg = await message.channel.send(gamelang.unplaceable)
                                     setTimeout(() => tempmsg.delete(), 2000)
                                     break;
 
                                 case 1:
 
-                                    let field2 = {name: "Syntax :",value: "(row,column)\nEx: (3,7)", inline : true}
+                                    let field2 = {name: gamelang.syntax ,value: gamelang.row_col, inline : true}
 
                                     if(game.tempavailable.length>0){
 
-                                        let field1 = {name: "Now : ",value: `${msg.author.username}'s turn!` , inline: true}
+                                        let field1 = {name: "Now : ", value: msg.author.username + gamelang.ones_turn , inline: true}
                                         bmsg.edit(client.EmbedMaker(msg,game.stringify(),client.colors.black,[field1,field2]))
                                         wmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.white,[field1,field2]))
                                         current_color = "black"
@@ -175,7 +185,7 @@ class Reversi extends two_p_Game{
                                     }else{
 
                                         console.log("skiped")
-                                        let field1 = {name: "Now : ",value: `${iuser.username}'s turn!` , inline: true}
+                                        let field1 = {name: "Now : ",value: iuser.username + gamelang.ones_turn , inline: true}
                                         game.availablecolor()
                                         if(game.tempavailable.length>0){
 

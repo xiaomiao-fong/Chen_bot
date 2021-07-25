@@ -13,13 +13,13 @@ class two_p_Game{
      * @param {Myclient} client 
      */
 
-    constructor(name,group,description,client){
+    constructor(name,group,client){
 
         this.cmd;
         this.name = name;
         this.group = group;
         this.client = client
-        this.description = description;
+        this.description = ""
         this.aliases = []
 
     }
@@ -42,8 +42,6 @@ class two_p_Game{
         let iuser;
 
         if(users_amount === 1){
-
-            
 
             let bot = this.client
             iuser = msg.mentions.users.first()
