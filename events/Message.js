@@ -8,6 +8,12 @@ class message extends Event{
 
         this.func = async function(msg){
 
+            let lang = 
+            {
+                "zh_TW" : "找不到指令 ",
+                "en_US" : "Can not find command "
+            }
+
             if(msg.content.startsWith(this.client.prefix)){
 
                 let message_arr = msg.content.replace(this.client.prefix,"").split(" ")
@@ -18,7 +24,7 @@ class message extends Event{
                 switch(await this.client.execute_command(msg,cmd,args)){
         
                     case 1:
-                        msg.channel.send(`Can not find command \`\` ${cmd} \`\``)
+                        msg.channel.send(lang.zh_TW + `\`\` ${cmd} \`\``)
                         break;
         
                 }

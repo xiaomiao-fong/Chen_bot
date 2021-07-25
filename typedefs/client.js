@@ -83,7 +83,7 @@ class client extends Discord.Client{
      * @returns 
      */
 
-    check_playing(msg,iuser){
+    check_playing(msg,iuser,lang){
 
         let bot = this
 
@@ -91,11 +91,11 @@ class client extends Discord.Client{
 
             if(bot.playing.get(msg.author.id) === "Currently being invited") 
             {
-                msg.channel.send("You are currently inviting someone or being invited.")
+                msg.channel.send(lang.being_invited)
                 return 0;
             }
 
-            msg.channel.send(`You are currently playing ${bot.playing.get(msg.author.id)}`)
+            msg.channel.send(lang.you_playing + ` ${bot.playing.get(msg.author.id)}`)
             return 0;
 
         }
@@ -107,11 +107,11 @@ class client extends Discord.Client{
 
             if(bot.playing.get(msg.author.id) === "Currently being invited") 
             {
-                msg.channel.send(`${iuser.username} is currently inviting someone or being invited.`)
+                msg.channel.send(iuser.username + lang.target_invited)
                 return 0;
             }
 
-            msg.channel.send(`${iuser.username} is currently playing ${bot.playing.get(iuser.id)}`)
+            msg.channel.send(`${iuser.username}` +  lang.target_playing  + `${bot.playing.get(iuser.id)}`)
             return 0;
 
         }
@@ -119,93 +119,9 @@ class client extends Discord.Client{
         return 1
 
     }
-
-    /**
-     * 
-     * @param {Discord.Message} msg 
-     * @param {String} gamename 
-     * @param {*} mainfunc 
-     */
-
-    async invitegame(msg,gamename,mainfunc){
-
-        let users_amount = 0;
-        msg.mentions.users.each(user => users_amount++)
-
-
-        /**
-         * @type {Discord.User} iuser
-         */
-        let iuser;
-
-        if(users_amount === 1){
-
-            let bot = this
-            iuser = msg.mentions.users.first()
-
-            if(this.check_playing(msg,iuser) === 0) return;
-
-            bot.playing.set(msg.author.id,'Currently being invited')
-            bot.playing.set(iuser.id,'Currently being invited')
-
-            let inviter = await msg.author.send(`Sending ${gamename} invite to ${iuser.username}`)
-            let invited = await iuser.send(`${msg.author} has sent you an ${gamename} invitation, would you like to accept it?`)
-            const filter = (reaction,user) => {
-                return ["✅","❎"].includes(reaction.emoji.name) && !user.bot
-            }
-            let invcollect = invited.createReactionCollector(filter,{time:30*1000})
-            let accept = 0
-
-            invited.react("✅")
-            invited.react("❎")
-            invcollect.once("collect", async function(reaction,user){
-                switch(reaction.emoji.name){
-                    case "✅":
-
-                        accept = 2
-                        msg.author.send("Invite accepted")
-                        user.send("You accepted the invitation")
-                        
-                        bot.playing.set(msg.author.id,gamename)
-                        bot.playing.set(iuser.id,gamename)
-                        invcollect.stop()
-                        break;
-
-                    case "❎":
-
-                        accept = 1
-                        msg.author.send("Invite declined")
-                        user.send("You declined the invitation")
-                        
-                        bot.playing.delete(msg.author.id)
-                        bot.playing.delete(iuser.id)
-                        invcollect.stop()
-                        break;
-
-                }
-            })
-
-
-            invcollect.on("end", (collected,reason) => {
-                if(reason == "time") this.emit("game_end",msg.author,iuser)
-                mainfunc(msg,accept,iuser);
-            })
-
-        }else if (users_amount === 0){
-
-            return msg.channel.send("Please mention an person")
-
-        }else{
-
-            return msg.channel.send("Please don't mention more than one person")
-
-        }   
-
-    }
-
+    
     async secondtohhmmss(second){
         
-        console.log(second)
         let time = new Date(0);
         time.setSeconds(parseInt(second));
         return time.toISOString().substr(11, 8);
@@ -215,12 +131,17 @@ class client extends Discord.Client{
     async execute_command(msg,cmd,args){
 
         let client = this
+        let lang = 
+        {
+            "zh_TW" : "請放慢速度",
+            "en_US" : "Please slowdown"
+        }
 
         if(cmd != undefined){
 
             if(client.cooldown.get(msg.author.id) > 3){
             
-                msg.channel.send("Please slowdown.")
+                msg.channel.send(lang.zh_TW)
                 return 0;
     
             }
