@@ -5,9 +5,9 @@ const Command = require('./Command');
 const language = require("../language.json")
 const Sequelize = require("sequelize")
 const host =  process.env.HOST || require("../config.json").host
-const database = process.env.DATABASE || equire("../config.json").database 
-const username = process.env.USERNAME || require("../config.json").username
-const password = process.env.PASSWORD || require("../config.json").password
+const database = require("../config.json").database || process.env.DATABASE
+const username = require("../config.json").username || process.env.USERNAME
+const password = require("../config.json").password || process.env.PASSWORD
 
 /**
  * SomeClass is an example class for my question.

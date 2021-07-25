@@ -61,6 +61,7 @@ class MusicPlayer{
         process.on("error",(err) => {
             if(err == "Output Stream Closed") return;
             console.log("Error: " + err.message)
+            msg.channel.send("Error occurred.")
         })
 
         process.writeToStream(song, {
