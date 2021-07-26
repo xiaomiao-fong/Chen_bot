@@ -27,8 +27,8 @@ class play extends Command{
 
             if(!this.client.music.has(msg.guild.id)){
 
-                let joincls = require("./join");
-                let joincmd = new joincls(this.client);
+                let Joincls = require("./join");
+                let joincmd = new Joincls(this.client);
 
                 await joincmd.execute(msg,args);
 
@@ -36,7 +36,7 @@ class play extends Command{
 
             if(this.client.music.has(msg.guild.id)){
 
-                let search = args.join(' ');
+                let search = args.join(" ");
 
                 if(!search){
 
@@ -45,7 +45,7 @@ class play extends Command{
         
                 }
 
-                if(!this.client.music.get(msg.guild.id).has_perm(msg)) return 0 ;
+                if(!this.client.music.get(msg.guild.id).Has_Perm(msg)) return 0 ;
         
                 let url;
                 
@@ -67,8 +67,8 @@ class play extends Command{
                         let authorname = info.author.name;
                         if(authorname.length > 25) authorname = authorname.substr(0,21) + "...";
 
-                        let songname = info.title + ' | ' + info.duration;
-                        if(songname.length > 49) songname = info.title.substr(0,35) + "..." + ' | ' + info.duration;
+                        let songname = info.title + " | " + info.duration;
+                        if(songname.length > 49) songname = info.title.substr(0,35) + "..." + " | " + info.duration;
 
                         option.setLabel(authorname)
                               .setDescription(songname)
@@ -86,12 +86,12 @@ class play extends Command{
                         .setID("324")
                         .addOptions(options)
 
-                    msg.channel.send("Choose a song!", menu).then( sent => {
+                    msg.channel.send("Choose a song!", menu).then( (sent) => {
 
                         /** @type {MenuCollector} */
-                        let collector = sent.createMenuCollector(b => b.clicker.id === msg.author.id , {time : 15000});
+                        let collector = sent.createMenuCollector((b) => b.clicker.id === msg.author.id , {time : 15000});
                         
-                        collector.once('collect', async menu => {
+                        collector.once("collect", async (menu) => {
 
                             await menu.reply.defer();
                             this.client.music.get(msg.guild.id).play(msg, urls[menu.values[0]]);
@@ -101,7 +101,7 @@ class play extends Command{
 
                         collector.once("end", async (menu, reason) => {
 
-                            if(reason === 'time') { 
+                            if(reason === "time") { 
                                 sent.delete();
                                 msg.channel.send("Timeout");
                             }

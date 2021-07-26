@@ -21,9 +21,9 @@ class Reversi extends Two_P_Game{
 
             async function reversi(msg,iuser,client){
                 
-                let game = new Reversi_cls(iuser.id,msg.author.id);
+                let game = new Reversi_Cls(iuser.id,msg.author.id);
                 game.availablecolor("white");
-                let current_color = "black";
+                let Current_Color = "black";
                 let userlang = msg.author.lang;
                 let gamelang = client.language.commands.game[userlang];
 
@@ -35,9 +35,9 @@ class Reversi extends Two_P_Game{
                 await msg.author.send(gamelang.type_surr);
                 await iuser.send(gamelang.type_surr);
 
-                let bfilter = message => (current_color === "black" && message.author.id === game.blackid && !message.author.bot);
+                let bfilter = (message) => (Current_Color === "black" && message.author.id === game.blackid && !message.author.bot);
                 let bcollector = bmsg.channel.createMessageCollector(bfilter,{idle : 300*1000});
-                let wfilter = message => (current_color === "white" && message.author.id === game.whiteid && !message.author.bot);
+                let wfilter = (message) => (Current_Color === "white" && message.author.id === game.whiteid && !message.author.bot);
                 let wcollector = wmsg.channel.createMessageCollector(wfilter,{idle : 300*1000});
                 let s1 = new RegExp("\\([0-9],[0-9]\\)");
                 let s2 = new RegExp("[0-9],[0-9]");
@@ -80,7 +80,7 @@ class Reversi extends Two_P_Game{
 
                     bmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.black,[endfield]));
                     wmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.white,[endfield]));
-                    client.emit('game_end',msg.author,iuser);
+                    client.emit("game_end",msg.author,iuser);
                     
                 }
                 
@@ -100,7 +100,7 @@ class Reversi extends Two_P_Game{
 
                             let numarr = message.content.match(s2)[0].split(",");
                             console.log(Number(numarr[1])-1,Number(numarr[0])-1);
-                            switch(game.place(Number(numarr[1])-1,Number(numarr[0])-1, current_color)){
+                            switch(game.place(Number(numarr[1])-1,Number(numarr[0])-1, Current_Color)){
 
                                 case 0:
                                     let tempmsg = await message.channel.send(gamelang.unplaceable);
@@ -117,7 +117,7 @@ class Reversi extends Two_P_Game{
                                         let field1 = {name: "Now : ",value: iuser.username + gamelang.ones_turn , inline: true};
                                         await bmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.black,[field1,field2]));
                                         await wmsg.edit(client.EmbedMaker(msg,game.stringify(),client.colors.white,[field1,field2]));
-                                        current_color = "white";
+                                        Current_Color = "white";
 
                                     }else{
 
@@ -128,7 +128,7 @@ class Reversi extends Two_P_Game{
                                             
                                             await bmsg.edit(client.EmbedMaker(msg,game.stringify(),client.colors.black,[field1,field2]));
                                             await wmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.white,[field1,field2]));
-                                            current_color = "black";
+                                            Current_Color = "black";
 
                                         }else{
 
@@ -164,7 +164,7 @@ class Reversi extends Two_P_Game{
 
                             let numarr = message.content.match(s2)[0].split(",");
                             console.log(Number(numarr[1])-1,Number(numarr[0])-1);
-                            switch(game.place(Number(numarr[1])-1,Number(numarr[0])-1, current_color)){
+                            switch(game.place(Number(numarr[1])-1,Number(numarr[0])-1, Current_Color)){
 
                                 case 0:
                                     let tempmsg = await message.channel.send(gamelang.unplaceable);
@@ -180,7 +180,7 @@ class Reversi extends Two_P_Game{
                                         let field1 = {name: "Now : ", value: msg.author.username + gamelang.ones_turn , inline: true};
                                         bmsg.edit(client.EmbedMaker(msg,game.stringify(),client.colors.black,[field1,field2]));
                                         wmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.white,[field1,field2]));
-                                        current_color = "black";
+                                        Current_Color = "black";
 
                                     }else{
 
@@ -191,7 +191,7 @@ class Reversi extends Two_P_Game{
 
                                             bmsg.edit(client.EmbedMaker(msg,game.stringify(game.board),client.colors.black,[field1,field2]));
                                             wmsg.edit(client.EmbedMaker(msg,game.stringify(),client.colors.white,[field1,field2]));
-                                            current_color = "white";
+                                            Current_Color = "white";
 
                                         }else{
 
@@ -220,7 +220,7 @@ class Reversi extends Two_P_Game{
 
 }
 
-class Reversi_cls{
+class Reversi_Cls{
 
     constructor(whiteid,blackid){
 
@@ -281,7 +281,7 @@ class Reversi_cls{
         this.tempavailable = [];
         color = color === "black" ? "white" : "black";
 
-        this.available.forEach( placeindex =>{
+        this.available.forEach( (placeindex) => {
 
             let r = Number(placeindex[0]);
             let c = Number(placeindex[1]);

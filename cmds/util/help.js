@@ -35,7 +35,7 @@ class Help extends Command{
                 if(command.image != undefined) embed.setImage(command.image);
 
                 let aliases = "";
-                this.client.commands.get(search).aliases.forEach(aliase => {
+                this.client.commands.get(search).aliases.forEach( (aliase) => {
 
                     aliases += (aliase + ", ");
 
@@ -57,7 +57,7 @@ class Help extends Command{
                     let des = lang.commands.help[userlang].group_cmds;
                     let group = this.client.groups.get(search);
 
-                    group.forEach(key=>{
+                    group.forEach( (key) =>{
 
                         des += ("-``"+key+"``\n");
 
@@ -75,7 +75,7 @@ class Help extends Command{
 
                     if(search != undefined) msg.channel.send(lang.commands.help[userlang].cmd_nf);
                     let des = lang.commands.help[userlang].group_list;
-                    this.client.groups.keyArray().forEach(key=>{
+                    this.client.groups.keyArray().forEach( (key) =>{
                         if(!(key === "Owner")) des += ("-``"+key+"``\n");
                     })
                     des += lang.commands.help[userlang].group_name;

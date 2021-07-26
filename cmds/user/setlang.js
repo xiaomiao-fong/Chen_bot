@@ -15,7 +15,7 @@ class setlang extends Command{
 
             let lang = args[0]
 
-            if(!['zh_TW', 'en_US'].includes(args[0])) return msg.channel.send(this.lang[userlang].avail_lang);
+            if(!["zh_TW", "en_US"].includes(args[0])) return msg.channel.send(this.lang[userlang].avail_lang);
             if(msg.author.lang === lang) return msg.channel.send(this.lang[userlang].alr);
 
             let sent = await msg.channel.send(this.lang[userlang].plz_wait);

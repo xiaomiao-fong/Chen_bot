@@ -30,7 +30,7 @@ class voicestateupdate extends Event{
 
             }
 
-        }
+        };
 
     }
 

@@ -7,7 +7,7 @@ class showsongqueue extends Command{
 
     constructor(client){
 
-        super('queue',"music",client);
+        super("queue", "music", client);
 
         this.aliases = ["q"];
 

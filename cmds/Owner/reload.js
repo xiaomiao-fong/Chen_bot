@@ -38,8 +38,8 @@ class reload extends Command{
             
             delete require.cache[require.resolve(`../${group}/${target}.js`)];
 
-            let commandcls = require(`../${group}/${target}.js`);
-            let command = new commandcls(this.client);
+            let Commandcls = require(`../${group}/${target}.js`);
+            let command = new Commandcls(this.client);
 
             this.client.commands.set(command.name,command);
 

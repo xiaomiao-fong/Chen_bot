@@ -11,7 +11,7 @@ class fishing extends Command{
         this.cmd = async function(msg,args){
 
             if(msg.member.voice.channel){
-                this.client.discordtogether.createTogetherCode(msg.member.voice.channelID,"fishing").then(async invite =>{
+                this.client.discordtogether.createTogetherCode(msg.member.voice.channelID,"fishing").then(async (invite) =>{
                     return msg.channel.send(`${invite.code}`);
                 });
             }else{

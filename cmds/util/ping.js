@@ -16,7 +16,7 @@ class ping extends Command{
 
         this.cmd = async function(msg, args){
 
-            msg.channel.send("Pinging...").then(sent => {
+            msg.channel.send("Pinging...").then( (sent) => {
 
                 sent.edit(`Ping ${sent.createdTimestamp - msg.createdTimestamp}ms`);
 

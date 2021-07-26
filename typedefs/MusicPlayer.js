@@ -3,7 +3,7 @@ const Myclient = require("./client");
 const MusicQueue = require("./Queue");
 const PassThrough = require("stream").PassThrough;
 const ytdl = require("ytdl-core");
-const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
 ffmpeg.setFfmpegPath(ffmpegPath);
 
@@ -33,7 +33,7 @@ class MusicPlayer{
      * @param {*} arg 
      */
 
-    has_perm(msg){
+    Has_Perm(msg){
 
         let userlang = msg.author.lang;
         if(!this.connection.voice.channel.members.has(msg.author.id)){
@@ -136,10 +136,10 @@ class MusicPlayer{
         embed.setThumbnail(music.thumbnail);
         embed.addField("Now playing: ", `[${music.songname}](${music.url})`,true);
 
-        let current_time = this.connection.dispatcher.streamTime;
+        let Current_Time = this.connection.dispatcher.streamTime;
 
         let time = new Date(0);
-        time.setSeconds(current_time/1000);
+        time.setSeconds(Current_Time/1000);
         let timeString = time.toISOString().substr(11, 8);
 
         embed.addField("Length: ", `${timeString}/${music.length}`);
@@ -170,7 +170,7 @@ class MusicPlayer{
         let text = `**Now playing**: [${this.current.songname}](${this.current.url}) | \`\`${this.current.length}\`\` \n\n`;
         let loop = 0;
 
-        this.queue.queue.forEach(music => {
+        this.queue.queue.forEach( (music) => {
 
             if(loop !== 0) {
 
@@ -194,7 +194,7 @@ class MusicPlayer{
         
         
         let userlang = msg.author.lang;
-        if(!this.has_perm(msg)) return;
+        if(!this.Has_Perm(msg)) return;
 
         msg.channel.send(this.client.language.commands.music[userlang].skipped + ` \`\`${this.current.songname}\`\``);
         this.connection.dispatcher.end();
@@ -204,7 +204,7 @@ class MusicPlayer{
     async remove(msg,index){
         
         let userlang = msg.author.lang;
-        if(!this.has_perm(msg)) return;
+        if(!this.Has_Perm(msg)) return;
 
         if(!index || index < 1){
 
@@ -222,7 +222,7 @@ class MusicPlayer{
         
         
         let userlang = msg.author.lang;
-        if(!this.has_perm(msg)) return;
+        if(!this.Has_Perm(msg)) return;
 
         if(this.current){
 
@@ -250,7 +250,7 @@ class MusicPlayer{
         
         
         let userlang = msg.author.lang;
-        if(!this.has_perm(msg)) return;
+        if(!this.Has_Perm(msg)) return;
         
         if(this.queue.queue.length < 2) return msg.channel.send(this.client.language.commands.music[userlang].nothing_shuffle);
 

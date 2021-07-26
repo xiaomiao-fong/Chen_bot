@@ -18,12 +18,12 @@ class message extends Event{
 
             if(msg.content.startsWith(this.client.prefix)){
 
-                let message_arr = msg.content.replace(this.client.prefix,"").split(" ");
-                let cmd = message_arr[0];
+                let Message_Arr = msg.content.replace(this.client.prefix,"").split(" ");
+                let cmd = Message_Arr[0];
                 if (cmd == undefined) return;
-                let args = message_arr.slice(1,message_arr.length);
+                let args = Message_Arr.slice(1,Message_Arr.length);
         
-                switch(await this.client.execute_command(msg,cmd,args)){
+                switch(await this.client.Execute_Command(msg,cmd,args)){
         
                     case 1:
                         msg.channel.send(lang[msg.author.lang] + `\`\` ${cmd} \`\``);
@@ -37,7 +37,7 @@ class message extends Event{
         
             }
             
-        }
+        };
 
         this.fetchlang = async function(msg){
 
@@ -49,7 +49,7 @@ class message extends Event{
 
             }else{
 
-                return user.get('language');
+                return user.get("language");
             }
 
         }

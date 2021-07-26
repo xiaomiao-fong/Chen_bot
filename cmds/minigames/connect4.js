@@ -24,7 +24,7 @@ class connect4 extends Two_P_Game {
 
             async function connect4(msg, iuser, client) {
                 // create a new connect 4 game between author and an invited user
-                let game = new c4(msg.author.id, iuser.id);
+                let game = new C4(msg.author.id, iuser.id);
                 let Currnet_Color = "red";
                 let userlang = msg.author.lang;
 
@@ -347,7 +347,7 @@ class connect4 extends Two_P_Game {
     }
 }
 
-class c4 {
+class C4 {
     constructor(redid, yellowid) {
         this.stack = [5, 5, 5, 5, 5, 5, 5];
         this.map = [
@@ -473,10 +473,10 @@ class c4 {
     // calculate the best move
     c4minimax(board, stack, depth, max, lx, ly) {
         if (this.check(lx, ly, board) === 2 || depth === 0) {
-            let temp1 = this.board_evaluation(board, "🟡");
+            let temp1 = this.Board_Evaluation(board, "🟡");
             let temp1score =
                 temp1.two + (temp1.three * 5) / 3 + temp1.four * 15;
-            let temp2 = this.board_evaluation(board, "🔴");
+            let temp2 = this.Board_Evaluation(board, "🔴");
             let temp2score =
                 temp2.two + (temp2.three * 5) / 3 + temp2.four * 20;
             if (temp1.four > 0 || temp2.four > 0)
@@ -486,8 +486,8 @@ class c4 {
         }
 
         if (max) {
-            let best_score = -Infinity;
-            let best_move = 0;
+            let Best_Score = -Infinity;
+            let Best_Move = 0;
 
             stack.forEach((col) => {
                 if (stack[col] > -1) {
@@ -501,19 +501,19 @@ class c4 {
                         col,
                         stack[col] + 1
                     );
-                    if (score > best_score) {
-                        best_score = score;
-                        best_move = col;
+                    if (score > Best_Score) {
+                        Best_Score = score;
+                        Best_Move = col;
                     }
                     stack[col] += 1;
                     board[stack[col]][col] = "⚪";
                 }
             });
 
-            return { score: best_score, move: best_move };
+            return { score: Best_Score, move: Best_Move };
         } else {
-            let cbest_score = Infinity;
-            let cbest_move = 0;
+            let Cbest_Score = Infinity;
+            let Cbest_Move = 0;
 
             stack.forEach((col) => {
                 if (stack[col] > -1) {
@@ -527,21 +527,21 @@ class c4 {
                         col,
                         stack[col] + 1
                     );
-                    if (score < cbest_score) {
-                        cbest_score = score;
-                        cbest_move = col;
+                    if (score < Cbest_Score) {
+                        Cbest_Score = score;
+                        Cbest_Move = col;
                     }
                     stack[col] += 1;
                     board[stack[col]][col] = "⚪";
                 }
             });
 
-            return { score: cbest_score, move: cbest_move };
+            return { score: Cbest_Score, move: Cbest_Move };
         }
     }
 
     // not sure what this does, but simplify it if possible
-    board_evaluation(board, color) {
+    Board_Evaluation(board, color) {
         let result = { two: 0, three: 0, four: 0 };
 
         for (var i = 0; i < 6; i++) {

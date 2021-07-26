@@ -1,7 +1,7 @@
-const Discord = require('discord.js');
-const fs = require('fs');
+const Discord = require("discord.js");
+const fs = require("fs");
 const disbut = require("discord-buttons");
-const Command = require('./Command');
+const Command = require("./Command");
 const language = require("../language.json");
 const Sequelize = require("sequelize");
 
@@ -23,11 +23,11 @@ try{
 
 class client extends Discord.Client{
 
-    constructor(owner,dctogether,prefix){
+    constructor(owner,Dctogether,prefix){
 
         super();
 
-        this.discordtogether = new dctogether(this);
+        this.discordtogether = new Dctogether(this);
         this.owner = owner;
         this.prefix = prefix;
         this.language = language;
@@ -61,19 +61,19 @@ class client extends Discord.Client{
 
         fs.readdir("./cmds", (err, dirs) => {
             
-            dirs.forEach(dir => {
+            dirs.forEach( (dir) => {
 
                 console.log(dir);
                 this.groups.set(dir,[]);
 
                 fs.readdir(`./cmds/${dir}`, (err, files) => {
 
-                    files.forEach(file => {
+                    files.forEach( (file) => {
 
-                        let commandcls = new require(`../cmds/${dir}/${file}`);
-                        let command = new commandcls(this);
+                        let Commandcls = new require(`../cmds/${dir}/${file}`);
+                        let command = new Commandcls(this);
 
-                        file = file.replace('.js','');
+                        file = file.replace(".js","");
                         command.description = this.language.commands_help[file];
                         
                         this.commands.set(command.name,command);
@@ -111,7 +111,7 @@ class client extends Discord.Client{
      * @returns 
      */
 
-    check_playing(msg,iuser,lang){
+    Check_Playing(msg,iuser,lang){
 
         let bot = this;
 
@@ -225,7 +225,7 @@ class client extends Discord.Client{
 
     }
 
-    async execute_command(msg,cmd,args){
+    async Execute_Command(msg,cmd,args){
 
         let client = this;
         let lang = 
@@ -262,7 +262,7 @@ class client extends Discord.Client{
                         } , 7000);
                         console.log("executed");
                     })
-                    .catch(reason =>{
+                    .catch( (reason) =>{
                         client.channels.cache.get("866296391281803274").send(
                             `\`\`-ERROR-\`\` \nThe command \`\`${cmd}\`\` is executed by user ${msg.author.username}#${msg.author.discriminator}\nError reason:\n\`\`\`js\n${reason}\n\`\`\``);
                     })
@@ -275,9 +275,9 @@ class client extends Discord.Client{
 
                 let find = false;
 
-                Array.from(client.commands.values()).forEach(async tempcmd => {
+                Array.from(client.commands.values()).forEach(async (tempcmd) => {
 
-                    tempcmd.aliases.forEach(async aliase => {
+                    tempcmd.aliases.forEach(async (aliase) => {
 
                         if(cmd === aliase){
 

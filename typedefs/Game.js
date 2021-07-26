@@ -33,9 +33,9 @@ class Two_P_Game{
 
     async invitegame(msg,gamename = this.name,mainfunc){
 
-        let users_amount = 0;
+        let User_Amount = 0;
         let userlang = msg.author.lang;
-        msg.mentions.users.each(user => users_amount++);
+        msg.mentions.users.each( (user) => User_Amount++);
 
         /**
          * @type {Discord.User} iuser
@@ -44,15 +44,15 @@ class Two_P_Game{
 
         let invlang = this.client.language.commands.invite[userlang];
 
-        if(users_amount === 1){
+        if(User_Amount === 1){
 
             let bot = this.client;
             iuser = msg.mentions.users.first();
 
-            if(bot.check_playing(msg,iuser,invlang) === 0) return;
+            if(bot.Check_Playing(msg,iuser,invlang) === 0) return;
 
-            bot.playing.set(msg.author.id,'Currently being invited');
-            bot.playing.set(iuser.id,'Currently being invited');
+            bot.playing.set(msg.author.id,"Currently being invited");
+            bot.playing.set(iuser.id,"Currently being invited");
 
             let inviter = await msg.author.send(invlang.sending_inv.replace("{0}", gamename) + ` ${iuser.username}`);
             let invited = await iuser.send(invlang.received_inv.replace("{0}",msg.author).replace("{1}",gamename));
@@ -102,7 +102,7 @@ class Two_P_Game{
                 
             })
 
-        }else if (users_amount === 0){
+        }else if (User_Amount === 0){
 
             return msg.channel.send(invlang.mention_one);
 

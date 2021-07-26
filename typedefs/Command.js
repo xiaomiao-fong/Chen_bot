@@ -30,7 +30,7 @@ class Command{
      * @returns 
      */
 
-    is_owner(user){
+    Is_Owner(user){
 
         return user.id === this.client.owner;
 
