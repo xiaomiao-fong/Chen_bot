@@ -11,13 +11,13 @@ class BullsandCows extends Command{
         this.cmd = async function(msg, args){
 
             if(this.client.Check_Playing(msg) === 0) return;
-            let userlang = msg.author.lang;
-        
+            let bslang = this.lang[msg.author.lang];
+            
             this.client.playing.set(msg.author.id,"Bulls&Cows");
         
             let game = new Guessnumber(msg.author.id);
             let correct = false;
-            let history = this.client.language.commands.game[userlang].game_his;
+            let history = bslang.game_his;
         
             let bmsg = await msg.channel.send({embed : this.client.EmbedMaker(msg, history, 0x1DC9D6)});
             const filter = (m) => game.valid(m.content);
@@ -33,7 +33,7 @@ class BullsandCows extends Command{
         
                 if (message.content === "end" || message.content === "cn!minigames guessnumber"){
         
-                    bmsg.edit(this.client.EmbedMaker(msg, this.client.language.commands.game[userlang].bs_lose + ` ${game.answer}`, 0x1DC9D6));
+                    bmsg.edit(this.client.EmbedMaker(msg, bslang.bs_lose + ` ${game.answer}`, 0x1DC9D6));
                     correct = true;
                     anscollect.stop();
                     return
@@ -45,7 +45,7 @@ class BullsandCows extends Command{
         
                 if(A === 4){
         
-                    bmsg.edit(this.client.EmbedMaker(msg, this.client.language.commands.game[userlang].bs_win + ` ${game.answer}`, 0x1DC9D6));
+                    bmsg.edit(this.client.EmbedMaker(msg, bslang.bs_win + ` ${game.answer}`, 0x1DC9D6));
                     correct = true;
                     anscollect.stop();
         
@@ -73,6 +73,27 @@ class BullsandCows extends Command{
         
             })
         
+        };
+
+        this.lang = {
+
+            "game":
+            {
+                "zh_TW":
+                {
+                    "game_his" : "遊戲紀錄: \n",
+                    "bs_lose" : "你沒有猜到正確答案，正確答案為",
+                    "bs_win" : "你猜中了! 答案是:"
+                },
+                "en_US":
+                {
+                    "game_his" : "Game history: \n",
+                    "bs_lose" : "You didn't guess the correct answer. The answer is",
+                    "bs_win" : "You guessed the answer! The answer is"
+                }
+    
+            }
+
         };
 
     }

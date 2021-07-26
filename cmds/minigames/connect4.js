@@ -26,11 +26,11 @@ class connect4 extends Two_P_Game {
                 // create a new connect 4 game between author and an invited user
                 let game = new C4(msg.author.id, iuser.id);
                 let Currnet_Color = "red";
-                let userlang = msg.author.lang;
+                let c4lang = this.lang[msg.author.lang]
 
                 let field1 = {
                     name: "Now : ",
-                    value: msg.author.username + client.language.commands.game[userlang].ones_turn,
+                    value: msg.author.username + c4lang.ones_turn,
                     inline: true,
                 };
                 // message send to red player
@@ -78,14 +78,14 @@ class connect4 extends Two_P_Game {
                         rmsg.edit(
                             client.EmbedMaker(
                                 msg,
-                                client.language.commands.game[userlang].abrupted.replace("{0}",user.username),
+                                c4lang.abrupted.replace("{0}",user.username),
                                 client.colors.black
                             )
                         );
                         ymsg.edit(
                             client.EmbedMaker(
                                 msg,
-                                client.language.commands.game[userlang].abrupted.replace("{0}",user.username),
+                                c4lang.abrupted.replace("{0}",user.username),
                                 client.colors.black
                             )
                         );
@@ -106,7 +106,7 @@ class connect4 extends Two_P_Game {
                         )
                     ) {
                         case 0:
-                            msg.channel.send(client.language.commands.game[userlang].col_full);
+                            msg.channel.send(c4lang.col_full);
                             break;
 
                         case 1:
@@ -114,7 +114,7 @@ class connect4 extends Two_P_Game {
                             let Current_Player = iuser;
                             let field1 = {
                                 name: "Now : ",
-                                value: Current_Player.username + client.language.commands.game[userlang].ones_turn,
+                                value: Current_Player.username + c4lang.ones_turn,
                                 inline: true,
                             };
                             await rmsg.edit(
@@ -171,8 +171,8 @@ class connect4 extends Two_P_Game {
                                     client.colors[Currnet_Color]
                                 )
                             );
-                            iuser.send(msg.author.username + client.language.commands.game[userlang].wins);
-                            msg.author.send(msg.author.username + client.language.commands.game[userlang].wins);
+                            iuser.send(msg.author.username + c4lang.wins);
+                            msg.author.send(msg.author.username + c4lang.wins);
                             redcollector.stop();
                             yellowcollector.stop();
                             break;
@@ -193,8 +193,8 @@ class connect4 extends Two_P_Game {
                                     client.colors.white
                                 )
                             );
-                            iuser.send(client.language.commands.game[userlang].draw);
-                            msg.author.send(client.language.commands.game[userlang].draw);
+                            iuser.send(c4lang.draw);
+                            msg.author.send(c4lang.draw);
                             redcollector.stop();
                             yellowcollector.stop();
                             break;
@@ -206,14 +206,14 @@ class connect4 extends Two_P_Game {
                         rmsg.edit(
                             client.EmbedMaker(
                                 msg,
-                                client.language.commands.game[userlang].abrupted.replace("{0}",user.username),
+                                c4lang.abrupted.replace("{0}",user.username),
                                 client.colors.black
                             )
                         );
                         ymsg.edit(
                             client.EmbedMaker(
                                 msg,
-                                client.language.commands.game[userlang].abrupted.replace("{0}",user.username),
+                                c4lang.abrupted.replace("{0}",user.username),
                                 client.colors.black
                             )
                         );
@@ -238,7 +238,7 @@ class connect4 extends Two_P_Game {
                         )
                     ) {
                         case 0:
-                            msg.channel.send(client.language.commands.game[userlang].col_full);
+                            msg.channel.send(c4lang.col_full);
                             break;
 
                         case 1:
@@ -246,7 +246,7 @@ class connect4 extends Two_P_Game {
                             let Current_Player = msg.author;
                             let field1 = {
                                 name: "Now : ",
-                                value: Current_Player.username + client.language.commands.game[userlang].ones_turn,
+                                value: Current_Player.username + c4lang.ones_turn,
                                 inline: true,
                             };
                             await rmsg.edit(
@@ -303,8 +303,8 @@ class connect4 extends Two_P_Game {
                                     client.colors[Currnet_Color]
                                 )
                             );
-                            iuser.send(iuser.username + client.language.commands.game[userlang].wins);
-                            msg.author.send(iuser.username + client.language.commands.game[userlang].wins);
+                            iuser.send(iuser.username + c4lang.wins);
+                            msg.author.send(iuser.username + c4lang.wins);
                             redcollector.stop();
                             yellowcollector.stop();
                             break;
@@ -324,8 +324,8 @@ class connect4 extends Two_P_Game {
                                     client.colors.white
                                 )
                             );
-                            iuser.send(client.language.commands.game[userlang].draw);
-                            msg.author.send(client.language.commands.game[userlang].draw);
+                            iuser.send(c4lang.draw);
+                            msg.author.send(c4lang.draw);
                             redcollector.stop();
                             yellowcollector.stop();
                             break;
@@ -344,7 +344,34 @@ class connect4 extends Two_P_Game {
 
             this.invitegame(msg, "Connect 4", connect4);
         };
+
+        this.lang = 
+        {
+            "zh_TW":
+            {
+                "ones_turn" : "的回合",
+                "abrupted" : "遊戲被 {0} 終止了",
+                "col_full" : "這行已經滿了喔",
+                "wins" : "贏了!",
+                "draw" : "平手!",
+                "no1wins" : "沒有人贏",
+                "unplaceable" : "這個位置不能放置"
+            },
+            "en_US":
+            {
+                "ones_turn" : "'s turn",
+                "abrupted" : "Game abrupted by {0}",
+                "col_full" : "This column is full.",
+                "wins" : "wins!",
+                "draw" : "Draw!",
+                "no1wins" : "No one wins.",
+                "unplaceable" : "This place is unplaceable"
+            }
+
+        }
+
     }
+
 }
 
 class C4 {
