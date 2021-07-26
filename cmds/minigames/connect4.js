@@ -193,7 +193,6 @@ class connect4 extends two_p_Game {
                                     game.stringify(),
                                     // client.colors / white
                                     client.colors.white
-                                    client.colors.white
                                 )
                             );
                             iuser.send(client.language.commands.game[userlang].draw);
