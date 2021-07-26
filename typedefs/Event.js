@@ -1,4 +1,4 @@
-const Myclient = require("./client")
+const Myclient = require("./client");
 
 class Event{
 
@@ -15,10 +15,10 @@ class Event{
         this.func;
         this.name = name;
         this.once = once;
-        this.client = client
+        this.client = client;
 
     }
 
 }
 
-module.exports = Event
+module.exports = Event;

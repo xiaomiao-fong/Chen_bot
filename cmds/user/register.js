@@ -1,12 +1,12 @@
 const Command = require("../../typedefs/Command");
-const Discord = require("discord.js")
+const Discord = require("discord.js");
 
 
 class register extends Command{
 
     constructor(client){
 
-        super("register", "user", client)
+        super("register", "user", client);
 
         /**
          * 
@@ -16,19 +16,19 @@ class register extends Command{
 
         this.cmd = async function(msg, args){
 
-            let userlang = msg.author.lang
+            let userlang = msg.author.lang;
 
-            let name = args ? args[0] : msg.author.username
+            let name = args ? args[0] : msg.author.username;
 
-            let sent = await msg.channel.send(this.lang[userlang].plz_wait)
+            let sent = await msg.channel.send(this.lang[userlang].plz_wait);
 
-            let user = await this.client.userdata.findOne({ where: { user_id : msg.author.id }})
+            let user = await this.client.userdata.findOne({ where: { user_id : msg.author.id }});
 
 
             if(user){
 
-                console.log(user)
-                sent.edit(this.lang[userlang].registered)
+                console.log(user);
+                sent.edit(this.lang[userlang].registered);
 
             }else{
 
@@ -37,9 +37,9 @@ class register extends Command{
                     nickname : name,
                     user_id : msg.author.id
 
-                })
+                });
 
-                sent.edit(this.lang[userlang].succ_created)
+                sent.edit(this.lang[userlang].succ_created);
 
             }
 
@@ -65,4 +65,4 @@ class register extends Command{
 
 }
 
-module.exports = register
+module.exports = register;

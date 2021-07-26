@@ -17,10 +17,10 @@ class Command{
         this.name = name;
         this.group = group;
         /** @type {MyClient} this.client */
-        this.client = client
+        this.client = client;
         this.description = "";
-        this.availble = true
-        this.aliases = []
+        this.availble = true;
+        this.aliases = [];
 
     }
 
@@ -32,7 +32,7 @@ class Command{
 
     is_owner(user){
 
-        return user.id === this.client.owner
+        return user.id === this.client.owner;
 
     }
 
@@ -46,10 +46,10 @@ class Command{
 
     async execute(msg,args){
 
-        await this.cmd(msg,args)
+        await this.cmd(msg,args);
 
     }
 
 }
 
-module.exports = Command
+module.exports = Command;

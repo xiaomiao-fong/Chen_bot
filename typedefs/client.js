@@ -1,13 +1,13 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
 const fs = require('fs');
-const disbut = require("discord-buttons")
+const disbut = require("discord-buttons");
 const Command = require('./Command');
-const language = require("../language.json")
-const Sequelize = require("sequelize")
+const language = require("../language.json");
+const Sequelize = require("sequelize");
 
 try{
     
-    var {host,username,password,database} = require("../config.json")
+    var {host,username,password,database} = require("../config.json");
 
 }catch (err){
 
@@ -25,17 +25,17 @@ class client extends Discord.Client{
 
     constructor(owner,dctogether,prefix){
 
-        super()
+        super();
 
-        this.discordtogether = new dctogether(this)
-        this.owner = owner
-        this.prefix = prefix
-        this.language = language
+        this.discordtogether = new dctogether(this);
+        this.owner = owner;
+        this.prefix = prefix;
+        this.language = language;
         /**
          * @type {Sequelize.Model}
          * @public
          */
-        this.userdata = undefined
+        this.userdata = undefined;
 
         /**
          * @type {Sequelize}
@@ -50,34 +50,34 @@ class client extends Discord.Client{
         this.playing = new Discord.Collection();//game
         this.music = new Discord.Collection();//music
 
-        this.invlink = "https://discord.com/api/oauth2/authorize?client_id=735804773864833065&permissions=4025876289&scope=bot"
+        this.invlink = "https://discord.com/api/oauth2/authorize?client_id=735804773864833065&permissions=4025876289&scope=bot";
         this.colors = {
             "red" : 0xF00303,
             "yellow" : 0xFFE100,
             "cyan" : 0x1DC9D6,
             "black" : 0x000000,
             "white" : 0xF0F0F0
-        }
+        };
 
         fs.readdir("./cmds", (err, dirs) => {
             
             dirs.forEach(dir => {
 
-                console.log(dir)
-                this.groups.set(dir,[])
+                console.log(dir);
+                this.groups.set(dir,[]);
 
                 fs.readdir(`./cmds/${dir}`, (err, files) => {
 
                     files.forEach(file => {
 
-                        let commandcls = new require(`../cmds/${dir}/${file}`)
-                        let command = new commandcls(this)
+                        let commandcls = new require(`../cmds/${dir}/${file}`);
+                        let command = new commandcls(this);
 
-                        file = file.replace('.js','')
-                        command.description = this.language.commands_help[file]
+                        file = file.replace('.js','');
+                        command.description = this.language.commands_help[file];
                         
-                        this.commands.set(command.name,command)
-                        this.groups.get(dir).push(command.name)
+                        this.commands.set(command.name,command);
+                        this.groups.get(dir).push(command.name);
     
                     })
                 })
@@ -88,20 +88,20 @@ class client extends Discord.Client{
     EmbedMaker(msg,description,color,fields){
 
         let embed = new Discord.MessageEmbed();
-        embed.setAuthor(msg.author.username + "#" + msg.author.discriminator, msg.author.avatarURL())
+        embed.setAuthor(msg.author.username + "#" + msg.author.discriminator, msg.author.avatarURL());
         embed.description = description;
-        embed.color = color
-        embed.setFooter(`Bot made by: ${this.owner.name}`,this.owner.avatar)
-        if (fields!=undefined) embed.addFields(fields)
+        embed.color = color;
+        embed.setFooter(`Bot made by: ${this.owner.name}`,this.owner.avatar);
+        if (fields!=undefined) embed.addFields(fields);
 
-        return embed
+        return embed;
 
     }
 
     stopgame(collector1, collector2){
 
-        collector1.stop()
-        collector2.stop()
+        collector1.stop();
+        collector2.stop();
 
     }
 
@@ -113,17 +113,17 @@ class client extends Discord.Client{
 
     check_playing(msg,iuser,lang){
 
-        let bot = this
+        let bot = this;
 
         if(bot.playing.has(msg.author.id)){
 
             if(bot.playing.get(msg.author.id) === "Currently being invited") 
             {
-                msg.channel.send(lang.being_invited)
+                msg.channel.send(lang.being_invited);
                 return 0;
             }
 
-            msg.channel.send(lang.you_playing + ` ${bot.playing.get(msg.author.id)}`)
+            msg.channel.send(lang.you_playing + ` ${bot.playing.get(msg.author.id)}`);
             return 0;
 
         }
@@ -133,18 +133,18 @@ class client extends Discord.Client{
         
         if(bot.playing.has(iuser.id)){
 
-            if(bot.playing.get(msg.author.id) === "Currently being invited") 
+            if(bot.playing.get(msg.author.id) === "Currently being invited") ;
             {
-                msg.channel.send(iuser.username + lang.target_invited)
+                msg.channel.send(iuser.username + lang.target_invited);
                 return 0;
             }
 
-            msg.channel.send(`${iuser.username}` +  lang.target_playing  + `${bot.playing.get(iuser.id)}`)
+            msg.channel.send(`${iuser.username}` +  lang.target_playing  + `${bot.playing.get(iuser.id)}`);
             return 0;
 
         }
 
-        return 1
+        return 1;
 
     }
 
@@ -165,7 +165,7 @@ class client extends Discord.Client{
                     rejectUnauthorized: false,
                 },
             },
-        })
+        });
 
         this.userdata = this.Sequelize.define("userdata",{
 
@@ -211,7 +211,7 @@ class client extends Discord.Client{
                 type: Sequelize.STRING
             }
 
-        })
+        });
 
         this.userdata.sync();
 
@@ -227,18 +227,18 @@ class client extends Discord.Client{
 
     async execute_command(msg,cmd,args){
 
-        let client = this
+        let client = this;
         let lang = 
         {
             "zh_TW" : "請放慢速度",
             "en_US" : "Please slowdown"
-        }
+        };
 
-        if(cmd != undefined){
+        if(cmd !== undefined){
 
             if(client.cooldown.get(msg.author.id) > 3){
             
-                msg.channel.send(lang.zh_TW)
+                msg.channel.send(lang.zh_TW);
                 return 0;
     
             }
@@ -247,33 +247,33 @@ class client extends Discord.Client{
     
                 if (!client.cooldown.has(msg.author.id)) 
                 {
-                    client.cooldown.set(msg.author.id,1)
-                    console.log(client.cooldown.get(msg.author.id))
+                    client.cooldown.set(msg.author.id,1);
+                    console.log(client.cooldown.get(msg.author.id));
                 }else
                 {
-                    client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) + 1)
-                    console.log(client.cooldown.get(msg.author.id))
+                    client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) + 1);
+                    console.log(client.cooldown.get(msg.author.id));
                 }
 
                 await client.commands.get(cmd).execute(msg,args)
                     .then(() => {
                         setTimeout(() => {
-                            client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1)
-                        } , 7000)
-                        console.log("executed")
+                            client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1);
+                        } , 7000);
+                        console.log("executed");
                     })
                     .catch(reason =>{
                         client.channels.cache.get("866296391281803274").send(
-                            `\`\`-ERROR-\`\` \nThe command \`\`${cmd}\`\` is executed by user ${msg.author.username}#${msg.author.discriminator}\nError reason:\n\`\`\`js\n${reason}\n\`\`\``)
+                            `\`\`-ERROR-\`\` \nThe command \`\`${cmd}\`\` is executed by user ${msg.author.username}#${msg.author.discriminator}\nError reason:\n\`\`\`js\n${reason}\n\`\`\``);
                     })
                 
                 
     
-                return 0
+                return 0;
 
             }else{
 
-                let find = false
+                let find = false;
 
                 Array.from(client.commands.values()).forEach(async tempcmd => {
 
@@ -281,21 +281,21 @@ class client extends Discord.Client{
 
                         if(cmd === aliase){
 
-                            find = true
+                            find = true;
 
                             await tempcmd.execute(msg, args)
                                 .then(() => {
                                     setTimeout(() => {
-                                        client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1)
-                                    } , 7000)
-                                    console.log("executed")
+                                        client.cooldown.set(msg.author.id,client.cooldown.get(msg.author.id) - 1);
+                                    } , 7000);
+                                    console.log("executed");
                                 })
                                 .catch(reason =>{
                                     client.channels.cache.get("866296391281803274").send(
                                         `\`\`-ERROR-\`\` \nThe command \`\`${cmd}\`\` is executed by user ${msg.author.username}#${msg.author.discriminator}\nError reason:\n\`\`\`js\n${reason}\n\`\`\``)
                                 })
 
-                            return 0
+                            return 0;
 
                         }
 
@@ -303,18 +303,18 @@ class client extends Discord.Client{
 
                 })
 
-                if(find) return 0
+                if(find) return 0;
 
             }
     
-            return 1
+            return 1;
         }
     
-        return 0    
+        return 0;
 
     }
 
 }
 
 
-module.exports = client
+module.exports = client;

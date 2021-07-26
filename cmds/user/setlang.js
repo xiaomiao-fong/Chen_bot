@@ -5,29 +5,29 @@ class setlang extends Command{
 
     constructor(client){
 
-        super("setlang","user",client)
+        super("setlang","user",client);
 
         this.cmd = async function(msg, args){
 
-            let userlang = msg.author.lang
+            let userlang = msg.author.lang;
             
-            if(!args[0]) return msg.channel.send(this.lang[userlang].avail_lang)
+            if(!args[0]) return msg.channel.send(this.lang[userlang].avail_lang);
 
             let lang = args[0]
 
-            if(!['zh_TW', 'en_US'].includes(args[0])) return msg.channel.send(this.lang[userlang].avail_lang)
-            if(msg.author.lang === lang) return msg.channel.send(this.lang[userlang].alr)
+            if(!['zh_TW', 'en_US'].includes(args[0])) return msg.channel.send(this.lang[userlang].avail_lang);
+            if(msg.author.lang === lang) return msg.channel.send(this.lang[userlang].alr);
 
-            let sent = await msg.channel.send(this.lang[userlang].plz_wait)
-            let result = await this.client.userdata.update({ language : lang }, {where : { user_id : msg.author.id }})
+            let sent = await msg.channel.send(this.lang[userlang].plz_wait);
+            let result = await this.client.userdata.update({ language : lang }, {where : { user_id : msg.author.id }});
 
             if(result > 0) {
 
-                sent.edit(this.lang[userlang].success + lang)
+                sent.edit(this.lang[userlang].success + lang);
 
             }else {
 
-                sent.edit(this.lang[userlang].failed)
+                sent.edit(this.lang[userlang].failed);
 
             }
 
@@ -57,4 +57,4 @@ class setlang extends Command{
 
 }
 
-module.exports = setlang
+module.exports = setlang;

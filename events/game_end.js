@@ -5,13 +5,13 @@ class game_end extends Event{
 
     constructor(client){
 
-        super('game_end',false,client)
+        super('game_end',false,client);
 
         this.func = async function(user1, user2){
 
-            this.client.playing.delete(user1.id)
-            this.client.playing.delete(user2.id)
-            console.log("success")
+            this.client.playing.delete(user1.id);
+            this.client.playing.delete(user2.id);
+            console.log("success");
 
         }
 
@@ -20,4 +20,4 @@ class game_end extends Event{
 }
 
 
-module.exports = game_end
+module.exports = game_end;

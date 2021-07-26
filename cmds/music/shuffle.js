@@ -6,21 +6,21 @@ class shuffle extends Command{
 
     constructor(client){
 
-        super("shuffle","music",client)
+        super("shuffle","music",client);
 
         this.cmd = async function(msg,args){
 
             if(!msg.guild) return 0;
 
-            let userlang = msg.author.lang
+            let userlang = msg.author.lang;
             
             if(this.client.music.has(msg.guild.id)){
 
-                this.client.music.get(msg.guild.id).shuffle(msg)
+                this.client.music.get(msg.guild.id).shuffle(msg);
 
             }else{
 
-                msg.channel.send(this.client.language.commands.music[userlang].notin_channel)
+                msg.channel.send(this.client.language.commands.music[userlang].notin_channel);
 
             }
 
@@ -30,4 +30,4 @@ class shuffle extends Command{
 
 }
 
-module.exports = shuffle
+module.exports = shuffle;

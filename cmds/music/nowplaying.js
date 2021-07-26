@@ -6,24 +6,24 @@ class nowplaying extends Command{
 
     constructor(client){
 
-        super("nowplaying","music",client)
+        super("nowplaying","music",client);
         
-        this.aliases = ["np"]
+        this.aliases = ["np"];
 
         this.cmd = async function(msg, args){
 
             if(!msg.guild) return 0;
 
-            let userlang = msg.author.lang
+            let userlang = msg.author.lang;
             
             if(this.client.music.has(msg.guild.id)){
 
-                if(!this.client.music.get(msg.guild.id).current) return msg.channel.send(this.client.language.commands.music[userlang].not_playing)
-                this.client.music.get(msg.guild.id).nowplaying(msg)
+                if(!this.client.music.get(msg.guild.id).current) return msg.channel.send(this.client.language.commands.music[userlang].not_playing);
+                this.client.music.get(msg.guild.id).nowplaying(msg);
 
             }else{
 
-                msg.channel.send(this.client.language.commands.music[userlang].not_playing)
+                msg.channel.send(this.client.language.commands.music[userlang].not_playing);
 
             }
 
@@ -33,4 +33,4 @@ class nowplaying extends Command{
 
 }
 
-module.exports = nowplaying
+module.exports = nowplaying;

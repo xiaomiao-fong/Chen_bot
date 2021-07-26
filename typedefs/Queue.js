@@ -1,29 +1,27 @@
-
-
 class MusicQueue{
 
     constructor(){
 
-        this.queue = []
+        this.queue = [];
 
     }
 
     add(music){
 
-        this.queue.push(music)
+        this.queue.push(music);
 
     }
 
     clear(){
 
-        this.queue = []
+        this.queue = [];
 
     }
 
     next(index = 0){
 
-        this.queue.shift()
-        return this.queue[0]
+        this.queue.shift();
+        return this.queue[0];
 
     }
 
@@ -37,19 +35,19 @@ class MusicQueue{
 
         if(index >= this.queue.length) {
 
-            return "Not found"
+            return "Not found";
 
         }
 
-        let removed = this.queue[index]
-        this.queue.splice(index,1)
-        return removed
+        let removed = this.queue[index];
+        this.queue.splice(index,1);
+        return removed;
 
     }
 
     shuffle() {
 
-        let arr = this.queue
+        let arr = this.queue;
         let i,j,temp;
 
         for (i = arr.length - 1; i > 1; i--) {
@@ -67,4 +65,4 @@ class MusicQueue{
 
 }
 
-module.exports = MusicQueue
+module.exports = MusicQueue;

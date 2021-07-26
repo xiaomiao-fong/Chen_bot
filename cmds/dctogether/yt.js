@@ -5,16 +5,16 @@ class Yt extends Command{
 
     constructor(client){
        
-        super("yt","dctogether",client)
+        super("yt","dctogether",client);
 
         this.cmd = async function(msg,args){
 
             if(msg.member.voice.channel){
                 this.client.discordtogether.createTogetherCode(msg.member.voice.channelID, 'youtube').then(async invite =>{
-                    return msg.channel.send(`${invite.code}`)
+                    return msg.channel.send(`${invite.code}`);
                 })
             }else{
-                msg.channel.send("You must be in a voice channel to use this command.")
+                msg.channel.send("You must be in a voice channel to use this command.");
             }
 
         }
@@ -24,4 +24,4 @@ class Yt extends Command{
 }
 
 
-module.exports = Yt
+module.exports = Yt;

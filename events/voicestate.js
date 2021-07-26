@@ -1,5 +1,5 @@
 const Event = require("../typedefs/Event");
-const Discord = require("discord.js")
+const Discord = require("discord.js");
 
 
 class voicestateupdate extends Event{
@@ -7,7 +7,7 @@ class voicestateupdate extends Event{
 
     constructor(client){
 
-        super("voiceStateUpdate",false,client)
+        super("voiceStateUpdate",false,client);
 
         /**
          * @param {Discord.VoiceState} oldstate 
@@ -20,11 +20,11 @@ class voicestateupdate extends Event{
 
                 if (!newstate.connection) {
 
-                    this.client.music.delete(newstate.guild.id)
+                    this.client.music.delete(newstate.guild.id);
 
                 }else if(this.client.music.get(newstate.guild.id)){
 
-                    this.client.music.get(newstate.guild.id).connection = newstate.connection
+                    this.client.music.get(newstate.guild.id).connection = newstate.connection;
 
                 }
 
@@ -36,4 +36,4 @@ class voicestateupdate extends Event{
 
 }
 
-module.exports = voicestateupdate
+module.exports = voicestateupdate;

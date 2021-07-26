@@ -1,12 +1,12 @@
 const Command = require("../../typedefs/Command");
-const Discord = require("discord.js")
+const Discord = require("discord.js");
 
 
 class ping extends Command{
 
     constructor(client){
 
-        super("ping","util",client)
+        super("ping","util",client);
 
         /**
          * 
@@ -18,7 +18,7 @@ class ping extends Command{
 
             msg.channel.send("Pinging...").then(sent => {
 
-                sent.edit(`Ping ${sent.createdTimestamp - msg.createdTimestamp}ms`)
+                sent.edit(`Ping ${sent.createdTimestamp - msg.createdTimestamp}ms`);
 
             })
 
@@ -28,4 +28,4 @@ class ping extends Command{
 
 }
 
-module.exports = ping
+module.exports = ping;
