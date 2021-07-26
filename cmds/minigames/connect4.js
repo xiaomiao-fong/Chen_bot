@@ -191,7 +191,8 @@ class connect4 extends two_p_Game {
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    // client.colors / white =============== I'm not sure what this "/" does so I assume it is a typo
+                                    // client.colors / white
+                                    client.colors.white
                                     client.colors.white
                                 )
                             );
