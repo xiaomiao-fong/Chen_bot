@@ -38,7 +38,7 @@ class remove extends Command{
 
             }
 
-        }
+        };
 
     }
 

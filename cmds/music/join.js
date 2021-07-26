@@ -44,7 +44,7 @@ class join extends Command{
             }
 
 
-        }
+        };
 
     }
 

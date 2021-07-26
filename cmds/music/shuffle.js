@@ -24,7 +24,7 @@ class shuffle extends Command{
 
             }
 
-        }
+        };
 
     }
 

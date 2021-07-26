@@ -28,7 +28,7 @@ class status extends Command{
 
             msg.channel.send(embed);
 
-        }
+        };
 
     }
 

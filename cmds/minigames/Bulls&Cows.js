@@ -73,7 +73,7 @@ class BullsandCows extends Command{
         
             })
         
-        }
+        };
 
     }
 
@@ -129,11 +129,11 @@ class guessnumber{
         if(guess_number.length!==4) return false;
         if(this.playerid !== authorid) return false;
 
-        for(var i = 0; i < 4; i++){       
+        for(let i = 0; i < 4; i++){       
             if(!this.arr.includes(guess_number[i])) return false;
         }
 
-        for(var i = 0; i < 3; i++){
+        for(let i = 0; i < 3; i++){
             for(var j = i + 1; j < 4;j++){
                 if(guess_number[i] === guess_number[j]) return false;
             }

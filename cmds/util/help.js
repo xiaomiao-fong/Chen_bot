@@ -90,10 +90,9 @@ class Help extends Command{
 
             }
 
-        }
+        };
 
     }
-
 
 }
 

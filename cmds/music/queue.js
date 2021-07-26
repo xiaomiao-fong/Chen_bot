@@ -27,7 +27,7 @@ class showsongqueue extends Command{
 
             }
 
-        }
+        };
 
     }
 

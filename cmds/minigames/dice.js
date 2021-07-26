@@ -13,7 +13,7 @@ class dice extends Command{
             let userlang = msg.author.lang;
             return msg.channel.send(this.client.language.commands.game[userlang].rolled + ` ${Math.floor(Math.random()*6)+1}`);
 
-        }
+        };
 
     }
 

@@ -1,7 +1,8 @@
-const two_p_Game = require("../../typedefs/Game");
+const Two_P_Game = require("../../typedefs/Game");
 const Myclient = require("../../typedefs/client");
 
-class connect4 extends two_p_Game {
+class connect4 extends Two_P_Game {
+
     constructor(client) {
         super(
             "connect4",
@@ -24,8 +25,8 @@ class connect4 extends two_p_Game {
             async function connect4(msg, iuser, client) {
                 // create a new connect 4 game between author and an invited user
                 let game = new c4(msg.author.id, iuser.id);
-                let current_color = "red";
-                let userlang = msg.author.lang
+                let Currnet_Color = "red";
+                let userlang = msg.author.lang;
 
                 let field1 = {
                     name: "Now : ",
@@ -62,7 +63,7 @@ class connect4 extends two_p_Game {
                 const filter = (reaction, user) => {
                     let pass = game.reactions.includes(reaction.emoji.name) && !user.bot;
                     return pass;
-                }
+                };
 
                 const redcollector = rmsg.createReactionCollector(filter, {
                     idle: 300 * 1000,
@@ -93,13 +94,15 @@ class connect4 extends two_p_Game {
                         return;
                     }
 
-                    if (user.id === game.redid && current_color !== "red")
+                    if (user.id === game.redid && Currnet_Color !== "red"){
                         return;
+                    }
+                        
 
                     switch (
                         game.place(
                             "1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣🛑".indexOf(reaction.emoji.name) / 3,
-                            current_color
+                            Currnet_Color
                         )
                     ) {
                         case 0:
@@ -107,18 +110,18 @@ class connect4 extends two_p_Game {
                             break;
 
                         case 1:
-                            current_color = "yellow";
-                            let current_player = iuser;
+                            Currnet_Color = "yellow";
+                            let Current_Player = iuser;
                             let field1 = {
                                 name: "Now : ",
-                                value: current_player.username + client.language.commands.game[userlang].ones_turn,
+                                value: Current_Player.username + client.language.commands.game[userlang].ones_turn,
                                 inline: true,
                             };
                             await rmsg.edit(
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors[current_color],
+                                    client.colors[Currnet_Color],
                                     [field1]
                                 )
                             );
@@ -126,7 +129,7 @@ class connect4 extends two_p_Game {
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors[current_color],
+                                    client.colors[Currnet_Color],
                                     [field1]
                                 )
                             );
@@ -135,18 +138,18 @@ class connect4 extends two_p_Game {
                             let board = game.map.slice()
                             let stack = game.stack.slice()
                             let result = game.c4minimax(board,stack,4,true,0,0)
-                            switch(game.place(result.move,current_color)){
+                            switch(game.place(result.move,Currnet_Color)){
 
                                 case 1:
-                                    current_color = "red"
-                                    let field2 = {name: "Now : ",value: `${current_color}'s turn!` , inline: true}
-                                    bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color],[field2]))
+                                    Currnet_Color = "red"
+                                    let field2 = {name: "Now : ",value: `${Currnet_Color}'s turn!` , inline: true}
+                                    bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[Currnet_Color],[field2]))
                                     break;
 
                                 case 2:
 
-                                    bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color]))
-                                    msg.channel.send(current_color + " wins!")
+                                    bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[Currnet_Color]))
+                                    msg.channel.send(Currnet_Color + " wins!")
                                     reactcollector.stop()
                                     break;
 
@@ -158,14 +161,14 @@ class connect4 extends two_p_Game {
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors[current_color]
+                                    client.colors[Currnet_Color]
                                 )
                             );
                             await ymsg.edit(
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors[current_color]
+                                    client.colors[Currnet_Color]
                                 )
                             );
                             iuser.send(msg.author.username + client.language.commands.game[userlang].wins);
@@ -220,14 +223,18 @@ class connect4 extends two_p_Game {
                     }
 
                     console.log("y1");
-                    if (user.id === game.yellowid && current_color !== "yellow")
+                    if (user.id === game.yellowid && Currnet_Color !== "yellow"){
+
                         return;
+                        
+                    }
+                        
                     console.log("y2");
 
                     switch (
                         game.place(
                             "1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣🛑".indexOf(reaction.emoji.name) / 3,
-                            current_color
+                            Currnet_Color
                         )
                     ) {
                         case 0:
@@ -235,18 +242,18 @@ class connect4 extends two_p_Game {
                             break;
 
                         case 1:
-                            current_color = "red";
-                            let current_player = msg.author;
+                            Currnet_Color = "red";
+                            let Current_Player = msg.author;
                             let field1 = {
                                 name: "Now : ",
-                                value: current_player.username + client.language.commands.game[userlang].ones_turn,
+                                value: Current_Player.username + client.language.commands.game[userlang].ones_turn,
                                 inline: true,
                             };
                             await rmsg.edit(
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors[current_color],
+                                    client.colors[Currnet_Color],
                                     [field1]
                                 )
                             );
@@ -254,7 +261,7 @@ class connect4 extends two_p_Game {
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors[current_color],
+                                    client.colors[Currnet_Color],
                                     [field1]
                                 )
                             );
@@ -263,18 +270,18 @@ class connect4 extends two_p_Game {
                             let board = game.map.slice()
                             let stack = game.stack.slice()
                             let result = game.c4minimax(board,stack,4,true,0,0)
-                            switch(game.place(result.move,current_color)){
+                            switch(game.place(result.move,Currnet_Color)){
 
                                 case 1:
-                                    current_color = "red"
-                                    let field2 = {name: "Now : ",value: `${current_color}'s turn!` , inline: true}
-                                    bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color],[field2]))
+                                    Currnet_Color = "red"
+                                    let field2 = {name: "Now : ",value: `${Currnet_Color}'s turn!` , inline: true}
+                                    bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[Currnet_Color],[field2]))
                                     break;
 
                                 case 2:
 
-                                    bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color]))
-                                    msg.channel.send(current_color + " wins!")
+                                    bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[Currnet_Color]))
+                                    msg.channel.send(Currnet_Color + " wins!")
                                     reactcollector.stop()
                                     break;
 
@@ -286,14 +293,14 @@ class connect4 extends two_p_Game {
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors[current_color]
+                                    client.colors[Currnet_Color]
                                 )
                             );
                             await ymsg.edit(
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors[current_color]
+                                    client.colors[Currnet_Color]
                                 )
                             );
                             iuser.send(iuser.username + client.language.commands.game[userlang].wins);
@@ -358,7 +365,7 @@ class c4 {
 
     /**
      * Function to place a piece into the board
-     * @param {number} col_i - x coordinate of the piece
+     * @param {number} Col_Index - x coordinate of the piece
      * @param {*} color - Colour of the piece
      * @returns check win condition - 0/1/2/3  
      * win condition: 0 - invalid move;
@@ -366,18 +373,18 @@ class c4 {
      *                2 - player wins;
      *                3 - draw
      */
-    place(col_i, color) {
+    place(Col_Index, color) {
         let x, y;
 
-        if (this.stack[col_i] !== -1) {
-            x = col_i;
-            y = this.stack[col_i];
+        if (this.stack[Col_Index] !== -1) {
+            x = Col_Index;
+            y = this.stack[Col_Index];
             if (color === "yellow") {
                 this.map[y][x] = "🟡";
             } else {
                 this.map[y][x] = "🔴";
             }
-            this.stack[col_i] -= 1;
+            this.stack[Col_Index] -= 1;
         } else {
             // invalid move - column is full
             return 0;

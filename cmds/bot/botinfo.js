@@ -38,7 +38,7 @@ class info extends Command{
 
             msg.channel.send(embed);
 
-        }
+        };
 
         this.aliases = ["bi"];
 

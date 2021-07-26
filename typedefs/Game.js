@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const Myclient = require("./client");
 
 
-class two_p_Game{
+class Two_P_Game{
 
     /**
      * 
@@ -124,4 +124,4 @@ class two_p_Game{
 }
 
 
-module.exports = two_p_Game;
+module.exports = Two_P_Game;

@@ -45,7 +45,7 @@ class reload extends Command{
 
             msg.channel.send(`Command \`\`${target}\`\` has been reloaded successfully`);
 
-        }
+        };
 
     }
 

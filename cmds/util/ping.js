@@ -22,7 +22,7 @@ class ping extends Command{
 
             })
 
-        }
+        };
 
     }
 

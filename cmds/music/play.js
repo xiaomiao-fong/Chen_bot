@@ -124,7 +124,7 @@ class play extends Command{
 
             }
 
-        }
+        };
 
     }
 

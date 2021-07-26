@@ -35,7 +35,7 @@ class stopmusic extends Command{
 
             }
 
-        }
+        };
 
     }
 

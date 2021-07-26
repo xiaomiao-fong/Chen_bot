@@ -43,7 +43,7 @@ class register extends Command{
 
             }
 
-        }
+        };
 
         this.lang =
         {
@@ -59,7 +59,8 @@ class register extends Command{
                 "succ_created" : "You account has been created successfully.",
                 "plz_wait" : "Please wait for a moment..."
             }
-        }
+
+        };
 
     }
 

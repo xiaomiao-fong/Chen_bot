@@ -13,7 +13,7 @@ class fishing extends Command{
             if(msg.member.voice.channel){
                 this.client.discordtogether.createTogetherCode(msg.member.voice.channelID,"fishing").then(async invite =>{
                     return msg.channel.send(`${invite.code}`);
-                })
+                });
             }else{
                 msg.channel.send("You must be in a voice channel to use this command.");
             }

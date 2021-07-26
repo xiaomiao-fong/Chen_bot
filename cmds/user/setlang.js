@@ -31,7 +31,7 @@ class setlang extends Command{
 
             }
 
-        }
+        };
 
         this.lang = 
         {
@@ -51,7 +51,8 @@ class setlang extends Command{
                 "plz_wait" : "Please wait for a moment...",
                 "alr" : "You are already using this language."
             }
-        }
+
+        };
 
     }
 

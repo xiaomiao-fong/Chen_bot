@@ -23,7 +23,7 @@ class skipsong extends Command{
 
             }
 
-        }
+        };
 
     }
 
