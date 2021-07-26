@@ -24,7 +24,6 @@ class connect4 extends two_p_Game {
             async function connect4(msg, iuser, client) {
                 // create a new connect 4 game between author and an invited user
                 let game = new c4(msg.author.id, iuser.id);
-                let end = false; // (unused variable?)
                 let current_color = "red";
                 let userlang = msg.author.lang
 
@@ -54,7 +53,7 @@ class connect4 extends two_p_Game {
 
                 // react with emojis in reactions array
                 // using for...of loop
-                for (emoji of game.reactions) {
+                for (let emoji of game.reactions) {
                     await rmsg.react(emoji);
                     await ymsg.react(emoji);
                 }
@@ -89,16 +88,13 @@ class connect4 extends two_p_Game {
                                 client.colors.black
                             )
                         );
-                        end = true;
                         redcollector.stop();
                         yellowcollector.stop();
                         return;
                     }
 
-                    console.log("r1");
                     if (user.id === game.redid && current_color !== "red")
                         return;
-                    console.log("r2");
 
                     switch (
                         game.place(
@@ -152,7 +148,6 @@ class connect4 extends two_p_Game {
                                     bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color]))
                                     msg.channel.send(current_color + " wins!")
                                     reactcollector.stop()
-                                    end = true
                                     break;
 
                             }
@@ -219,7 +214,6 @@ class connect4 extends two_p_Game {
                                 client.colors.black
                             )
                         );
-                        end = true;
                         redcollector.stop();
                         yellowcollector.stop();
                         return;
@@ -282,7 +276,6 @@ class connect4 extends two_p_Game {
                                     bmsg.edit(client.EmbedMaker(msg, game.stringify(), client.colors[current_color]))
                                     msg.channel.send(current_color + " wins!")
                                     reactcollector.stop()
-                                    end = true
                                     break;
 
                             }
@@ -305,7 +298,6 @@ class connect4 extends two_p_Game {
                             );
                             iuser.send(iuser.username + client.language.commands.game[userlang].wins);
                             msg.author.send(iuser.username + client.language.commands.game[userlang].wins);
-                            end = true;
                             redcollector.stop();
                             yellowcollector.stop();
                             break;
