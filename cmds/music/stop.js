@@ -8,7 +8,7 @@ class stopmusic extends Command{
 
     constructor(client){
 
-        super("stop","music","Bot stops playinf music and leave the channel", client)
+        super("stop","music",client)
 
         /**
          * 
@@ -20,6 +20,7 @@ class stopmusic extends Command{
 
             if(!msg.guild) return 0;
             
+            let userlang = msg.author.lang
             
             if(this.client.music.has(msg.guild.id)){
                 
@@ -30,7 +31,7 @@ class stopmusic extends Command{
 
             }else{
 
-                msg.channel.send("I'm not in a voice channel right now.")
+                msg.channel.send(this.client.language.commands.music[userlang].notin_channel)
 
             }
 

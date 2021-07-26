@@ -11,14 +11,14 @@ class Command{
      * @param {String} description 
      */
 
-    constructor(name,group,description,client){
+    constructor(name,group,client){
 
         this.cmd;
         this.name = name;
         this.group = group;
         /** @type {MyClient} this.client */
         this.client = client
-        this.description = description;
+        this.description = "";
         this.availble = true
         this.aliases = []
 

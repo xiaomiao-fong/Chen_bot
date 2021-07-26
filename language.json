@@ -1,0 +1,246 @@
+{
+
+    "commands_help": 
+    {
+
+        "fishing":
+        {
+            "zh_TW":"如果你想跟你的朋友出去釣魚但無法， 這個小遊戲會滿足你的需求!",
+            "en_US":"If you wanna go fishing w/ your friends but you cant go out, this small game will satisfy your requirements"
+        },
+        "yt":
+        {
+            "zh_TW":"想要跟朋友一起在dc上面看youtube嗎? \n那就來試試這個功能吧!",
+            "en_US":"Wanna watch youtube on discord w/ your friends? \nWell check out this function!"
+        },
+        "botinfo":
+        {
+            "zh_TW":"顯示這個機器人的資訊。",
+            "en_US":"Shows the information of this bot."
+        },
+        "botstat":
+        {
+            "zh_TW":"顯示機器人的數據。",
+            "en_US":"Show the bot's current stats."
+        },
+        "help":
+        {
+            "zh_TW":"幫助您更了解本機器人的功能!",
+            "en_US":"Helps you understand about this bot more!"
+        },
+        "ping":
+        {
+            "zh_TW":"顯示機器人的網路延遲。",
+            "en_US":"Shows the bot's ping."
+        },
+        "Bulls&Cows":
+        {
+            "zh_TW":"Bulls and Cows (1A2B) 是一個猜四位數字的遊戲(數字不重複)，在這個遊戲中你要藉由你猜的數字及機器人給的線索來去判斷正確答案.\n如果你想要知道更多有關這個遊戲的玩法，請參考這個網址!\nhttps://www.codingame.com/playgrounds/52463/bulls-and-cows",
+            "en_US":"Bulls and Cows (1A2B) is a game that you guess for a 4-digit number, all digits are different.\nIf you want to know more about this game, check out this website!\nhttps://www.codingame.com/playgrounds/52463/bulls-and-cows\n\nPs:In this version A,B refers to Bulls and Cows"
+        },
+        "connect4":
+        {
+            "zh_TW":"Connect 4 是一個雙人遊戲，遊戲的目標就是你要將你的棋子在棋盤的六行中選擇一行放下去，並在斜線、水平或垂直方向中將四個棋子連為一線。\n\n使用 cn!connect4 ``@用戶名`` 來去邀請對方與你一起遊玩!",
+            "en_US":"Connect 4 is a two player game. The object is that you drop your chesses inside a 6x7 grid and try to connect 4 same colors in a row, it can be horizontal, diagonal or vertical.\n\nDo cn!connect4 ``@username`` to invite someone to play w/ you!"
+        },
+        "dice":
+        {
+            "zh_TW":"隨機生成一個範圍從一到六的數字。",
+            "en_US":"Randomly generates a number between 1~6."
+        },
+        "reversi":
+        {
+            "zh_TW":"黑白棋(陰陽棋)是一個雙人棋類遊戲，遊戲的目標就是嘗試將對方的顏色旗子全部翻成你的顏色的旗子。 \n\n使用cn!reversi ``@用戶名`` 來邀請你的朋友與你遊玩!",
+            "en_US":"Reversi is a two player game. The object is to flip all your opponent's color into your color. \n\nDo cn!reversi ``@username`` to invite someone to play w/ you!"
+        },
+        "join":
+        {
+            "zh_TW":"如果機器人沒有在其他語音頻道裡，機器人會加入你的語音頻道。",
+            "en_US":"Make the bot join your current voice channel if the bot is not in a voice channel."
+        },
+        "nowplaying":
+        {
+            "zh_TW":"顯示正在播放的音樂。",
+            "en_US":"Show's the current song that is being played."
+        },
+        "pause":
+        {
+            "zh_TW":"讓機器人暫停播放音樂，再次使用此指令可以回復播放。",
+            "en_US":"Pause the music that is being played right now. Use this command again to resume it."
+        },
+        "play":
+        {
+            "zh_TW":"使用這個指令來去播放音樂，目前接受yt網址和關鍵字。",
+            "en_US":"Use this command to play music!\n Yt link and keywords are allowed."
+        },
+        "queue":
+        {
+            "zh_TW":"顯示現在這個伺服器中的播放清單。",
+            "en_US":"Shows current music queue in the guild."
+        },
+        "remove":
+        {
+            "zh_TW":"從播放清單中移除歌曲。\n使用方法: cn!remove {號碼}",
+            "en_US":"Remove a song from the queue. Syntax: cn!remove {index}"
+        },
+        "shuffle":
+        {
+            "zh_TW":"將現在的播放清單打亂。",
+            "en_US":"Shuffles the current queue."
+        },
+        "skip":
+        {
+            "zh_TW":"跳過正在播放的音樂。",
+            "en_US":"Skip the song that is currently being played."
+        },
+        "stop":
+        {
+            "zh_TW":"讓機器人停止播放音樂且離開頻道。",
+            "en_US":"Bot stops playing music and leave the channel"
+        }
+
+    },
+    
+    "commands":
+    {
+        "help":
+        {
+            "zh_TW":
+            {
+                "no_des" : "這個指令沒有說明",
+                "aliases" : "別名",
+                "group_cmds" : "這裡是這個分類的所有指令:\n\n",
+                "cmd_name" : "\n使用 ``cn!help {指令名} `` 以獲得更多有關指令的訊息!",
+                "cmd_nf" : "找不到你指定的指令，以下是所有可以查詢的指令分類:",
+                "group_list" : "這裡是所有可以查詢的分類:\n\n",
+                "group_name" : "\n使用 ``cn!help {分類名} `` 以獲得這個分類的所有指令!"
+            },
+            "en_US":
+            {
+                "no_des" : "This command does not have a description.",
+                "aliases" : "aliases",
+                "group_cmds" : "Here are a list of commands of this command group:\n\n",
+                "cmd_name" : "\nDo cn!help ``{command name}`` for more information!",
+                "cmd_nf" : "Cannot find the command you are looking for. But here's a list of command groups you can check out!",
+                "group_list" : "List of command groups:\n\n",
+                "group_name" : "\nDo cn!help ``{command_group_name}`` for more informations!"
+            }
+        },
+        "music":
+        {
+            "zh_TW":
+            {
+                "channel_first" : "請先加入一個語音頻道",
+                "channel_alr" : "我已經在一個語音頻道裡了",
+                "not_playing" : "目前沒有音樂正在播放",
+                "notin_channel" : "我目前沒有在語音頻道裡",
+                "missing_arg" : "缺少參數",
+                "invalid_arg" : "不正確的參數",
+                "same_channel" : "你必須要在同一個頻道以使用這個指令",
+                "added_song" : "已將歌曲 ``{0}`` 加至播放清單",
+                "empty_queue" : "目前清單沒有東西，請使用 cn!play [網址/關鍵字] 來將歌曲加到清單裡!",
+                "skipped" : "已跳過歌曲",
+                "song_nf" : "找不到編號為 {0} 的歌曲",
+                "succ_remove" : "成功移除",
+                "paused" : "已暫停",
+                "resumed" : "已回復播放!",
+                "nothing_shuffle" : "沒有歌單給我打亂拉QwQ",
+                "shuffled" : "已打亂歌單"
+            },
+            "en_US":
+            {
+                "channel_first" : "You have to join in a voice channel first.",
+                "channel_alr" : "I'm already in a voice channel!",
+                "not_playing" : "There's currently no song being played right now.",
+                "notin_channel" : "I'm not in a voice channel right now.",
+                "missing_arg" : "Missing argument(s)",
+                "invalid_arg" : "Invalid argument(s)",
+                "same_channel" : "You have to be in the same channel to use this command.",
+                "added_song" : "Added ``{0}`` to queue",
+                "empty_queue" : "The Queue is empty, type cn!play [url/keyword] to add songs to queue!",
+                "skipped" : "Successfully skipped",
+                "song_nf" : "Can't find song at index {0}",
+                "succ_remove" : "Successfully removed",
+                "paused" : "Paused",
+                "resumed" : "Resumed!",
+                "nothing_shuffle" : "There's nothing to shuffle",
+                "shuffled" : "Shuffled"
+            }
+        },
+        "game":
+        {
+            "zh_TW":
+            {
+                "game_his" : "遊戲紀錄: \n",
+                "bs_lose" : "你沒有猜到正確答案，正確答案為",
+                "bs_win" : "你猜中了! 答案是:",
+                "ones_turn" : "的回合",
+                "abrupted" : "遊戲被 {0} 終止了",
+                "col_full" : "這行已經滿了喔",
+                "wins" : "贏了!",
+                "draw" : "平手!",
+                "rolled" : "你擲出了:",
+                "syntax" : "格式:",
+                "row_col" : "(行,列)\n範例:(3,7)",
+                "type_surr" : "遊戲開始! 如果你想要投降請打surrender",
+                "w_surr" : "白色投降了",
+                "b_surr" : "黑色投降了",
+                "no1wins" : "沒有人贏",
+                "unplaceable" : "這個位置不能放置"
+            },
+            "en_US":
+            {
+                "game_his" : "Game history: \n",
+                "bs_lose" : "You didn't guess the correct answer. The answer is",
+                "bs_win" : "You guessed the answer! The answer is",
+                "ones_turn" : "'s turn",
+                "abrupted" : "Game abrupted by {0}",
+                "col_full" : "This column is full.",
+                "wins" : "wins!",
+                "draw" : "Draw!",
+                "rolled" : "You rolled:",
+                "syntax" : "Syntax:",
+                "row_col" : "(row,col)\nEX:(3,7)",
+                "type_surr" : "Game start! If you want to Surrender just type surrender",
+                "w_surr" : "White surrendered.",
+                "b_surr" : "Black surrendered.",
+                "no1wins" : "No one wins.",
+                "unplaceable" : "This place is unplaceable"
+            }
+        },
+        "invite":
+        {
+            "zh_TW":
+            {
+                "sending_inv" : "發送 {0} 邀請給 ",
+                "received_inv" : "{0} 邀請你一起玩 {1}，你要接受邀請嗎?",
+                "accept_inv" : "對方已接受邀請",
+                "accepted_inv" : "你接受了邀請",
+                "decline_inv" : "對方拒絕你的邀請",
+                "declined_inv" : "你拒絕了邀請",
+                "mention_one" : "請標記一個人",
+                "mention_less" : "請不要標記多於一個人",
+                "being_invited" : "你現在正在邀請或被另一個人邀請",
+                "you_playing" : "你現在正在遊玩",
+                "target_invited" : " 正在邀請或被另一個人邀請",
+                "target_playing" : " 現在正在遊玩 "
+            },
+            "en_US":
+            {
+                "sending_inv" : "Sending {0} invite to ",
+                "received_inv" : "{0} has sent you a {1} invitation, would you like to accept it?",
+                "accept_inv" : "Your invitation has been accepted.",
+                "accepted_inv" : "You accepted the invitation.",
+                "decline_inv" : "Your invitation has been declined.",
+                "declined_inv" : "You declined the invitation.",
+                "mention_one" : "Please mention an person.",
+                "mention_less" : "Please don't mention more than one person.",
+                "being_invited" : "You are currently inviting someone or being invited.",
+                "you_playing" : "You are currently playing",
+                "target_invited" : " is currently inviting someone or being invited.",
+                "target_playing" : " is currently playing "
+            }
+        }
+    }
+
+}

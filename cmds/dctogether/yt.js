@@ -5,7 +5,7 @@ class Yt extends Command{
 
     constructor(client){
        
-        super("yt","dctogether","Wanna watch youtube on discord w/ your friends? \nWell check out this function!",client)
+        super("yt","dctogether",client)
 
         this.cmd = async function(msg,args){
 

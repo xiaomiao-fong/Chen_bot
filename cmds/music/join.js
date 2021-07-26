@@ -7,7 +7,7 @@ class join extends Command{
 
     constructor(client){
 
-        super("join","music",undefined,client)
+        super("join","music",client)
         
         
         /**
@@ -18,11 +18,13 @@ class join extends Command{
 
         this.cmd = async function(msg,arg){
 
+            let userlang = msg.author.lang
+
             if(!msg.guild) return 0;
 
             if(this.client.music.has(msg.guild.id)) {
 
-                msg.channel.send("I'm already in a voice channel!")
+                msg.channel.send(this.client.language.commands.music[userlang].channel_alr)
                 return 0;
 
             }
@@ -36,7 +38,7 @@ class join extends Command{
 
             }else{
 
-                msg.reply("You have to join in a voice channel first.")
+                msg.reply(this.client.language.commands.music[userlang].channel_first)
                 return 0;
 
             }

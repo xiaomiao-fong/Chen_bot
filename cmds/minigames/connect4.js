@@ -6,11 +6,9 @@ class connect4 extends two_p_Game {
         super(
             "connect4",
             "minigames",
-            "Connect 4 is a two player game. \
-        The object is that you drop your chesses inside a 6x7 grid and try to connect 4 same colors in a row, \
-        it can be horizontal, diagonal or vertical.\n\nDo cn!minigame ``@username`` to invite someone to play w/ you!",
             client
         );
+
 
         this.image =
             "https://cdn.discordapp.com/attachments/737224846878179360/851102547603357746/connect_demo.gif";
@@ -28,10 +26,11 @@ class connect4 extends two_p_Game {
                 let game = new c4(msg.author.id, iuser.id);
                 let end = false; // (unused variable?)
                 let current_color = "red";
+                let userlang = msg.author.lang
 
                 let field1 = {
                     name: "Now : ",
-                    value: `${msg.author.username}'s turn!`,
+                    value: msg.author.username + client.language.commands.game[userlang].ones_turn,
                     inline: true,
                 };
                 // message send to red player
@@ -53,15 +52,8 @@ class connect4 extends two_p_Game {
                     )
                 );
 
-                // - old code
-                /*
-                for(var i = 0; i < 8; i++){
-                    rmsg.react(game.reactions[i])
-                    ymsg.react(game.reactions[i])
-                }
-                */
-
                 // react with emojis in reactions array
+                // using for...of loop
                 for (emoji of game.reactions) {
                     await rmsg.react(emoji);
                     await ymsg.react(emoji);
@@ -86,14 +78,14 @@ class connect4 extends two_p_Game {
                         rmsg.edit(
                             client.EmbedMaker(
                                 msg,
-                                `Game abrupted by ${user.username}`,
+                                client.language.commands.game[userlang].abrupted.replace("{0}",user.username),
                                 client.colors.black
                             )
                         );
                         ymsg.edit(
                             client.EmbedMaker(
                                 msg,
-                                `Game abrupted by ${user.username}`,
+                                client.language.commands.game[userlang].abrupted.replace("{0}",user.username),
                                 client.colors.black
                             )
                         );
@@ -115,7 +107,7 @@ class connect4 extends two_p_Game {
                         )
                     ) {
                         case 0:
-                            msg.channel.send("This column is full");
+                            msg.channel.send(client.language.commands.game[userlang].col_full);
                             break;
 
                         case 1:
@@ -123,7 +115,7 @@ class connect4 extends two_p_Game {
                             let current_player = iuser;
                             let field1 = {
                                 name: "Now : ",
-                                value: `${current_player.username}'s turn!`,
+                                value: current_player.username + client.language.commands.game[userlang].ones_turn,
                                 inline: true,
                             };
                             await rmsg.edit(
@@ -142,7 +134,8 @@ class connect4 extends two_p_Game {
                                     [field1]
                                 )
                             );
-                            /*ai calulation
+
+                            /* ai calulation
                             let board = game.map.slice()
                             let stack = game.stack.slice()
                             let result = game.c4minimax(board,stack,4,true,0,0)
@@ -180,8 +173,8 @@ class connect4 extends two_p_Game {
                                     client.colors[current_color]
                                 )
                             );
-                            iuser.send(msg.author.username + " wins!");
-                            msg.author.send(msg.author.username + " wins!");
+                            iuser.send(msg.author.username + client.language.commands.game[userlang].wins);
+                            msg.author.send(msg.author.username + client.language.commands.game[userlang].wins);
                             redcollector.stop();
                             yellowcollector.stop();
                             break;
@@ -198,11 +191,12 @@ class connect4 extends two_p_Game {
                                 client.EmbedMaker(
                                     msg,
                                     game.stringify(),
-                                    client.colors / white
+                                    // client.colors / white =============== I'm not sure what this "/" does so I assume it is a typo
+                                    client.colors.white
                                 )
                             );
-                            iuser.send("Draw!");
-                            msg.author.send("Draw!");
+                            iuser.send(client.language.commands.game[userlang].draw);
+                            msg.author.send(client.language.commands.game[userlang].draw);
                             redcollector.stop();
                             yellowcollector.stop();
                             break;
@@ -214,14 +208,14 @@ class connect4 extends two_p_Game {
                         rmsg.edit(
                             client.EmbedMaker(
                                 msg,
-                                `Game abrupted by ${user.username}`,
+                                client.language.commands.game[userlang].abrupted.replace("{0}",user.username),
                                 client.colors.black
                             )
                         );
                         ymsg.edit(
                             client.EmbedMaker(
                                 msg,
-                                `Game abrupted by ${user.username}`,
+                                client.language.commands.game[userlang].abrupted.replace("{0}",user.username),
                                 client.colors.black
                             )
                         );
@@ -243,7 +237,7 @@ class connect4 extends two_p_Game {
                         )
                     ) {
                         case 0:
-                            msg.channel.send("This column is full");
+                            msg.channel.send(client.language.commands.game[userlang].col_full);
                             break;
 
                         case 1:
@@ -251,7 +245,7 @@ class connect4 extends two_p_Game {
                             let current_player = msg.author;
                             let field1 = {
                                 name: "Now : ",
-                                value: `${current_player.username}'s turn!`,
+                                value: current_player.username + client.language.commands.game[userlang].ones_turn,
                                 inline: true,
                             };
                             await rmsg.edit(
@@ -270,6 +264,7 @@ class connect4 extends two_p_Game {
                                     [field1]
                                 )
                             );
+
                             /*ai calulation
                             let board = game.map.slice()
                             let stack = game.stack.slice()
@@ -308,8 +303,8 @@ class connect4 extends two_p_Game {
                                     client.colors[current_color]
                                 )
                             );
-                            iuser.send(iuser.username + " wins!");
-                            msg.author.send(iuser.username + " wins!");
+                            iuser.send(iuser.username + client.language.commands.game[userlang].wins);
+                            msg.author.send(iuser.username + client.language.commands.game[userlang].wins);
                             end = true;
                             redcollector.stop();
                             yellowcollector.stop();
@@ -330,8 +325,8 @@ class connect4 extends two_p_Game {
                                     client.colors.white
                                 )
                             );
-                            iuser.send("Draw!");
-                            msg.author.send("Draw!");
+                            iuser.send(client.language.commands.game[userlang].draw);
+                            msg.author.send(client.language.commands.game[userlang].draw);
                             redcollector.stop();
                             yellowcollector.stop();
                             break;

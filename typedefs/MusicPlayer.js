@@ -35,9 +35,10 @@ class MusicPlayer{
 
     has_perm(msg){
 
+        let userlang = msg.author.lang
         if(!this.connection.voice.channel.members.has(msg.author.id)){
 
-            msg.channel.send("You have to be in the same channel to use this command.")
+            msg.channel.send(this.client.language.commands.music[userlang].same_channel)
             return false
 
         }
@@ -48,6 +49,8 @@ class MusicPlayer{
     
     async play(msg,url){
         
+        let userlang = msg.author.lang
+
         let song = new PassThrough({
             highWaterMark : 12
         })
@@ -58,6 +61,7 @@ class MusicPlayer{
         process.on("error",(err) => {
             if(err == "Output Stream Closed") return;
             console.log("Error: " + err.message)
+            msg.channel.send("Error occurred.")
         })
 
         process.writeToStream(song, {
@@ -88,7 +92,7 @@ class MusicPlayer{
         }else{
 
             this.queue.add(music)
-            msg.channel.send(`Added \`\`${music.songname}\`\` to queue`)
+            msg.channel.send(this.client.language.commands.music[userlang].added_song.replace("{0}", music.songname))
 
         }
 
@@ -147,10 +151,11 @@ class MusicPlayer{
      */
 
     async sendqueue(msg){
-
+        
+        let userlang = msg.author.lang
         if(this.queue.empty() && !this.current){
 
-            await msg.channel.send("The Queue is empty, type cn!play [url/keyword] to add songs to queue!")
+            await msg.channel.send(this.client.language.commands.music[userlang].empty_queue)
             return 0;
 
         }
@@ -182,32 +187,37 @@ class MusicPlayer{
     }
 
     async skip(msg){
-
+        
+        
+        let userlang = msg.author.lang
         if(!this.has_perm(msg)) return
 
-        msg.channel.send(`Successfully skipped \`\`${this.current.songname}\`\``)
+        msg.channel.send(this.client.language.commands.music[userlang].skipped + ` \`\`${this.current.songname}\`\``)
         this.connection.dispatcher.end()
 
     }
 
     async remove(msg,index){
-
+        
+        let userlang = msg.author.lang
         if(!this.has_perm(msg)) return
 
         if(!index || index < 1){
 
-            return msg.channel.send("Invalid argument")
+            return msg.channel.send(this.client.language.commands.music[userlang].invalid_arg)
 
         }
 
         let removed = this.queue.remove(index)
-        if(removed === "Not found") return msg.channel.send(`Can't find song at index ${index}`)
-        msg.channel.send(`Successfully removed \`\`${removed.songname}\`\``)
+        if(removed === "Not found") return msg.channel.send(this.client.language.commands.music[userlang].song_nf.replace("{0}",index))
+        msg.channel.send(this.client.language.commands.music[userlang].succ_remove + ` \`\`${removed.songname}\`\``)
 
     }
 
     async pause(msg){
-
+        
+        
+        let userlang = msg.author.lang
         if(!this.has_perm(msg)) return
 
         if(this.current){
@@ -215,31 +225,33 @@ class MusicPlayer{
             if(this.connection.dispatcher.paused){
 
                 this.connection.dispatcher.resume()
-                msg.channel.send("Resumed!")
+                msg.channel.send(this.client.language.commands.music[userlang].resumed)
 
             }else{
 
                 this.connection.dispatcher.pause(false)
-                msg.channel.send("Paused")
+                msg.channel.send(this.client.language.commands.music[userlang].paused)
 
             }
 
         }else{
 
-            msg.channel.send("I'm currently not playing any songs right now!")
+            msg.channel.send(this.client.language.commands.music[userlang].not_playing)
 
         }
 
     }
 
     async shuffle(msg){
-
+        
+        
+        let userlang = msg.author.lang
         if(!this.has_perm(msg)) return
         
-        if(this.queue.queue.length < 2) return msg.channel.send("There's nothing to shuffle")
+        if(this.queue.queue.length < 2) return msg.channel.send(this.client.language.commands.music[userlang].nothing_shuffle)
 
         this.queue.shuffle()
-        msg.channel.send("Shuffled")
+        msg.channel.send(this.client.language.commands.music[userlang].shuffled)
 
     }
 

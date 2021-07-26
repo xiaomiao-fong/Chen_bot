@@ -7,7 +7,7 @@ class info extends Command{
 
     constructor(client){
 
-        super("botinfo","bot","Shows the information's of this bot",client)
+        super("botinfo","bot",client)
 
         /**
          * 
@@ -39,6 +39,8 @@ class info extends Command{
             msg.channel.send(embed)
 
         }
+
+        this.aliases = ["bi"]
 
     }
 

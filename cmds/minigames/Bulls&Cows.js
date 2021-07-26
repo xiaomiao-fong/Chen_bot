@@ -6,17 +6,18 @@ class BullsandCows extends Command{
 
     constructor(client){
 
-        super("Bulls&Cows","minigames","Bulls and Cows is a game that you guess for a 4-digit number, all digits are different.\nIf you want to know more about this game, check out this website!\nhttps://www.codingame.com/playgrounds/52463/bulls-and-cows\n\nPs:In this version A,B refers to Bulls and Cows",client)
+        super("Bulls&Cows","minigames",client)
 
         this.cmd = async function(msg, args){
 
             if(this.client.check_playing(msg) === 0) return;
+            let userlang = msg.author.lang
         
             this.client.playing.set(msg.author.id,"Bulls&Cows")
         
             let game = new guessnumber(msg.author.id)
             let correct = false;
-            let history = "Game History:\n"
+            let history = this.client.language.commands.game[userlang].game_his
         
             let bmsg = await msg.channel.send({embed : this.client.EmbedMaker(msg, history, 0x1DC9D6)})
             const filter = m => game.valid(m.content)
@@ -32,7 +33,7 @@ class BullsandCows extends Command{
         
                 if (message.content === "end" || message.content === "cn!minigames guessnumber"){
         
-                    bmsg.edit(this.client.EmbedMaker(msg, `You didn't guess the correct answer. The answer is ${game.answer}`, 0x1DC9D6))
+                    bmsg.edit(this.client.EmbedMaker(msg, this.client.language.commands.game[userlang].bs_lose + ` ${game.answer}`, 0x1DC9D6))
                     correct = true
                     anscollect.stop()
                     return
@@ -44,7 +45,7 @@ class BullsandCows extends Command{
         
                 if(A == 4){
         
-                    bmsg.edit(this.client.EmbedMaker(msg, `You guessed the correct answer! The answer is ${game.answer}`, 0x1DC9D6))
+                    bmsg.edit(this.client.EmbedMaker(msg, this.client.language.commands.game[userlang].bs_win + ` ${game.answer}`, 0x1DC9D6))
                     correct = true
                     anscollect.stop()
         

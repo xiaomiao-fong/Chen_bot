@@ -2,7 +2,24 @@ const Discord = require('discord.js')
 const fs = require('fs');
 const disbut = require("discord-buttons")
 const Command = require('./Command');
+const language = require("../language.json")
+const Sequelize = require("sequelize")
 
+try{
+    
+    var {host,username,password,database} = require("../config.json")
+
+}catch (err){
+
+
+
+}
+/**
+ * SomeClass is an example class for my question.
+ * @class
+ * @constructor
+ * @public
+ */
 
 class client extends Discord.Client{
 
@@ -13,6 +30,19 @@ class client extends Discord.Client{
         this.discordtogether = new dctogether(this)
         this.owner = owner
         this.prefix = prefix
+        this.language = language
+        /**
+         * @type {Sequelize.Model}
+         * @public
+         */
+        this.userdata = undefined
+
+        /**
+         * @type {Sequelize}
+         * @public
+         */
+
+        this.Sequelize = undefined;
 
         this.commands = new Discord.Collection();// commands
         this.groups = new Discord.Collection();//command groups
@@ -42,6 +72,9 @@ class client extends Discord.Client{
 
                         let commandcls = new require(`../cmds/${dir}/${file}`)
                         let command = new commandcls(this)
+
+                        file = file.replace('.js','')
+                        command.description = this.language.commands_help[file]
                         
                         this.commands.set(command.name,command)
                         this.groups.get(dir).push(command.name)
@@ -78,7 +111,7 @@ class client extends Discord.Client{
      * @returns 
      */
 
-    check_playing(msg,iuser){
+    check_playing(msg,iuser,lang){
 
         let bot = this
 
@@ -86,11 +119,11 @@ class client extends Discord.Client{
 
             if(bot.playing.get(msg.author.id) === "Currently being invited") 
             {
-                msg.channel.send("You are currently inviting someone or being invited.")
+                msg.channel.send(lang.being_invited)
                 return 0;
             }
 
-            msg.channel.send(`You are currently playing ${bot.playing.get(msg.author.id)}`)
+            msg.channel.send(lang.you_playing + ` ${bot.playing.get(msg.author.id)}`)
             return 0;
 
         }
@@ -102,11 +135,11 @@ class client extends Discord.Client{
 
             if(bot.playing.get(msg.author.id) === "Currently being invited") 
             {
-                msg.channel.send(`${iuser.username} is currently inviting someone or being invited.`)
+                msg.channel.send(iuser.username + lang.target_invited)
                 return 0;
             }
 
-            msg.channel.send(`${iuser.username} is currently playing ${bot.playing.get(iuser.id)}`)
+            msg.channel.send(`${iuser.username}` +  lang.target_playing  + `${bot.playing.get(iuser.id)}`)
             return 0;
 
         }
@@ -115,92 +148,77 @@ class client extends Discord.Client{
 
     }
 
-    /**
-     * 
-     * @param {Discord.Message} msg 
-     * @param {String} gamename 
-     * @param {*} mainfunc 
-     */
+    logintodb(){
 
-    async invitegame(msg,gamename,mainfunc){
+        this.Sequelize = new Sequelize({
 
-        let users_amount = 0;
-        msg.mentions.users.each(user => users_amount++)
+            database: database || process.env.DATABASE,
+            username: username || process.env.USERNAME,
+            password: password || process.env.PASSWORD,
+            host:  process.env.HOST || host,
+            port: 5432,
+            dialect: "postgres",
+            logging: false,
+            dialectOptions: {
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false,
+                },
+            },
+        })
 
+        this.userdata = this.Sequelize.define("userdata",{
 
-        /**
-         * @type {Discord.User} iuser
-         */
-        let iuser;
+            nickname: {
+                type: Sequelize.STRING,
+                unique: true,
+            },
 
-        if(users_amount === 1){
+            user_id: {
+                type: Sequelize.STRING
+            },
 
-            let bot = this
-            iuser = msg.mentions.users.first()
+            language: {
+                type : Sequelize.STRING,
+                defaultValue : "zh_TW"
+            },
 
-            if(this.check_playing(msg,iuser) === 0) return;
+            money: {
+                type : Sequelize.INTEGER,
+                defaultValue : 0,
+                allownull : false
+            },
 
-            bot.playing.set(msg.author.id,'Currently being invited')
-            bot.playing.set(iuser.id,'Currently being invited')
+            experience: {
+                type : Sequelize.INTEGER,
+                defaultValue : 0,
+                allownull : false
+            },
 
-            let inviter = await msg.author.send(`Sending ${gamename} invite to ${iuser.username}`)
-            let invited = await iuser.send(`${msg.author} has sent you an ${gamename} invitation, would you like to accept it?`)
-            const filter = (reaction,user) => {
-                return ["✅","❎"].includes(reaction.emoji.name) && !user.bot
+            level: {
+                type: Sequelize.INTEGER,
+                defaultValue : 1,
+                allownull : false
+            },
+
+            loved: {
+                type: Sequelize.ARRAY(Sequelize.INTEGER),
+                defaultValue : [],
+                allownull : false
+            },
+
+            osu_name: {
+                type: Sequelize.STRING
             }
-            let invcollect = invited.createReactionCollector(filter,{time:30*1000})
-            let accept = 0
 
-            invited.react("✅")
-            invited.react("❎")
-            invcollect.once("collect", async function(reaction,user){
-                switch(reaction.emoji.name){
-                    case "✅":
+        })
 
-                        accept = 2
-                        msg.author.send("Invite accepted")
-                        user.send("You accepted the invitation")
-                        
-                        bot.playing.set(msg.author.id,gamename)
-                        bot.playing.set(iuser.id,gamename)
-                        invcollect.stop()
-                        break;
-
-                    case "❎":
-
-                        accept = 1
-                        msg.author.send("Invite declined")
-                        user.send("You declined the invitation")
-                        
-                        bot.playing.delete(msg.author.id)
-                        bot.playing.delete(iuser.id)
-                        invcollect.stop()
-                        break;
-
-                }
-            })
-
-
-            invcollect.on("end", (collected,reason) => {
-                if(reason == "time") this.emit("game_end",msg.author,iuser)
-                mainfunc(msg,accept,iuser);
-            })
-
-        }else if (users_amount === 0){
-
-            return msg.channel.send("Please mention an person")
-
-        }else{
-
-            return msg.channel.send("Please don't mention more than one person")
-
-        }   
+        this.userdata.sync();
 
     }
-
+    
     async secondtohhmmss(second){
         
-        console.log(second)
         let time = new Date(0);
         time.setSeconds(parseInt(second));
         return time.toISOString().substr(11, 8);
@@ -210,12 +228,17 @@ class client extends Discord.Client{
     async execute_command(msg,cmd,args){
 
         let client = this
+        let lang = 
+        {
+            "zh_TW" : "請放慢速度",
+            "en_US" : "Please slowdown"
+        }
 
         if(cmd != undefined){
 
             if(client.cooldown.get(msg.author.id) > 3){
             
-                msg.channel.send("Please slowdown.")
+                msg.channel.send(lang.zh_TW)
                 return 0;
     
             }

@@ -9,7 +9,7 @@ class play extends Command{
 
     constructor(client){
 
-        super("play","music","Use this command to play music!",client)
+        super("play","music",client)
 
         /**
          * 
@@ -22,6 +22,8 @@ class play extends Command{
         this.cmd = async function(msg,args){
 
             let status = 1;
+
+            let userlang = msg.author.lang
 
             if(!this.client.music.has(msg.guild.id)){
 
@@ -38,7 +40,7 @@ class play extends Command{
 
                 if(!search){
 
-                    msg.channel.send("Missing argument")
+                    msg.channel.send(this.client.language.commands.music[userlang].missing_arg)
                     return 0;
         
                 }

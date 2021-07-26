@@ -6,7 +6,7 @@ class reload extends Command{
 
     constructor(client){
 
-        super('reload',"Owner",undefined,client)
+        super('reload',"Owner",client)
 
         this.cmd = async function(msg,args){
 

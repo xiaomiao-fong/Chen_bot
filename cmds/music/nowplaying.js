@@ -6,22 +6,24 @@ class nowplaying extends Command{
 
     constructor(client){
 
-        super("nowplaying","music","Show's the current song that is being played",client)
+        super("nowplaying","music",client)
         
         this.aliases = ["np"]
 
         this.cmd = async function(msg, args){
 
             if(!msg.guild) return 0;
+
+            let userlang = msg.author.lang
             
             if(this.client.music.has(msg.guild.id)){
 
-                if(!this.client.music.get(msg.guild.id).current) return msg.channel.send("I'm not playing any songs right now.")
+                if(!this.client.music.get(msg.guild.id).current) return msg.channel.send(this.client.language.commands.music[userlang].not_playing)
                 this.client.music.get(msg.guild.id).nowplaying(msg)
 
             }else{
 
-                msg.channel.send("I'm not in a voice channel right now.")
+                msg.channel.send(this.client.language.commands.music[userlang].not_playing)
 
             }
 

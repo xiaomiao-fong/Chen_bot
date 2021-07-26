@@ -5,11 +5,13 @@ class skipsong extends Command{
 
     constructor(client){
 
-        super("skip","music","Skip the song that is currently being played", client)
+        super("skip","music", client)
 
         this.cmd = async function(msg, args){
 
             if(!msg.guild) return 0;
+
+            let userlang = msg.author.lang
             
             if(this.client.music.has(msg.guild.id)){
 
@@ -17,7 +19,7 @@ class skipsong extends Command{
 
             }else{
 
-                msg.channel.send("I'm not in a voice channel right now.")
+                msg.channel.send(this.client.language.commands.music[userlang].notin_channel)
 
             }
 

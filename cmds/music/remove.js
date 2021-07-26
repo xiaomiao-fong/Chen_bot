@@ -5,13 +5,15 @@ class remove extends Command{
 
     constructor(client){
 
-        super("remove","music","remove a song from the queue",client)
+        super("remove","music",client)
 
         this.aliases = ["r"]
 
         this.cmd = async function(msg,args){
 
             if(!msg.guild) return 0;
+
+            let userlang = msg.author.lang
             
             if(this.client.music.has(msg.guild.id)){
 
@@ -23,7 +25,7 @@ class remove extends Command{
 
                 }catch(err){
 
-                    msg.channel.send("Invalid argument")
+                    msg.channel.send(this.client.language.commands.music[userlang].invalid_arg)
                     return;
 
                 }
@@ -32,7 +34,7 @@ class remove extends Command{
 
             }else{
 
-                msg.channel.send("I'm not in a voice channel right now.")
+                msg.channel.send(this.client.language.commands.music[userlang].notin_channel)
 
             }
 
