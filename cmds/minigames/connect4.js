@@ -22,11 +22,10 @@ class connect4 extends Two_P_Game {
              * @param {Myclient} client - Client
              */
 
-            async function connect4(msg, iuser, client) {
+            async function connect4(msg, iuser, client, c4lang) {
                 // create a new connect 4 game between author and an invited user
                 let game = new C4(msg.author.id, iuser.id);
                 let Currnet_Color = "red";
-                let c4lang = this.lang[msg.author.lang]
 
                 let field1 = {
                     name: "Now : ",
@@ -55,8 +54,8 @@ class connect4 extends Two_P_Game {
                 // react with emojis in reactions array
                 // using for...of loop
                 for (let emoji of game.reactions) {
-                    await rmsg.react(emoji);
-                    await ymsg.react(emoji);
+                    rmsg.react(emoji);
+                    ymsg.react(emoji);
                 }
 
                 // since the bot is sending embed in DM, you don't need to check for user id

@@ -25,7 +25,7 @@ class remove extends Command{
 
                 }catch(err){
 
-                    msg.channel.send(this.client.language.commands.music[userlang].invalid_arg);
+                    msg.channel.send(this.lang[userlang].invalid_arg);
                     return;
 
                 }
@@ -34,8 +34,23 @@ class remove extends Command{
 
             }else{
 
-                msg.channel.send(this.client.language.commands.music[userlang].notin_channel);
+                msg.channel.send(this.lang[userlang].notin_channel);
 
+            }
+
+        };
+
+        this.lang = {
+
+            "zh_TW":
+            {
+                "notin_channel" : "我目前沒有在語音頻道裡",
+                "invalid_arg" : "不正確的參數"
+            },
+            "en_US":
+            {
+                "notin_channel" : "I'm not in a voice channel right now.",
+                "invalid_arg" : "Invalid argument(s)"
             }
 
         };

@@ -24,6 +24,7 @@ class MusicPlayer{
         this.volume = 1;
         this.current = undefined;
         this.playing = false;
+        this.lang = this.client.language.commands.music
 
     }
 
@@ -38,7 +39,7 @@ class MusicPlayer{
         let userlang = msg.author.lang;
         if(!this.connection.voice.channel.members.has(msg.author.id)){
 
-            msg.channel.send(this.client.language.commands.music[userlang].same_channel);
+            msg.channel.send(this.lang[userlang].same_channel);
             return false;
 
         }
@@ -92,7 +93,7 @@ class MusicPlayer{
         }else{
 
             this.queue.add(music);
-            msg.channel.send(this.client.language.commands.music[userlang].added_song.replace("{0}", music.songname));
+            msg.channel.send(this.lang[userlang].added_song.replace("{0}", music.songname));
 
         }
 
@@ -159,7 +160,7 @@ class MusicPlayer{
         let userlang = msg.author.lang;
         if(this.queue.empty() && !this.current){
 
-            await msg.channel.send(this.client.language.commands.music[userlang].empty_queue);
+            await msg.channel.send(this.lang[userlang].empty_queue);
             return 0;
 
         }
@@ -196,7 +197,7 @@ class MusicPlayer{
         let userlang = msg.author.lang;
         if(!this.Has_Perm(msg)) return;
 
-        msg.channel.send(this.client.language.commands.music[userlang].skipped + ` \`\`${this.current.songname}\`\``);
+        msg.channel.send(this.lang[userlang].skipped + ` \`\`${this.current.songname}\`\``);
         this.connection.dispatcher.end();
 
     }
@@ -208,13 +209,13 @@ class MusicPlayer{
 
         if(!index || index < 1){
 
-            return msg.channel.send(this.client.language.commands.music[userlang].invalid_arg);
+            return msg.channel.send(this.lang[userlang].invalid_arg);
 
         }
 
         let removed = this.queue.remove(index);
-        if(removed === "Not found") return msg.channel.send(this.client.language.commands.music[userlang].song_nf.replace("{0}",index));
-        msg.channel.send(this.client.language.commands.music[userlang].succ_remove + ` \`\`${removed.songname}\`\``);
+        if(removed === "Not found") return msg.channel.send(this.lang[userlang].song_nf.replace("{0}",index));
+        msg.channel.send(this.lang[userlang].succ_remove + ` \`\`${removed.songname}\`\``);
 
     }
 
@@ -229,18 +230,18 @@ class MusicPlayer{
             if(this.connection.dispatcher.paused){
 
                 this.connection.dispatcher.resume();
-                msg.channel.send(this.client.language.commands.music[userlang].resumed);
+                msg.channel.send(this.lang[userlang].resumed);
 
             }else{
 
                 this.connection.dispatcher.pause(false);
-                msg.channel.send(this.client.language.commands.music[userlang].paused);
+                msg.channel.send(this.lang[userlang].paused);
 
             }
 
         }else{
 
-            msg.channel.send(this.client.language.commands.music[userlang].not_playing);
+            msg.channel.send(this.lang[userlang].not_playing);
 
         }
 
@@ -252,10 +253,10 @@ class MusicPlayer{
         let userlang = msg.author.lang;
         if(!this.Has_Perm(msg)) return;
         
-        if(this.queue.queue.length < 2) return msg.channel.send(this.client.language.commands.music[userlang].nothing_shuffle);
+        if(this.queue.queue.length < 2) return msg.channel.send(this.lang[userlang].nothing_shuffle);
 
         this.queue.shuffle();
-        msg.channel.send(this.client.language.commands.music[userlang].shuffled);
+        msg.channel.send(this.lang[userlang].shuffled);
 
     }
 

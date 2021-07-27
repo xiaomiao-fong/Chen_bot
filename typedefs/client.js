@@ -133,7 +133,7 @@ class client extends Discord.Client{
         
         if(bot.playing.has(iuser.id)){
 
-            if(bot.playing.get(msg.author.id) === "Currently being invited") ;
+            if(bot.playing.get(msg.author.id) === "Currently being invited") 
             {
                 msg.channel.send(iuser.username + lang.target_invited);
                 return 0;

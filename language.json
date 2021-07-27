@@ -97,35 +97,22 @@
         {
             "zh_TW":"讓機器人停止播放音樂且離開頻道。",
             "en_US":"Bot stops playing music and leave the channel"
+        },
+        "register":
+        {
+            "zh_TW":"在此機器人上註冊以開啟更多功能!",
+            "en_US":"Register on this bot in order to unlock more functions!"
+        },
+        "setlang":
+        {
+            "zh_TW":"使用此指令以設定你的語言\n用法: ``cn!setlang [你的語言]`` \n 目前有zh_TW 與 en_US 兩種語言可供選擇",
+            "en_US":"Use this command to set your perferred language.\nUsage: ``cn!setlang [your language]``\n Currently available languages: zh_TW and en_US"
         }
 
     },
     
     "commands":
     {
-        "help":
-        {
-            "zh_TW":
-            {
-                "no_des" : "這個指令沒有說明",
-                "aliases" : "別名",
-                "group_cmds" : "這裡是這個分類的所有指令:\n\n",
-                "cmd_name" : "\n使用 ``cn!help {指令名} `` 以獲得更多有關指令的訊息!",
-                "cmd_nf" : "找不到你指定的指令，以下是所有可以查詢的指令分類:",
-                "group_list" : "這裡是所有可以查詢的分類:\n\n",
-                "group_name" : "\n使用 ``cn!help {分類名} `` 以獲得這個分類的所有指令!"
-            },
-            "en_US":
-            {
-                "no_des" : "This command does not have a description.",
-                "aliases" : "aliases",
-                "group_cmds" : "Here are a list of commands of this command group:\n\n",
-                "cmd_name" : "\nDo cn!help ``{command name}`` for more information!",
-                "cmd_nf" : "Cannot find the command you are looking for. But here's a list of command groups you can check out!",
-                "group_list" : "List of command groups:\n\n",
-                "group_name" : "\nDo cn!help ``{command_group_name}`` for more informations!"
-            }
-        },
         "music":
         {
             "zh_TW":
@@ -165,80 +152,6 @@
                 "resumed" : "Resumed!",
                 "nothing_shuffle" : "There's nothing to shuffle",
                 "shuffled" : "Shuffled"
-            }
-        },
-        "game":
-        {
-            "zh_TW":
-            {
-                "game_his" : "遊戲紀錄: \n",
-                "bs_lose" : "你沒有猜到正確答案，正確答案為",
-                "bs_win" : "你猜中了! 答案是:",
-                "ones_turn" : "的回合",
-                "abrupted" : "遊戲被 {0} 終止了",
-                "col_full" : "這行已經滿了喔",
-                "wins" : "贏了!",
-                "draw" : "平手!",
-                "rolled" : "你擲出了:",
-                "syntax" : "格式:",
-                "row_col" : "(行,列)\n範例:(3,7)",
-                "type_surr" : "遊戲開始! 如果你想要投降請打surrender",
-                "w_surr" : "白色投降了",
-                "b_surr" : "黑色投降了",
-                "no1wins" : "沒有人贏",
-                "unplaceable" : "這個位置不能放置"
-            },
-            "en_US":
-            {
-                "game_his" : "Game history: \n",
-                "bs_lose" : "You didn't guess the correct answer. The answer is",
-                "bs_win" : "You guessed the answer! The answer is",
-                "ones_turn" : "'s turn",
-                "abrupted" : "Game abrupted by {0}",
-                "col_full" : "This column is full.",
-                "wins" : "wins!",
-                "draw" : "Draw!",
-                "rolled" : "You rolled:",
-                "syntax" : "Syntax:",
-                "row_col" : "(row,col)\nEX:(3,7)",
-                "type_surr" : "Game start! If you want to Surrender just type surrender",
-                "w_surr" : "White surrendered.",
-                "b_surr" : "Black surrendered.",
-                "no1wins" : "No one wins.",
-                "unplaceable" : "This place is unplaceable"
-            }
-        },
-        "invite":
-        {
-            "zh_TW":
-            {
-                "sending_inv" : "發送 {0} 邀請給 ",
-                "received_inv" : "{0} 邀請你一起玩 {1}，你要接受邀請嗎?",
-                "accept_inv" : "對方已接受邀請",
-                "accepted_inv" : "你接受了邀請",
-                "decline_inv" : "對方拒絕你的邀請",
-                "declined_inv" : "你拒絕了邀請",
-                "mention_one" : "請標記一個人",
-                "mention_less" : "請不要標記多於一個人",
-                "being_invited" : "你現在正在邀請或被另一個人邀請",
-                "you_playing" : "你現在正在遊玩",
-                "target_invited" : " 正在邀請或被另一個人邀請",
-                "target_playing" : " 現在正在遊玩 "
-            },
-            "en_US":
-            {
-                "sending_inv" : "Sending {0} invite to ",
-                "received_inv" : "{0} has sent you a {1} invitation, would you like to accept it?",
-                "accept_inv" : "Your invitation has been accepted.",
-                "accepted_inv" : "You accepted the invitation.",
-                "decline_inv" : "Your invitation has been declined.",
-                "declined_inv" : "You declined the invitation.",
-                "mention_one" : "Please mention an person.",
-                "mention_less" : "Please don't mention more than one person.",
-                "being_invited" : "You are currently inviting someone or being invited.",
-                "you_playing" : "You are currently playing",
-                "target_invited" : " is currently inviting someone or being invited.",
-                "target_playing" : " is currently playing "
             }
         }
     }

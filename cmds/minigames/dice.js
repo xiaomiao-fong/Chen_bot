@@ -10,10 +10,22 @@ class dice extends Command{
 
         this.cmd = async function(msg,args){
 
-            let userlang = msg.author.lang;
-            return msg.channel.send(this.client.language.commands.game[userlang].rolled + ` ${Math.floor(Math.random()*6)+1}`);
+            return msg.channel.send(this.lang[msg.author.lang].rolled + ` ${Math.floor(Math.random()*6)+1}`);
 
         };
+
+        this.lang = {
+
+            "zh_TW":
+            {
+                "rolled" : "你擲出了:"
+            },
+            "en_US":
+            {
+                "rolled" : "You rolled:"
+            }
+
+        }
 
     }
 

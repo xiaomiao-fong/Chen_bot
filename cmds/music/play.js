@@ -40,7 +40,7 @@ class play extends Command{
 
                 if(!search){
 
-                    msg.channel.send(this.client.language.commands.music[userlang].missing_arg);
+                    msg.channel.send(this.lang[userlang].missing_arg);
                     return 0;
         
                 }
@@ -122,6 +122,19 @@ class play extends Command{
         
                 }
 
+            }
+
+        };
+
+        this.lang = {
+
+            "zh_TW":
+            {
+                "missing_arg" : "缺少參數"
+            },
+            "en_US":
+            {
+                "missing_arg" : "Missing argument(s)"
             }
 
         };

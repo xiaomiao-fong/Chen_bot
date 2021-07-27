@@ -18,8 +18,7 @@ class Help extends Command{
         this.cmd = async function(msg,args){
 
             let search = args[0];
-            let userlang = msg.author.lang;
-            let lang = this.client.language;
+            let lang = this.lang[msg.author.lang]
             //console.log(args)
             if(this.client.commands.has(search)){
 
@@ -28,8 +27,8 @@ class Help extends Command{
                 let embed = new Discord.MessageEmbed();
                 embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL());
 
-                if(command.description !== undefined) embed.description = command.description[userlang];
-                else{msg.channel.send(lang.commands.help[userlang].no_des); return;}
+                if(command.description !== undefined) embed.description = command.description[msg.author.lang];
+                else{msg.channel.send(lang.no_des); return;}
 
                 embed.color = this.client.colors.red;
                 if(command.image != undefined) embed.setImage(command.image);
@@ -45,7 +44,7 @@ class Help extends Command{
 
                 if(aliases === "") aliases = "**None**";
 
-                embed.addField(lang.commands.help[userlang].aliases, aliases, true);
+                embed.addField(lang.aliases, aliases, true);
 
 
                 msg.channel.send(embed);
@@ -54,7 +53,7 @@ class Help extends Command{
 
                 if(this.client.groups.has(search)){
 
-                    let des = lang.commands.help[userlang].group_cmds;
+                    let des = lang.group_cmds;
                     let group = this.client.groups.get(search);
 
                     group.forEach( (key) =>{
@@ -63,7 +62,7 @@ class Help extends Command{
 
                     })
 
-                    des += lang.commands.help[userlang].cmd_name;
+                    des += lang.cmd_name;
                     let embed = new Discord.MessageEmbed();
                     embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL());
                     embed.description = des;
@@ -73,12 +72,12 @@ class Help extends Command{
 
                 }else{
 
-                    if(search != undefined) msg.channel.send(lang.commands.help[userlang].cmd_nf);
-                    let des = lang.commands.help[userlang].group_list;
+                    if(search != undefined) msg.channel.send(lang.cmd_nf);
+                    let des = lang.group_list;
                     this.client.groups.keyArray().forEach( (key) =>{
                         if(!(key === "Owner")) des += ("-``"+key+"``\n");
                     })
-                    des += lang.commands.help[userlang].group_name;
+                    des += lang.group_name;
                     let embed = new Discord.MessageEmbed();
                     embed.setAuthor(msg.author.username + "#" + msg.author.discriminator,msg.author.avatarURL());
                     embed.description = des;
@@ -88,6 +87,31 @@ class Help extends Command{
 
                 }
 
+            }
+
+        };
+
+        this.lang = {
+
+            "zh_TW":
+            {
+                "no_des" : "這個指令沒有說明",
+                "aliases" : "別名",
+                "group_cmds" : "這裡是這個分類的所有指令:\n\n",
+                "cmd_name" : "\n使用 ``cn!help {指令名} `` 以獲得更多有關指令的訊息!",
+                "cmd_nf" : "找不到你指定的指令，以下是所有可以查詢的指令分類:",
+                "group_list" : "這裡是所有可以查詢的分類:\n\n",
+                "group_name" : "\n使用 ``cn!help {分類名} `` 以獲得這個分類的所有指令!"
+            },
+            "en_US":
+            {
+                "no_des" : "This command does not have a description.",
+                "aliases" : "aliases",
+                "group_cmds" : "Here are a list of commands of this command group:\n\n",
+                "cmd_name" : "\nDo cn!help ``{command name}`` for more information!",
+                "cmd_nf" : "Cannot find the command you are looking for. But here's a list of command groups you can check out!",
+                "group_list" : "List of command groups:\n\n",
+                "group_name" : "\nDo cn!help ``{command_group_name}`` for more informations!"
             }
 
         };

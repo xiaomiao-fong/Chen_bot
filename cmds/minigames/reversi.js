@@ -19,13 +19,11 @@ class Reversi extends Two_P_Game{
              * @param {Myclient} client 
              */
 
-            async function reversi(msg,iuser,client){
+            async function reversi(msg,iuser,client,gamelang){
                 
                 let game = new Reversi_Cls(iuser.id,msg.author.id);
                 game.availablecolor("white");
                 let Current_Color = "black";
-                let userlang = msg.author.lang;
-                let gamelang = client.language.commands.game[userlang];
 
                 let field1 = {name: "Now : ",value: msg.author.username + gamelang.ones_turn , inline: true};
                 let field2 = {name: gamelang.syntax ,value: gamelang.row_col, inline : true};
@@ -214,6 +212,37 @@ class Reversi extends Two_P_Game{
 
             this.invitegame(msg,"Reversi",reversi);
             
+        }
+
+        this.lang = {
+
+            "zh_TW":
+            {
+                "ones_turn" : "的回合",
+                "wins" : "贏了!",
+                "draw" : "平手!",
+                "syntax" : "格式:",
+                "row_col" : "(行,列)\n範例:(3,7)",
+                "type_surr" : "遊戲開始! 如果你想要投降請打surrender",
+                "w_surr" : "白色投降了",
+                "b_surr" : "黑色投降了",
+                "no1wins" : "沒有人贏",
+                "unplaceable" : "這個位置不能放置"
+            },
+            "en_US":
+            {
+                "ones_turn" : "'s turn",
+                "wins" : "wins!",
+                "draw" : "Draw!",
+                "syntax" : "Syntax:",
+                "row_col" : "(row,col)\nEX:(3,7)",
+                "type_surr" : "Game start! If you want to Surrender just type surrender",
+                "w_surr" : "White surrendered.",
+                "b_surr" : "Black surrendered.",
+                "no1wins" : "No one wins.",
+                "unplaceable" : "This place is unplaceable"
+            }
+
         }
 
     }

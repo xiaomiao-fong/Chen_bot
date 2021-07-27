@@ -10,6 +10,8 @@ class testplay extends Command{
 
         this.cmd = async function(msg, args){
 
+            if(this.Is_Owner(msg.author)) return 0;
+
             let song = ytdl("https://www.youtube.com/watch?v=1DYNTizkBoM")
 
         }

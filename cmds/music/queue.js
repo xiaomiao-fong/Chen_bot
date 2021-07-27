@@ -23,8 +23,21 @@ class showsongqueue extends Command{
 
             }else{
 
-                msg.channel.send(this.client.language.commands.music[userlang].not_playing);
+                msg.channel.send(this.lang[userlang].not_playing);
 
+            }
+
+        };
+
+        this.lang = {
+
+            "zh_TW":
+            {
+                "not_playing" : "目前沒有音樂正在播放",
+            },
+            "en_US":
+            {
+                "not_playing" : "There's currently no song being played right now."
             }
 
         };
