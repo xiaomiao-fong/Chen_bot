@@ -21,10 +21,11 @@ class MusicPlayer{
         this.client = client;
         this.connection = connection;
         this.queue = new MusicQueue();
-        this.volume = 1;
+        this.volume = 0.5;
         this.current = undefined;
         this.playing = false;
-        this.lang = this.client.language.commands.music
+        this.loop = false;
+        this.lang = this.client.language.commands.music;
 
     }
 
@@ -48,7 +49,7 @@ class MusicPlayer{
 
     }
     
-    async play(msg,url){
+    async play(msg, url, loop = false){
         
         let userlang = msg.author.lang;
 
@@ -88,27 +89,28 @@ class MusicPlayer{
   
             this.current = music;
             this.queue.add(music);
-            this.playsong(msg,music);
+            this.playsong(msg, music, loop);
 
         }else{
 
             this.queue.add(music);
-            msg.channel.send(this.lang[userlang].added_song.replace("{0}", music.songname));
+            if(!loop) msg.channel.send(this.lang[userlang].added_song.replace("{0}", music.songname));
 
         }
 
 
     }
 
-    async playsong(msg,music){
+    async playsong(msg, music, loop = false){
 
         let dispatcher = await this.connection.play(music.song);
         this.current = music;
         this.nowplaying(msg,music);
-        dispatcher.setVolumeLogarithmic(this.volume/4);
+        dispatcher.setVolume(this.volume);
 
         dispatcher.on("finish", () => {
 
+            if(this.loop) this.play(msg, music.url, true)
             let nextsong = this.queue.next();
             
             if(nextsong) this.playsong(msg,nextsong);
@@ -116,9 +118,7 @@ class MusicPlayer{
                 this.current = undefined;
             }
             
-
         })
-
 
     }
 
