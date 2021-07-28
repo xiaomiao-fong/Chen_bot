@@ -58,6 +58,11 @@
             "zh_TW":"如果機器人沒有在其他語音頻道裡，機器人會加入你的語音頻道。",
             "en_US":"Make the bot join your current voice channel if the bot is not in a voice channel."
         },
+        "loop":
+        {
+            "zh_TW":"循環現在的播放清單，在執行一次以取消循環",
+            "en_US":"Loop the current queue, use this command to cancel the loop"
+        },
         "nowplaying":
         {
             "zh_TW":"顯示正在播放的音樂。",
@@ -98,6 +103,16 @@
             "zh_TW":"讓機器人停止播放音樂且離開頻道。",
             "en_US":"Bot stops playing music and leave the channel"
         },
+        "volume":
+        {
+            "zh_TW":"調整機器人播放的音量，可輸入範圍在30~120%之間",
+            "en_US":"Adjust the volume，accept numbers from 30 to 120(%)"
+        },
+        "avatar":
+        {
+            "zh_TW":"顯示頭像，用法: cn!avatar or cn!avatar [id/or標記人]",
+            "en_US":"Shows someone's avatar, usage: cn!avatar or cn!avatar [id/mention someone]"
+        },
         "register":
         {
             "zh_TW":"在此機器人上註冊以開啟更多功能!",
@@ -107,6 +122,11 @@
         {
             "zh_TW":"使用此指令以設定你的語言\n用法: ``cn!setlang [你的語言]`` \n 目前有zh_TW 與 en_US 兩種語言可供選擇",
             "en_US":"Use this command to set your perferred language.\nUsage: ``cn!setlang [your language]``\n Currently available languages: zh_TW and en_US"
+        },
+        "userinfo":
+        {
+            "zh_TW":"顯示用戶資料，用法: cn!userinfo or cn!userinfo [id/or標記人]",
+            "en_US":"Shows someone's userinfo, usage: cn!userinfo or cn!userinfo [id/mention someone]"
         }
 
     },
