@@ -111,7 +111,26 @@ class client extends Discord.Client{
      * @returns 
      */
 
-    Check_Playing(msg,iuser,lang){
+    Check_Playing(msg,iuser){
+
+        let lang = {
+
+            "zh_TW":
+            {
+                "being_invited" : "你現在正在邀請或被另一個人邀請",
+                "you_playing" : "你現在正在遊玩",
+                "target_invited" : " 正在邀請或被另一個人邀請",
+                "target_playing" : " 現在正在遊玩 "
+            },
+            "en_US":
+            {
+                "being_invited" : "You are currently inviting someone or being invited.",
+                "you_playing" : "You are currently playing",
+                "target_invited" : " is currently inviting someone or being invited.",
+                "target_playing" : " is currently playing "
+            }
+
+        }
 
         let bot = this;
 
@@ -119,11 +138,11 @@ class client extends Discord.Client{
 
             if(bot.playing.get(msg.author.id) === "Currently being invited") 
             {
-                msg.channel.send(lang.being_invited);
+                msg.channel.send(lang[msg.author.lang].being_invited);
                 return 0;
             }
 
-            msg.channel.send(lang.you_playing + ` ${bot.playing.get(msg.author.id)}`);
+            msg.channel.send(lang[msg.author.lang].you_playing + ` ${bot.playing.get(msg.author.id)}`);
             return 0;
 
         }
@@ -135,11 +154,11 @@ class client extends Discord.Client{
 
             if(bot.playing.get(msg.author.id) === "Currently being invited") 
             {
-                msg.channel.send(iuser.username + lang.target_invited);
+                msg.channel.send(iuser.username + lang[msg.author.lang].target_invited);
                 return 0;
             }
 
-            msg.channel.send(`${iuser.username}` +  lang.target_playing  + `${bot.playing.get(iuser.id)}`);
+            msg.channel.send(`${iuser.username}` +  lang[msg.author.lang].target_playing  + `${bot.playing.get(iuser.id)}`);
             return 0;
 
         }

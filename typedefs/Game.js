@@ -83,7 +83,7 @@ class Two_P_Game{
             let bot = this.client;
             iuser = msg.mentions.users.first();
 
-            if(bot.Check_Playing(msg,iuser,invlang) === 0) return;
+            if(bot.Check_Playing(msg,iuser) === 0) return;
 
             bot.playing.set(msg.author.id,"Currently being invited");
             bot.playing.set(iuser.id,"Currently being invited");

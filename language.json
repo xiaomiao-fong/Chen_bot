@@ -48,6 +48,11 @@
             "zh_TW":"隨機生成一個範圍從一到六的數字。",
             "en_US":"Randomly generates a number between 1~6."
         },
+        "maze":
+        {
+            "zh_TW":"你被困在一個迷宮裡了! 你必須移動到紅色方塊的區域以逃出迷宮. \n\n目前有三種特殊模式: blind, no_turning_back 和 expert(兩個合一)， 如果想要玩特殊模式的話請打``cn!maze [blind/no_turning_back/expert]``!",
+            "en_US":"You are trapped in a maze! You have to move to the red zone in the maze to escape!. \n\nCurrently there are three special modes, blind, no_turning_back and expert(Both blind and no_turning_back). \n\nIf you want to play those modes please type ``cn!maze [blind/no_turning_back/expert]``!"
+        },
         "reversi":
         {
             "zh_TW":"黑白棋(陰陽棋)是一個雙人棋類遊戲，遊戲的目標就是嘗試將對方的顏色旗子全部翻成你的顏色的旗子。 \n\n使用cn!reversi ``@用戶名`` 來邀請你的朋友與你遊玩!",
