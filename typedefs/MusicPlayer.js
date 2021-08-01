@@ -169,19 +169,11 @@ class MusicPlayer{
         embed.setAuthor(msg.author.username,msg.author.avatarURL());
         
         let text = `**Now playing**: [${this.current.songname}](${this.current.url}) | \`\`${this.current.length}\`\` \n\n`;
-        let loop = 0;
-
-        this.queue.queue.forEach( (music) => {
-
-            if(loop !== 0) {
-
-                text += `${loop}. ${music.songname} | \`\`${music.length}\`\` \n\n`;
-                
-            }
-            
-            loop++;
-
-        })
+        const arr = this.queue.queue.map((music) => {
+            return `${this.queue.queue.indexOf(music) + 1}. ${music.songname} | \`\`${music.length}\`\``
+        });
+        let queueText = arr.join('\n\n');
+        text += queueText;
 
         embed.title = `${msg.guild.name}'s  Music Queue`;
         embed.description = text;
