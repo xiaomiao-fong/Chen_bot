@@ -170,7 +170,7 @@ class MusicPlayer{
         
         let text = `**Now playing**: [${this.current.songname}](${this.current.url}) | \`\`${this.current.length}\`\` \n\n`;
         const arr = this.queue.queue.map((music) => {
-            return `${this.queue.queue.indexOf(music) + 1}. ${music.songname} | \`\`${music.length}\`\``
+            return `${this.queue.queue.indexOf(music) + 1}. ${music.songname} | \`\`${music.length}\`\``;
         });
         let queueText = arr.join('\n\n');
         text += queueText;
