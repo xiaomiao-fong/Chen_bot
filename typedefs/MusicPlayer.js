@@ -172,7 +172,7 @@ class MusicPlayer{
         const arr = this.queue.queue.map((music) => {
             return `${this.queue.queue.indexOf(music) + 1}. ${music.songname} | \`\`${music.length}\`\``;
         });
-        let queueText = arr.join('\n\n');
+        let queueText = arr.join("\n\n");
         text += queueText;
 
         embed.title = `${msg.guild.name}'s  Music Queue`;
